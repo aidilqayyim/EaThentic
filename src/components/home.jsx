@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Search, MapPin } from 'lucide-react';
 import Navbar from '../components/navbar';
 import Logo from '../components/logo';
@@ -6,10 +6,8 @@ import Logo from '../components/logo';
 const Home = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [showMap, setShowMap] = useState(false);
-  const inputRef = useRef(null);
-  const mapRef = useRef(null);
-  const markerRef = useRef(null);
-  const infoWindowRef = useRef(null);
+  const [query, setQuery] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     async function initAutocomplete() {
@@ -109,34 +107,45 @@ const Home = () => {
     initAutocomplete();
     if (showMap) {
       initMap();
+
+      // Wait for the map expand animation before scrolling
+      const scrollTimeout = setTimeout(() => {
+        if (mapRef.current) {
+          mapRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 550); // Slightly more than transition duration
+
+      return () => clearTimeout(scrollTimeout);
     }
   }, [showMap]);
 
   return (
-    <div className="relative bg-gradient-to-br from-sage-50 via-white to-sage-100 w-full min-h-screen flex flex-col justify-center items-center text-sage-900 p-5 font-sans overflow-hidden">
-      {/* Blurred bg */}
+    <div className="relative bg-gradient-to-br from-sage-50 via-white to-sage-100 w-full min-h-screen flex flex-col items-center text-sage-900 p-5 font-sans overflow-hidden">
+      {/* Blurred background */}
       <div className="absolute -top-20 -left-20 w-72 h-72 bg-brand-orange/20 rounded-full blur-3xl"></div>
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-sage-300/30 rounded-full blur-3xl"></div>
 
       {/* Navbar */}
       <Navbar />
 
-      <div className="flex flex-col items-center text-center relative z-10">
-        {/* Logo */}
+      {/* Static Header / Logo */}
+      <div className="flex flex-col items-center text-center relative z-10 w-full max-w-3xl pt-24">
         <Logo variant="gradient" className="text-5xl md:text-7xl" />
-
-        {/* Subtitle */}
         <p className="mt-4 text-xl text-sage-700/90 italic font-serif-display tracking-wide">
           Authentic dining, guaranteed.
         </p>
-
-        {/* Description */}
-        <p className="text-lg md:text-xl mt-8 max-w-xl leading-relaxed text-sage-800/90 font-medium font-sans">
-          Don&apos;t fall for fake reviews. Enter a restaurant or location and let our AI find the hidden gems and expose the frauds.
+        <p className="text-lg md:text-xl mt-4 max-w-xl leading-relaxed text-sage-800/90 font-medium font-sans">
+          Say goodbye to fake reviews! Explore{' '}
+          <span className="text-orange-500 font-semibold">hidden gems</span>, uncover authentic eateries, and let our{' '}
+          <span className="text-orange-500 font-semibold">AI guidance</span> lead you to the finest dining experiences around you.
         </p>
 
-        {/* Integrated Search Bar */}
-        <form className="relative w-full max-w-lg mt-5" autoComplete="on">
+      </div>
+
+      {/* Scrollable Search + Map Content */}
+      <div className="flex flex-col items-center text-center relative z-10 w-full max-w-3xl mt-6">
+        {/* Search Bar */}
+        <form className="relative w-full" autoComplete="on">
           <input
             ref={inputRef}
             className="w-full h-16 pl-14 pr-10 rounded-xl bg-white border border-orange-300
@@ -149,7 +158,7 @@ const Home = () => {
           <button
             type="submit"
             className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center 
-               text-orange-500 hover:text-orange-600 transition-all duration-300 z-10"
+              text-orange-500 hover:text-orange-600 transition-all duration-300 z-10"
           >
             <Search size={22} />
           </button>
@@ -161,7 +170,32 @@ const Home = () => {
           >
             <MapPin size={22} />
           </button>
+          {/* Autocomplete suggestions dropdown */}
+          {suggestions.length > 0 && (
+            <ul className="absolute left-0 right-0 top-full mt-2 bg-white border border-orange-200 rounded-xl shadow-lg z-20">
+              {suggestions.map((s) => (
+                <li
+                  key={s.place_id}
+                  className="px-4 py-2 cursor-pointer hover:bg-orange-50"
+                  onClick={() => {
+                    setQuery(s.description);
+                    setSuggestions([]);
+                  }}
+                >
+                  {s.description}
+                </li>
+              ))}
+            </ul>
+          )}
         </form>
+
+        {/* Map Panel */}
+        <div
+          ref={mapRef}
+          id="map"
+          className={`w-full rounded-xl mt-4 transition-all duration-500 ease-in-out
+            ${showMap ? 'h-96 opacity-100 shadow-lg overflow-auto' : 'h-0 opacity-0 overflow-hidden'}`}
+        ></div>
       </div>
 
       {/* Map container */}
