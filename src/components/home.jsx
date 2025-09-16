@@ -115,7 +115,7 @@ const Home = () => {
               <button
                 type="button"
                 onClick={navigateToResults}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-orange-500 hover:text-orange-600"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-orange-500 cursor-default"
               >
                 <Search size={22} />
               </button>
