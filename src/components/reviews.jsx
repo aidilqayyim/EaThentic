@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function Reviews() {
   const [reviews, setReviews] = useState([]);
+  const reviewsRef = useRef([]); // Ref to store the latest reviews
   const [stages, setStages] = useState([
     { stage: "Getting reviews", status: "loading", color: "grey" },
     { stage: "Loading the first reviews", status: "loading", color: "grey" },
@@ -11,51 +12,56 @@ export default function Reviews() {
   const [error, setError] = useState(null);
   const [finished, setFinished] = useState(false);
 
-    useEffect(() => {
+  useEffect(() => {
     const placeId = new URLSearchParams(window.location.search).get("placeId");
     if (!placeId) {
-        setError("Missing placeId");
-        return;
+      setError("Missing placeId");
+      return;
     }
 
     const evtSource = new EventSource(
-        `http://localhost:4000/reviews?placeId=${placeId}`
+      `http://localhost:4000/reviews?placeId=${placeId}`
     );
 
     evtSource.onmessage = (event) => {
-        const data = JSON.parse(event.data);
+      const data = JSON.parse(event.data);
 
-        if (data.type === "stage") {
+      if (data.type === "stage") {
         setStages((prev) =>
-            prev.map((s) =>
+          prev.map((s) =>
             s.stage === data.stage
-                ? { ...s, status: data.status, color: data.color }
-                : s
-            )
+              ? { ...s, status: data.status, color: data.color }
+              : s
+          )
         );
-        } else if (data.type === "reviews") {
+      } else if (data.type === "reviews") {
         setReviews(data.reviews);
-        } else if (data.type === "error") {
+        reviewsRef.current = data.reviews;
+      } else if (data.type === "error") {
         setError(data.message);
         evtSource.close();
-        } else if (data.type === "done") {
+      } else if (data.type === "done") {
         setFinished(true);
         evtSource.close();
-        }
+
+        // Convert reviews to JSON and log it
+        const reviewsJson = JSON.stringify(reviewsRef.current, null, 2);
+        console.log("Fetched Reviews:", reviewsJson);
+      }
     };
 
     evtSource.onerror = () => {
-        // ❌ don’t show "connection lost" if we already finished
-        if (!finished) {
+      // elak showing "connection lost" if already finished
+      if (!finished) {
         setError("Connection lost");
-        }
-        evtSource.close();
+      }
+      evtSource.close();
     };
 
     return () => {
-        evtSource.close();
+      evtSource.close();
     };
-    }, [finished]);
+  }, [finished]);
 
   if (error) {
     return <p style={{ color: "red" }}>❌ {error}</p>;
@@ -71,14 +77,16 @@ export default function Reviews() {
         ))}
       </ul>
 
-      <h3>Reviews</h3>
+      <h3 className='mb-3'>Reviews</h3>
       {reviews.length === 0 ? (
         finished ? <p>No reviews found.</p> : ''
       ) : (
         <ul>
           {reviews.map((review) => (
             <li key={review.id}>
-              <strong>{review.user}</strong> ({review.rating}★): {review.snippet}
+              <div>{review.user}</div> ({review.rating}★): {review.snippet}
+              <br />
+              <div className='mb-3'>{review.isoDate}</div> {/* Display the isoDate */}
             </li>
           ))}
         </ul>

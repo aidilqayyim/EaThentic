@@ -1,18 +1,31 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Search, MapPin } from 'lucide-react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import Logo from '../components/logo';
 
 const Home = () => {
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [showMap, setShowMap] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [manualSearch, setManualSearch] = useState(false); // Track if user is typing manually
   const inputRef = useRef(null);
-  const mapRef = useRef(null);
   const autocompleteRef = useRef(null);
   const navigate = useNavigate();
+
+  const navigateToResults = useCallback(() => {
+    const query = inputRef.current?.value || searchQuery;
+    if (!query?.trim()) return;
+
+    // Only include location if user selected a place from autocomplete (not manual search)
+    if (selectedPlace?.location && !manualSearch) {
+      // Location-based search
+      const locationParam = `${selectedPlace.location.lat},${selectedPlace.location.lng}`;
+      navigate(`/results?query=${encodeURIComponent(query.trim())}&location=${locationParam}`);
+    } else {
+      // Global search - explicitly don't include any location parameter
+      navigate(`/results?query=${encodeURIComponent(query.trim())}`);
+    }
+  }, [searchQuery, selectedPlace, manualSearch, navigate]);
 
   useEffect(() => {
     if (window.google && window.google.maps) {
@@ -31,27 +44,13 @@ const Home = () => {
           });
           setSearchQuery(place.name || place.formatted_address);
           setManualSearch(false); // Reset manual search flag
+          navigateToResults(); // Trigger search navigation
         }
       });
 
       autocompleteRef.current = ac;
     }
-  }, []);
-
-  const navigateToResults = () => {
-    const query = inputRef.current?.value || searchQuery;
-    if (!query?.trim()) return;
-
-    // Only include location if user selected a place from autocomplete (not manual search)
-    if (selectedPlace?.location && !manualSearch) {
-      // Location-based search
-      const locationParam = `${selectedPlace.location.lat},${selectedPlace.location.lng}`;
-      navigate(`/results?query=${encodeURIComponent(query.trim())}&location=${locationParam}`);
-    } else {
-      // Global search - explicitly don't include any location parameter
-      navigate(`/results?query=${encodeURIComponent(query.trim())}`);
-    }
-  };
+  }, [navigateToResults]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -102,16 +101,6 @@ const Home = () => {
         </form>
       </div>
 
-      {selectedPlace && !manualSearch && (
-        <div className="mt-2 w-full max-w-lg bg-white border border-sage-200 rounded-xl p-4 shadow-md text-left z-20 relative animate-fadeInUp">
-          <h3 className="font-semibold text-orange-600 text-sm">Selected Place</h3>
-          <p className="text-sm text-sage-800">{selectedPlace.name}</p>
-          <p className="text-xs text-sage-600">{selectedPlace.address}</p>
-          {selectedPlace.placeId && (
-            <p className="text-xs text-sage-500 mt-1">Place ID: {selectedPlace.placeId}</p>
-          )}
-        </div>
-      )}
     </div>
   );
 };
