@@ -203,7 +203,11 @@ const Results = () => {
             {error && <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700">{error}</div>}
 
             {places.map((place, index) => (
-              <div key={place.place_id || `${place.name}-${index}`} className="bg-white rounded-xl border border-sage-200 p-6 shadow-sm hover:shadow-md transition-all duration-300 animate-fadeInUp">
+              <div
+                key={place.place_id || `${place.name}-${index}`}
+                onClick={() => navigate(`/results/review?placeId=${place.place_id}`)}
+                className="bg-white rounded-xl border border-sage-200 p-6 shadow-sm hover:shadow-md transition-all duration-300 animate-fadeInUp hover:cursor-pointer"
+              >
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="text-xl font-semibold text-sage-900 flex items-center gap-2">
                     <span className="bg-orange-500 text-white text-sm rounded-full w-6 h-6 flex items-center justify-center font-medium">{index + 1}</span>
