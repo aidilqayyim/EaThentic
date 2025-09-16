@@ -8947,6 +8947,11 @@ serialize-javascript@^6.0.0, serialize-javascript@^6.0.2:
   dependencies:
     randombytes "^2.1.0"
 
+serpapi@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.npmjs.org/serpapi/-/serpapi-2.2.1.tgz"
+  integrity sha512-1HXXaIwDmYueFPauAggIkzozMi5P/a4/yRUxB8Z1kad0VQE/7ohf9a6xRQ99aXR252itDChfmJUfBdCA4phCYA==
+
 serve-index@^1.9.1:
   version "1.9.1"
   resolved "https://registry.npmjs.org/serve-index/-/serve-index-1.9.1.tgz"

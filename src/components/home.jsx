@@ -98,23 +98,9 @@ const Home = () => {
             >
               <Search size={22} />
             </button>
-            <button
-              type="button"
-              onClick={() => setShowMap((p) => !p)}
-              className="absolute right-4 top-1/2 -translate-y-1/2 text-orange-500 hover:text-orange-600"
-            >
-              <MapPin size={22} />
-            </button>
           </div>
         </form>
       </div>
-
-      <div
-        ref={mapRef}
-        id="map"
-        className={`w-full mt-6 transition-all duration-700 ease-in-out transform
-          ${showMap ? 'h-96 opacity-100 rounded-2xl shadow-2xl border-2' : 'h-0 opacity-0 overflow-hidden scale-95'}`}
-      ></div>
 
       {selectedPlace && !manualSearch && (
         <div className="mt-2 w-full max-w-lg bg-white border border-sage-200 rounded-xl p-4 shadow-md text-left z-20 relative animate-fadeInUp">
