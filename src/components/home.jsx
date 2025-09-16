@@ -12,10 +12,32 @@ const Home = () => {
     if (showMap) {
       async function initMap() {
         if (window.google && window.google.maps && window.google.maps.importLibrary) {
-          const { Map } = await window.google.maps.importLibrary('maps');
-          new Map(document.getElementById('map'), {
-            center: { lat: 37.7749, lng: -122.4194 },
-            zoom: 12,
+          // The location of UPM
+          const position = { lat: 2.9926, lng: 101.7070 };
+          
+          // Request needed libraries
+          const { Map } = await window.google.maps.importLibrary("maps");
+          const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
+
+          // The map, centered at UPM
+          const map = new Map(document.getElementById("map"), {
+            zoom: 15,
+            center: position,
+            mapId: "DEMO_MAP_ID",
+          });
+
+          // The marker, positioned at UPM
+          const marker = new AdvancedMarkerElement({
+            map: map,
+            position: position,
+            gmpDraggable: true, // Changed from draggable to gmpDraggable
+            title: "UPM Campus",
+          });
+
+          // Add dragend event listener
+          marker.addListener("dragend", () => {
+            const position = marker.position;
+            console.log("Marker dragged to:", position.lat, position.lng);
           });
         }
       }
@@ -28,9 +50,28 @@ const Home = () => {
     const value = e.target.value;
     setQuery(value);
     if (value.length > 2) {
-      const res = await fetch(`/api/places/autocomplete?input=${encodeURIComponent(value)}`);
-      const data = await res.json();
-      setSuggestions(data.predictions || []);
+      try {
+        const res = await fetch(`/api/places/autocomplete?input=${encodeURIComponent(value)}`);
+        if (!res.ok) {
+          console.error('Autocomplete API error:', res.status);
+          setSuggestions([]);
+          return;
+        }
+        const text = await res.text();
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch (jsonErr) {
+          console.error('Response is not JSON:', text);
+          setSuggestions([]);
+          return;
+        }
+        console.log('Autocomplete response:', data);
+        setSuggestions(data.predictions || []);
+      } catch (err) {
+        console.error('Autocomplete fetch failed:', err);
+        setSuggestions([]);
+      }
     } else {
       setSuggestions([]);
     }
