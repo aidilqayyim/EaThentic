@@ -26,7 +26,7 @@ const Navbar = () => {
         >
             <nav className="flex justify-between items-center max-w-7xl mx-auto">
                 <a href="/">
-                    <Logo variant="solid" className="text-3xl" />
+                    <Logo variant="gradient" className="text-3xl" />
                 </a>
 
                 <ul className="text-lg hidden md:flex items-center gap-10 text-sage-700 font-semibold">
