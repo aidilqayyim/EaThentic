@@ -1,81 +1,116 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Search, MapPin } from 'lucide-react';
 import Navbar from '../components/navbar';
 import Logo from '../components/logo';
 
 const Home = () => {
+  const [selectedPlace, setSelectedPlace] = useState(null);
   const [showMap, setShowMap] = useState(false);
-  const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
+  const inputRef = useRef(null);
+  const mapRef = useRef(null);
+  const markerRef = useRef(null);
+  const infoWindowRef = useRef(null);
 
   useEffect(() => {
-    if (showMap) {
-      async function initMap() {
-        if (window.google && window.google.maps && window.google.maps.importLibrary) {
-          // The location of UPM
-          const position = { lat: 2.9926, lng: 101.7070 };
-          
-          // Request needed libraries
-          const { Map } = await window.google.maps.importLibrary("maps");
-          const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
+    async function initAutocomplete() {
+      if (window.google && window.google.maps) {
+        // Request the Places library
+        await window.google.maps.importLibrary("places");
 
-          // The map, centered at UPM
-          const map = new Map(document.getElementById("map"), {
-            zoom: 15,
-            center: position,
-            mapId: "DEMO_MAP_ID",
-          });
+        // Attach autocomplete to the existing input box
+        const autocomplete = new window.google.maps.places.Autocomplete(inputRef.current, {
+          fields: ['name', 'formatted_address', 'geometry', 'place_id'], // Include place_id explicitly
+        });
 
-          // The marker, positioned at UPM
-          const marker = new AdvancedMarkerElement({
-            map: map,
-            position: position,
-            gmpDraggable: true, // Changed from draggable to gmpDraggable
-            title: "UPM Campus",
-          });
-
-          // Add dragend event listener
-          marker.addListener("dragend", () => {
-            const position = marker.position;
-            console.log("Marker dragged to:", position.lat, position.lng);
-          });
-        }
+        // Add listener for place selection
+        autocomplete.addListener('place_changed', () => {
+          const place = autocomplete.getPlace();
+          if (place) {
+            setSelectedPlace({
+              name: place.name,
+              address: place.formatted_address,
+              location: place.geometry?.location?.toJSON(),
+              placeId: place.place_id, // Include placeId
+            });
+            console.log('Selected Place:', place);
+            console.log('Place ID:', place.place_id); // Log the placeId for debugging
+          }
+        });
       }
+    }
+
+    async function initMap() {
+      if (window.google && window.google.maps) {
+        // Request needed libraries
+        const [{ Map }, { AdvancedMarkerElement }] = await Promise.all([
+          window.google.maps.importLibrary("maps"),
+          window.google.maps.importLibrary("marker"),
+        ]);
+
+        // Initialize the map
+        const center = { lat: 2.9919, lng: 101.7072 }; // Kosass, UPM
+        const map = new Map(mapRef.current, {
+          center,
+          zoom: 13,
+          mapId: '4504f8b37365c3d0',
+          mapTypeControl: false,
+        });
+
+        // Create the marker and info window
+        const marker = new AdvancedMarkerElement({ map });
+        const infoWindow = new window.google.maps.InfoWindow();
+        const geocoder = new window.google.maps.Geocoder(); // Define geocoder instance
+
+        // Save references
+        markerRef.current = marker;
+        infoWindowRef.current = infoWindow;
+
+        // Add click listener to the map
+        map.addListener('click', async (event) => {
+          const location = event.latLng;
+          marker.position = location;
+
+          // Reverse geocode the clicked location
+          geocoder.geocode({ location }, async (results, status) => {
+            if (status === 'OK' && results[0]) {
+              const placeId = results[0].place_id;
+              const placeName = results[0].formatted_address;
+
+              console.log('Place ID:', placeId); // Debugging: Log the place ID
+
+              setSelectedPlace({
+                name: placeName,
+                address: `${location.lat()}, ${location.lng()}`,
+                location: location.toJSON(),
+                placeId, // Include placeId
+              });
+            } else {
+              console.error('Geocoder failed due to:', status);
+            }
+          });
+        });
+      }
+    }
+
+    function updateInfoWindow(content, position) {
+      const infoWindow = infoWindowRef.current;
+      const marker = markerRef.current;
+      if (infoWindow && marker) {
+        infoWindow.setContent(content);
+        infoWindow.setPosition(position);
+        infoWindow.open({
+          map: marker.map,
+          anchor: marker,
+          shouldFocus: false,
+        });
+      }
+    }
+
+    initAutocomplete();
+    if (showMap) {
       initMap();
     }
   }, [showMap]);
-
-  // Autocomplete handler
-  const handleInputChange = async (e) => {
-    const value = e.target.value;
-    setQuery(value);
-    if (value.length > 2) {
-      try {
-        const res = await fetch(`/api/places/autocomplete?input=${encodeURIComponent(value)}`);
-        if (!res.ok) {
-          console.error('Autocomplete API error:', res.status);
-          setSuggestions([]);
-          return;
-        }
-        const text = await res.text();
-        let data;
-        try {
-          data = JSON.parse(text);
-        } catch (jsonErr) {
-          console.error('Response is not JSON:', text);
-          setSuggestions([]);
-          return;
-        }
-        console.log('Autocomplete response:', data);
-        setSuggestions(data.predictions || []);
-      } catch (err) {
-        console.error('Autocomplete fetch failed:', err);
-        setSuggestions([]);
-      }
-    } else {
-      setSuggestions([]);
-    }
-  };
 
   return (
     <div className="relative bg-gradient-to-br from-sage-50 via-white to-sage-100 w-full min-h-screen flex flex-col justify-center items-center text-sage-900 p-5 font-sans overflow-hidden">
@@ -100,61 +135,63 @@ const Home = () => {
           Don&apos;t fall for fake reviews. Enter a restaurant or location and let our AI find the hidden gems and expose the frauds.
         </p>
 
-        {/* Map container above the input box, only when showMap is true */}
-        {showMap && (
-          <div
-            id="map"
-            style={{ width: '100%', height: '400px', marginTop: '2rem', borderRadius: '1rem' }}
-          ></div>
-        )}
-
         {/* Integrated Search Bar */}
-        <form className="relative mt-10 w-full max-w-lg" autoComplete="on">
+        <form className="relative w-full max-w-lg mt-5" autoComplete="on">
           <input
-            className="w-full h-16 pl-14 pr-14 rounded-xl bg-white border border-orange-300
+            ref={inputRef}
+            className="w-full h-16 pl-14 pr-10 rounded-xl bg-white border border-orange-300
                text-lg text-sage-900 placeholder-gray-500 
                focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-300
                transition-all duration-300"
             placeholder="Find reviews in ..."
             type="text"
-            value={query}
-            onChange={handleInputChange}
           />
           <button
             type="submit"
             className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center 
-               text-orange-500 hover:text-orange-600 transition-all duration-300"
+               text-orange-500 hover:text-orange-600 transition-all duration-300 z-10"
           >
             <Search size={22} />
           </button>
           <button
             type="button"
             className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center 
-               text-orange-500 hover:text-orange-600 transition-all duration-300"
-            onClick={() => setShowMap((v) => !v)}
-            title="Choose from map"
+               text-orange-500 hover:text-orange-600 transition-all duration-300 z-10"
+            onClick={() => setShowMap((prev) => !prev)}
           >
             <MapPin size={22} />
           </button>
-          {/* Autocomplete suggestions dropdown */}
-          {suggestions.length > 0 && (
-            <ul className="absolute left-0 right-0 top-full mt-2 bg-white border border-orange-200 rounded-xl shadow-lg z-20">
-              {suggestions.map((s) => (
-                <li
-                  key={s.place_id}
-                  className="px-4 py-2 cursor-pointer hover:bg-orange-50"
-                  onClick={() => {
-                    setQuery(s.description);
-                    setSuggestions([]);
-                  }}
-                >
-                  {s.description}
-                </li>
-              ))}
-            </ul>
-          )}
         </form>
       </div>
+
+      {/* Map container */}
+      {showMap && (
+        <div
+          ref={mapRef}
+          id="map"
+          style={{ width: '100%', height: '400px', marginTop: '20px', borderRadius: '1rem' }}
+        ></div>
+      )}
+
+      {/* Popup for selected place info */}
+      {selectedPlace && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full relative">
+            <button
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+              onClick={() => setSelectedPlace(null)}
+            >
+              ✕
+            </button>
+            <h3 className="font-semibold text-orange-600 text-lg">Selected Place:</h3>
+            <p className="text-sm text-sage-800 mt-2">{selectedPlace.name}</p>
+            <p className="text-xs text-sage-600">{selectedPlace.address}</p>
+            {selectedPlace.placeId && (
+              <p className="text-xs text-sage-600 mt-2">Place ID: {selectedPlace.placeId}</p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
