@@ -205,7 +205,7 @@ const Results = () => {
             {places.map((place, index) => (
               <div
                 key={place.place_id || `${place.name}-${index}`}
-                onClick={() => navigate(`/results/review?placeId=${place.place_id}`)}
+                onClick={() => navigate(`/results/review?id=${place.place_id}`)}
                 className="bg-white rounded-xl border border-sage-200 p-6 shadow-sm hover:shadow-md transition-all duration-300 animate-fadeInUp hover:cursor-pointer"
               >
                 <div className="flex justify-between items-start mb-3">

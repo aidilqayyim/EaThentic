@@ -13,7 +13,7 @@ export default function Reviews() {
   const [finished, setFinished] = useState(false);
 
   useEffect(() => {
-    const placeId = new URLSearchParams(window.location.search).get("placeId");
+    const placeId = new URLSearchParams(window.location.search).get("id");
     if (!placeId) {
       setError("Missing placeId");
       return;
