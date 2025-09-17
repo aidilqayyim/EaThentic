@@ -165,59 +165,96 @@ const Results = () => {
   };
 
   return (
-    <div className="relative bg-gradient-to-br from-sage-50 via-white to-sage-100 min-h-screen">
-      <div className="absolute inset-0 bg-gradient-to-tr from-orange-100 via-white to-sage-100 animate-[gradientShift_12s_ease-in-out_infinite]"></div>
-
+    <div className="relative bg-gradient-to-tr from-orange-100 via-white to-sage-100 animate-[gradientShift_12s_ease-in-out_infinite] min-h-screen">
       <Navbar />
 
       <div className="relative z-10 container mx-auto px-4 pt-20">
-        <div className="flex items-center justify-between mb-6">
-          <button onClick={() => navigate('/')} className="flex items-center gap-2 text-orange-600 hover:text-orange-700 transition-colors">
+        {/* Header */}
+        <div className="flex items-center justify-start mb-8">
+          <button
+            onClick={() => navigate('/')}
+            className="flex items-center gap-2 text-orange-600 hover:text-orange-700 transition-colors font-semibold"
+          >
             <ArrowLeft size={20} /> Back to Home
           </button>
-          <Logo variant="gradient" className="text-2xl" />
         </div>
 
-        <form onSubmit={handleNewSearch} className="relative w-full max-w-2xl mx-auto mb-6 flex gap-3">
-          <input
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            className="flex-1 h-14 pl-12 pr-4 rounded-xl bg-white border border-orange-300 text-lg text-sage-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-300 transition-all duration-300"
-            placeholder="Search for restaurants, cafes, food..."
-            type="text"
-          />
-          <button type="submit" className="absolute left-4 top-1/2 -translate-y-1/2 text-orange-500 hover:text-orange-600 transition-colors">
-            <Search size={20} />
-          </button>
-        </form>
+        {/* Search Bar Section */}
+        <div className="w-full mb-8">
+          <div className="rounded-2xl bg-orange-300 border border-orange-200 shadow-md px-8 py-6 flex flex-col items-center max-w-none">
+            <form
+              onSubmit={handleNewSearch}
+              className="relative w-full flex gap-3"
+            >
+              <input
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="flex-1 h-14 pl-12 pr-4 rounded-xl bg-white border border-orange-300 text-lg text-sage-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-300 transition-all duration-300"
+                placeholder="Search for restaurants, cafes, food..."
+                type="text"
+              />
+              <button
+                type="submit"
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-orange-500 hover:text-orange-600 transition-colors"
+              >
+                <Search size={20} />
+              </button>
+            </form>
+          </div>
+        </div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          <div className="space-y-4">
+        {/* Main Content */}
+        <div className="grid lg:grid-cols-2 gap-8">
+          {/* Places List */}
+          <div className="space-y-6">
             <h2 className="text-2xl font-bold text-sage-900 mb-4">
-              Places matching "{query}"
-              {location && <span className="text-sm font-normal text-sage-600 ml-2">(near selected location)</span>}
-              {places.length > 0 && <span className="text-sm font-normal text-sage-600 ml-2">({places.length} result{places.length !== 1 ? 's' : ''})</span>}
+              Places matching "<span className="text-orange-600">{query}</span>"
+              {location && (
+                <span className="text-sm font-normal text-sage-600 ml-2">
+                  (near selected location)
+                </span>
+              )}
+              {places.length > 0 && (
+                <span className="text-sm font-normal text-sage-600 ml-2">
+                  ({places.length} result{places.length !== 1 ? 's' : ''})
+                </span>
+              )}
             </h2>
 
-            {loading && <div className="flex items-center justify-center py-12"><div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div><span className="ml-3 text-sage-600">Searching for places...</span></div>}
-            {error && <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700">{error}</div>}
+            {loading && (
+              <div className="flex items-center justify-center py-12">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500"></div>
+                <span className="ml-3 text-sage-600">Searching for places...</span>
+              </div>
+            )}
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700">
+                {error}
+              </div>
+            )}
 
             {places.map((place, index) => (
               <div
                 key={place.place_id || `${place.name}-${index}`}
                 onClick={() => navigate(`/results/review?id=${place.place_id}`)}
-                className="bg-white rounded-xl border border-sage-200 p-6 shadow-sm hover:shadow-md transition-all duration-300 animate-fadeInUp hover:cursor-pointer"
+                className="bg-white/80 rounded-2xl border border-sage-200 p-6 shadow-md hover:shadow-lg transition-all duration-300 animate-fadeInUp hover:cursor-pointer"
               >
                 <div className="flex justify-between items-start mb-3">
                   <h3 className="text-xl font-semibold text-sage-900 flex items-center gap-2">
-                    <span className="bg-orange-500 text-white text-sm rounded-full w-6 h-6 flex items-center justify-center font-medium">{index + 1}</span>
+                    <span className="bg-orange-500 text-white text-sm rounded-full w-7 h-7 flex items-center justify-center font-medium">
+                      {index + 1}
+                    </span>
                     {place.name}
                   </h3>
                   {place.rating && (
-                    <div className="flex items-center gap-1 bg-yellow-50 px-2 py-1 rounded-lg">
-                      <Star size={16} className="text-yellow-500 fill-current" />
+                    <div className="flex items-center gap-1 bg-yellow-50 px-3 py-1 rounded-lg">
+                      <Star size={18} className="text-yellow-500 fill-current" />
                       <span className="font-medium text-yellow-700">{place.rating}</span>
-                      {place.user_ratings_total && <span className="text-yellow-600 text-sm">({place.user_ratings_total})</span>}
+                      {place.user_ratings_total && (
+                        <span className="text-yellow-600 text-sm">
+                          ({place.user_ratings_total})
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>
@@ -225,14 +262,40 @@ const Results = () => {
                 <div className="space-y-2 text-sage-700">
                   <div className="flex items-center gap-2">
                     <MapPin size={16} className="text-orange-500 flex-shrink-0" />
-                    <span className="text-sm">{place.formatted_address || place.vicinity || 'Address not available'}</span>
+                    <span className="text-sm">
+                      {place.formatted_address || place.vicinity || 'Address not available'}
+                    </span>
                   </div>
-                  {place.opening_hours && <div className="flex items-center gap-2"><Clock size={16} className="text-orange-500 flex-shrink-0" /><span className={`text-sm font-medium ${place.opening_hours.open_now ? 'text-green-600' : 'text-red-600'}`}>{place.opening_hours.open_now ? 'Open now' : 'Closed'}</span></div>}
-                  {place.price_level && getPriceDisplay(place.price_level) && <div className="flex items-center gap-2"><span className="text-orange-500">💰</span><span className="text-sm">{getPriceDisplay(place.price_level).symbols} ({getPriceDisplay(place.price_level).text})</span></div>}
+                  {place.opening_hours && (
+                    <div className="flex items-center gap-2">
+                      <Clock size={16} className="text-orange-500 flex-shrink-0" />
+                      <span
+                        className={`text-sm font-medium ${
+                          place.opening_hours.open_now ? 'text-green-600' : 'text-red-600'
+                        }`}
+                      >
+                        {place.opening_hours.open_now ? 'Open now' : 'Closed'}
+                      </span>
+                    </div>
+                  )}
+                  {place.price_level && getPriceDisplay(place.price_level) && (
+                    <div className="flex items-center gap-2">
+                      <span className="text-orange-500">💰</span>
+                      <span className="text-sm">
+                        {getPriceDisplay(place.price_level).symbols} (
+                        {getPriceDisplay(place.price_level).text})
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-4 flex gap-2">
-                  <a href={getPlaceDetailsUrl(place)} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors text-sm font-medium">
+                  <a
+                    href={getPlaceDetailsUrl(place)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors text-sm font-medium"
+                  >
                     <ExternalLink size={16} /> View on Maps
                   </a>
                 </div>
@@ -240,8 +303,23 @@ const Results = () => {
             ))}
           </div>
 
-          <div className="lg:sticky lg:top-24 h-96 lg:h-[600px]">
-            <div ref={mapRef} className="w-full h-full rounded-xl shadow-lg border-2 border-sage-200"></div>
+          {/* Map Section */}
+          <div className="lg:sticky lg:top-24 h-96 lg:h-[600px] flex flex-col items-center">
+            <div className="w-full h-full rounded-2xl shadow-xl border-2 border-sage-200 bg-gradient-to-tr from-orange-100 via-white to-sage-100 relative overflow-hidden">
+              {/* Map container */}
+              <div ref={mapRef} className="absolute inset-0 w-full h-full rounded-2xl" />
+              {/* Map header */}
+              <div className="absolute top-0 left-0 w-full px-6 py-4 bg-white/70 backdrop-blur-md flex items-center rounded-t-2xl border-b border-sage-200 z-10">
+                <span className="font-bold text-sage-800 text-lg flex items-center gap-2">
+                  <MapPin size={20} className="text-orange-500" />
+                  Map View
+                </span>
+              </div>
+              {/* Footer overlay for professionalism */}
+              <div className="absolute bottom-0 left-0 w-full px-6 py-2 bg-white/60 backdrop-blur-sm rounded-b-2xl border-t border-sage-100 text-right text-xs text-sage-500 z-10">
+                Powered by Google Maps
+              </div>
+            </div>
           </div>
         </div>
       </div>
