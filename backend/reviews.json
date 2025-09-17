@@ -1,0 +1,123 @@
+[
+  {
+    "id": 1,
+    "rating": 5,
+    "snippet": "Very polite and delicious food.\nLike the Maggi Mee Goreng and Roti Canai",
+    "user": "OLIVE GAN ZI NA 颜子娜 Moe",
+    "isoDate": "5 months ago",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The review is short and concise, focusing on the positives of the food and service. The mention of specific dishes like \"Maggi Mee Goreng\" and \"Roti Canai\" suggests the reviewer has actual experience with the restaurant's offerings. There are no obvious signs of maliciousness or promotional intent, so it is likely a genuine positive review.\"",
+    "raw": "{\"id\":\"msg_bdrk_011VLohvb39cvvFs5odd4yF8\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-3-haiku-20240307\",\"content\":[{\"type\":\"text\",\"text\":\"Classification: Genuine-Positive\\nConfidence: 90%\\nExplanation: The review is short and concise, focusing on the positives of the food and service. The mention of specific dishes like \\\"Maggi Mee Goreng\\\" and \\\"Roti Canai\\\" suggests the reviewer has actual experience with the restaurant's offerings. There are no obvious signs of maliciousness or promotional intent, so it is likely a genuine positive review.\"}],\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"usage\":{\"input_tokens\":157,\"output_tokens\":100}}"
+  },
+  {
+    "id": 2,
+    "rating": 3,
+    "snippet": "Located in Inside aman height condo\nGreat place to have a quick breakfast bite like roti canai",
+    "user": "Daniel Tai",
+    "isoDate": "Edited 2 years ago",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The review appears to be a genuine, positive assessment of a restaurant or food establishment. The review provides a specific location (Inside aman height condo) and recommends a particular dish (roti canai) for a quick breakfast bite, which suggests a firsthand experience at the establishment. The tone is objective and focused on the food and dining experience, rather than any personal attacks or overly promotional language, indicating a genuine positive review.\"",
+    "raw": "{\"id\":\"msg_bdrk_01HXbvfJ8p5fqn4jaFMCoWTZ\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-3-haiku-20240307\",\"content\":[{\"type\":\"text\",\"text\":\"Classification: Genuine-Positive\\nConfidence: 90%\\nExplanation: The review appears to be a genuine, positive assessment of a restaurant or food establishment. The review provides a specific location (Inside aman height condo) and recommends a particular dish (roti canai) for a quick breakfast bite, which suggests a firsthand experience at the establishment. The tone is objective and focused on the food and dining experience, rather than any personal attacks or overly promotional language, indicating a genuine positive review.\"}],\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"usage\":{\"input_tokens\":152,\"output_tokens\":110}}"
+  },
+  {
+    "id": 3,
+    "rating": 5,
+    "snippet": "Reasonable priced and delicious mamak food in Aman Heights",
+    "user": "Daniel Ong",
+    "isoDate": "5 years ago",
+    "classification": "",
+    "confidence": "",
+    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
+    "raw": ""
+  },
+  {
+    "id": 4,
+    "rating": 5,
+    "snippet": "Pool view.. Nice curry....",
+    "user": "Fauzi Adilah",
+    "isoDate": "4 years ago",
+    "classification": "",
+    "confidence": "",
+    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
+    "raw": ""
+  },
+  {
+    "id": 5,
+    "rating": 4,
+    "snippet": "Nice!",
+    "user": "ALQatabi “Kingdom Heart”",
+    "isoDate": "5 years ago",
+    "classification": "",
+    "confidence": "",
+    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
+    "raw": ""
+  },
+  {
+    "id": 6,
+    "rating": 4,
+    "snippet": "Clear defined food",
+    "user": "Yoganathan Sivapragasam",
+    "isoDate": "5 years ago",
+    "classification": "",
+    "confidence": "",
+    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
+    "raw": ""
+  },
+  {
+    "id": 7,
+    "rating": 5,
+    "snippet": "Ok",
+    "user": "mani kandan",
+    "isoDate": "5 years ago",
+    "classification": "",
+    "confidence": "",
+    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
+    "raw": ""
+  },
+  {
+    "id": 8,
+    "rating": 3,
+    "snippet": "Clean",
+    "user": "Jing Ya",
+    "isoDate": "6 years ago",
+    "classification": "",
+    "confidence": "",
+    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
+    "raw": ""
+  },
+  {
+    "id": 9,
+    "rating": 5,
+    "snippet": "コンドミニアムの敷地内にあるママックレストラン。Rotiの種類が豊富なので気に入っています。",
+    "user": "Takayoshi Tetsuka",
+    "isoDate": "a year ago",
+    "classification": "",
+    "confidence": "",
+    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
+    "raw": ""
+  },
+  {
+    "id": 10,
+    "rating": 3,
+    "snippet": "在公寓里面的小食店,畢竟是私人地方進出並不容易,里面所賣的印度燒餅還不錯！",
+    "user": "WOON FAR TATT",
+    "isoDate": "3 years ago",
+    "classification": "",
+    "confidence": "",
+    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
+    "raw": ""
+  },
+  {
+    "id": 11,
+    "rating": 5,
+    "snippet": "Hari2 makan sini, Sebab bawah rumah je",
+    "user": "Najib Wajdi",
+    "isoDate": "4 years ago",
+    "classification": "",
+    "confidence": "",
+    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
+    "raw": ""
+  }
+]
