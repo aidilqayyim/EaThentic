@@ -69,7 +69,7 @@ const Navbar = () => {
         <a
           href="/"
           className="hidden md:inline-block bg-sage-700 text-white px-6 py-2.5 rounded-full
-            font-semibold hover:bg-sage-900 hover:shadow-glow transition-glow duration-300
+            font-semibold hover:bg-sage-900 transition-glow duration-300
             transform hover:-translate-y-0.5"
         >
           Contact Us
@@ -108,7 +108,7 @@ const Navbar = () => {
           <a
             href="/"
             className="block mt-4 bg-sage-700 text-white px-6 py-2.5 rounded-full
-              font-semibold hover:bg-sage-900 hover:shadow-glow transition-glow duration-300"
+              font-semibold hover:bg-sage-900 hover:shadow-glow transition duration-300"
             onClick={() => setMenuOpen(false)}
           >
             Contact Us

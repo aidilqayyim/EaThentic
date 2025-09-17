@@ -33,7 +33,7 @@ export default function Reviews() {
   };
 
   useEffect(() => {
-    const placeId = new URLSearchParams(window.location.search).get("placeId");
+    const placeId = new URLSearchParams(window.location.search).get("id");
     if (!placeId) {
       setError("Missing placeId");
       return;
