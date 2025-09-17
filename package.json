@@ -24,7 +24,7 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "start": "concurrently \"nodemon server.js\" \"yarn start-frontend\"",
+    "start": "concurrently \"nodemon server.js\" \"yarn start-frontend\" \"cd backend && yarn start\"",
     "start-frontend": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
