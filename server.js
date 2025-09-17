@@ -94,7 +94,7 @@ app.get("/reviews", async (req, res) => {
       const filtered = data.reviews
         .filter((r) => r.snippet && r.snippet.trim() !== "")
         .map((r, idx) => ({
-          id: `${i}-${idx}`,
+          id: results.length + idx + 1, // Sequential numbering for IDs
           rating: r.rating,
           snippet: r.snippet,
           user: r.user?.name || "Anonymous",

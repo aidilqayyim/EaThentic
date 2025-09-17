@@ -82,13 +82,13 @@ export default function Reviews() {
         finished ? <p>No reviews found.</p> : ''
       ) : (
         <ul>
-          {reviews.map((review) => (
-            <li key={review.id}>
+          {reviews.map((review, index) => (
+            <li key={index + 1}>
               <div>{review.user}</div> ({review.rating}★): {review.snippet}
               <br />
-              <div className='mb-3'>{review.isoDate}</div> {/* Display the isoDate */}
+              <div className='mb-3'>{review.isoDate}</div>
             </li>
-          ))}
+          ))}        
         </ul>
       )}
     </div>
