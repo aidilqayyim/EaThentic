@@ -77,7 +77,7 @@ app.get("/reviews", async (req, res) => {
     // Stage 1
     sendStage("Getting reviews", "done", "green");
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 2; i++) {
       const body = token
         ? { placeId, nextPageToken: token, gl: "my" }
         : { placeId, gl: "my" };
@@ -88,7 +88,12 @@ app.get("/reviews", async (req, res) => {
 
       // Stage 2 & 3
       if (i === 0) sendStage("Loading the first reviews", "done", "green");
-      if (i > 0) sendStage("Loading the rest of the reviews", "done", "green");
+      if (i === 0 && !data.nextPageToken) {
+        // If only one page of reviews is found, mark stage 3 as done
+        sendStage("Loading the rest of the reviews", "done", "green");
+      } else if (i > 0) {
+        sendStage("Loading the rest of the reviews", "done", "green");
+      }
 
       // ✅ Only take reviews with a snippet
       const filtered = data.reviews
@@ -99,6 +104,7 @@ app.get("/reviews", async (req, res) => {
           snippet: r.snippet,
           user: r.user?.name || "Anonymous",
           isoDate: r.date,
+          profilePicture: r.user?.thumbnail || null,
         }));
 
       results.push(...filtered);

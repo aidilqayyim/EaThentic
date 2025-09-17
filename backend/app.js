@@ -178,7 +178,14 @@ app.post("/analyze-all", async (req, res) => {
   );
 
   const results = [];
+  let tooManyRequestsCount = 0; // Counter for "Too Many Requests" errors
+
   for (const item of mapped) {
+    if (tooManyRequestsCount >= 20) {
+      console.error("Stopping analysis due to repeated 'Too Many Requests' errors.");
+      break;
+    }
+
     const reviewText = (item.snippet || item.review || item.text || item.content || "").toString();
     if (!reviewText) {
       results.push({ ...item, classification: "", confidence: "", explanation: "No text", raw: "" });
@@ -204,6 +211,12 @@ app.post("/analyze-all", async (req, res) => {
       results.push({ ...item, snippet: reviewText, classification, confidence, explanation, raw });
     } catch (err) {
       console.error("Single review analysis failed:", err.message);
+
+      // Increment the counter for "Too Many Requests" errors
+      if (err.message.includes("Too many requests")) {
+        tooManyRequestsCount++;
+      }
+
       results.push({ ...item, snippet: reviewText, classification: "", confidence: "", explanation: `Analysis failed: ${err.message}`, raw: "" });
     }
   }
