@@ -77,7 +77,7 @@ app.get("/reviews", async (req, res) => {
     // Stage 1
     sendStage("Getting reviews", "done", "green");
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 1; i++) {
       const body = token
         ? { placeId, nextPageToken: token, gl: "my" }
         : { placeId, gl: "my" };
