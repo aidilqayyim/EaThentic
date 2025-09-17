@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { Star, UserRound } from "lucide-react";
+import { Star, UserRound, Store } from "lucide-react";
 
 export default function Reviews() {
   const [reviews, setReviews] = useState([]);
@@ -189,7 +189,7 @@ export default function Reviews() {
                 className="w-full h-full flex items-center justify-center "
                 style={{ display: finished && photoUrl ? 'none' : 'flex' }}
               >
-                <UserRound className="w-12 h-12 text-gray-500" />
+                <Store className="w-12 h-12 text-gray-500" />
               </div>
             </div>
             <div className="">
