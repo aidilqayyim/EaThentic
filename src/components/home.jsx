@@ -80,7 +80,7 @@ const Home = () => {
           </p>
 
           {/* Tagline */}
-          <p className="mt-3 text-lg leading-relaxed font-['Nunito']">
+          <p className="mt-3 text-lg leading-relaxed">
             Say goodbye to{" "}
             <span className="font-bold text-red-600 underline decoration-orange-500 decoration-2">
               fake reviews
