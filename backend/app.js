@@ -226,6 +226,30 @@ app.post("/analyze-all", async (req, res) => {
   res.json(results);
 });
 
+// Fetch multiple photos for a place
+app.get("/photos/:placeId", async (req, res) => {
+  const { placeId } = req.params;
+  if (!placeId) {
+    return res.status(400).json({ error: "Place ID is required" });
+  }
+
+  try {
+    // This would typically use Google Places API
+    // For now, return mock photo URLs
+    const mockPhotos = [
+      `https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)}`,
+      `https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)}`,
+      `https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)}`,
+      `https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)}`,
+      `https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)}`
+    ];
+    
+    res.json({ photos: mockPhotos });
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch photos", details: error.message });
+  }
+});
+
 // Test endpoint
 app.get("/", (req, res) => res.send("Backend is running!"));
 
