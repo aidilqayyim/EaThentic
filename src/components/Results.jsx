@@ -181,7 +181,7 @@ const Results = () => {
 
         {/* Search Bar Section */}
         <div className="w-full mb-8">
-          <div className="rounded-2xl bg-orange-300 border border-orange-200 shadow-md px-8 py-6 flex flex-col items-center max-w-none">
+          <div className="rounded-2xl shadow-md px-8 py-6 flex flex-col items-center max-w-none">
             <form
               onSubmit={handleNewSearch}
               className="relative w-full flex gap-3"
