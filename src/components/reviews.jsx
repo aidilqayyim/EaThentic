@@ -212,12 +212,12 @@ export default function Reviews() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-tr from-orange-100 via-white to-sage-100 animate-[gradientShift_12s_ease-in-out_infinite] py-10 px-4 relative">
+    <div className="min-h-screen bg-gradient-to-tr from-orange-100 via-white to-sage-100 animate-[gradientShift_12s_ease-in-out_infinite] py-6 px-2 sm:px-4 relative">
       {/* Stage Loading Modal */}
       {isLoadingStages && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-xl p-8 min-w-[320px]">
-            <h2 className="text-xl font-bold text-gray-800 mb-6 text-center">Loading Reviews</h2>
+          <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8 min-w-[260px] sm:min-w-[320px] w-[90vw] max-w-md">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">Loading Reviews</h2>
             <ul>
               {stages.map((s, i) => {
                 let icon = null;
@@ -225,17 +225,17 @@ export default function Reviews() {
 
                 if (s.status === "loading") {
                   icon = (
-                    <span className="inline-block w-7 h-7 mr-3 animate-spin border-4 border-blue-300 border-t-blue-500 rounded-full" />
+                    <span className="inline-block w-6 h-6 sm:w-7 sm:h-7 mr-2 sm:mr-3 animate-spin border-4 border-blue-300 border-t-blue-500 rounded-full" />
                   );
                   animate = "animate-pulse";
                 } else if (s.status === "success") {
                   icon = (
-                    <span className="text-2xl mr-3">✅</span>
+                    <span className="text-xl sm:text-2xl mr-2 sm:mr-3">✅</span>
                   );
                   animate = "animate-bounce";
                 } else if (s.status === "error") {
                   icon = (
-                    <span className="text-2xl mr-3">❌</span>
+                    <span className="text-xl sm:text-2xl mr-2 sm:mr-3">❌</span>
                   );
                   animate = "animate-shake";
                 }
@@ -243,10 +243,10 @@ export default function Reviews() {
                 return (
                   <li
                     key={i}
-                    className={`flex items-center px-4 py-3 mb-2 rounded-lg bg-gray-50 shadow transition-all duration-200 ${animate}`}
+                    className={`flex items-center px-2 sm:px-4 py-2 sm:py-3 mb-2 rounded-lg bg-gray-50 shadow transition-all duration-200 ${animate}`}
                   >
                     {icon}
-                    <span className="font-semibold text-gray-700">{s.stage}</span>
+                    <span className="font-semibold text-gray-700 text-xs sm:text-base">{s.stage}</span>
                     {s.status === "error" && (
                       <span className="text-xs px-2 py-1 rounded bg-white border ml-auto">Error</span>
                     )}
@@ -276,7 +276,7 @@ export default function Reviews() {
       {/* Image Modal */}
       {isImageModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm" onClick={() => { setIsImageModalOpen(false); setZoomLevel(1); }}>
-          <div className="relative max-w-4xl max-h-[90vh] mx-4 overflow-hidden">
+          <div className="relative max-w-full sm:max-w-4xl max-h-[90vh] mx-2 sm:mx-4 overflow-hidden">
             <img
               src={photos[currentPhotoIndex]}
               alt="Place"
@@ -291,17 +291,17 @@ export default function Reviews() {
             />
             <button
               onClick={() => { setIsImageModalOpen(false); setZoomLevel(1); }}
-              className="absolute top-4 right-4 bg-black/50 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-black/70 transition-colors"
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-black/50 text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center hover:bg-black/70 transition-colors"
             >
               ✕
             </button>
-            <div className="absolute top-4 left-4 flex flex-col gap-2">
+            <div className="absolute top-2 left-2 sm:top-4 sm:left-4 flex flex-col gap-2">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
                   setZoomLevel(prev => Math.min(3, prev + 0.2));
                 }}
-                className="bg-black/50 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-black/70 transition-colors text-xl"
+                className="bg-black/50 text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center hover:bg-black/70 transition-colors text-xl"
               >
                 +
               </button>
@@ -310,7 +310,7 @@ export default function Reviews() {
                   e.stopPropagation();
                   setZoomLevel(prev => Math.max(0.5, prev - 0.2));
                 }}
-                className="bg-black/50 text-white rounded-full w-10 h-10 flex items-center justify-center hover:bg-black/70 transition-colors text-xl"
+                className="bg-black/50 text-white rounded-full w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center hover:bg-black/70 transition-colors text-xl"
               >
                 −
               </button>
@@ -331,7 +331,7 @@ export default function Reviews() {
                     e.stopPropagation();
                     setCurrentPhotoIndex(prev => prev === 0 ? photos.length - 1 : prev - 1);
                   }}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white rounded-full w-12 h-12 flex items-center justify-center hover:bg-black/70 transition-colors text-xl"
+                  className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white rounded-full w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-black/70 transition-colors text-xl"
                 >
                   ‹
                 </button>
@@ -340,7 +340,7 @@ export default function Reviews() {
                     e.stopPropagation();
                     setCurrentPhotoIndex(prev => prev === photos.length - 1 ? 0 : prev + 1);
                   }}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white rounded-full w-12 h-12 flex items-center justify-center hover:bg-black/70 transition-colors text-xl"
+                  className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-black/50 text-white rounded-full w-8 h-8 sm:w-12 sm:h-12 flex items-center justify-center hover:bg-black/70 transition-colors text-xl"
                 >
                   ›
                 </button>
@@ -350,14 +350,13 @@ export default function Reviews() {
         </div>
       )}
 
-      
       {/* Header Card */}
-      <div className="mt-12 max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-3xl shadow-xl p-6 md:p-8 mb-12 flex flex-col lg:flex-row gap-8 transition-all duration-500">
+      <div className="mt-8 sm:mt-12 max-w-full sm:max-w-6xl mx-auto bg-white/80 backdrop-blur-md rounded-3xl shadow-xl p-4 sm:p-8 mb-8 sm:mb-12 flex flex-col lg:flex-row gap-6 sm:gap-8 transition-all duration-500">
         {/* Place Info */}
         <div className="flex-1 flex flex-col gap-4">
-          <div className="flex gap-6 items-start sm:items-center">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center">
             {/* Photo Carousel */}
-            <div className="w-[220px] h-[220px] sm:w-[240px] sm:h-[240px] lg:w-[260px] lg:h-[260px] flex-shrink-0 rounded-2xl overflow-hidden shadow-lg border border-gray-200 relative group bg-gray-50">
+            <div className="w-full sm:w-[220px] sm:h-[220px] lg:w-[260px] lg:h-[260px] flex-shrink-0 rounded-2xl overflow-hidden shadow-lg border border-gray-200 relative group bg-gray-50 mx-auto sm:mx-0">
               {finished && photos.length > 0 ? (
                 <>
                   <img
@@ -420,16 +419,16 @@ export default function Reviews() {
 
             {/* Place Details */}
             <div className="flex-1 min-w-0 flex flex-col gap-3">
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-gray-900 font-nunito truncate">{placeDetails.name || "Restaurant Name"}</h1>
-              <div className="flex items-start sm:items-center gap-3 text-gray-700">
-                <div className="bg-blue-50 rounded-full p-2.5 flex-shrink-0">
+              <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-gray-900 font-nunito truncate">{placeDetails.name || "Restaurant Name"}</h1>
+              <div className="flex items-start sm:items-center gap-2 sm:gap-3 text-gray-700">
+                <div className="bg-blue-50 rounded-full p-2 flex-shrink-0">
                   <MapPin className="w-5 h-5 text-blue-600" />
                 </div>
                 <p className="text-base font-medium leading-snug break-words">{placeDetails.address || "Location"}</p>
               </div>
               <div className="flex flex-col gap-2">
-                <div className="flex items-center gap-3 text-gray-600">
-                  <div className="bg-green-50 rounded-full p-2.5 flex-shrink-0">
+                <div className="flex items-center gap-2 sm:gap-3 text-gray-600">
+                  <div className="bg-green-50 rounded-full p-2 flex-shrink-0">
                     <Clock className="w-5 h-5 text-green-600" />
                   </div>
                   <div className="flex-1">
@@ -464,18 +463,18 @@ export default function Reviews() {
                   </div>
                 </div>
                 {showAllHours && placeDetails.hours.length > 1 && (
-                  <div className="ml-11 space-y-1">
+                  <div className="ml-8 sm:ml-11 space-y-1">
                     {placeDetails.hours.slice(1).map((hour, index) => (
                       <p key={index} className="text-xs text-gray-500">{hour}</p>
                     ))}
                   </div>
                 )}
               </div>
-              <div className="flex items-center gap-3 text-gray-600">
-                <div className="bg-purple-50 rounded-full p-2.5 flex-shrink-0">
+              <div className="flex items-center gap-2 sm:gap-3 text-gray-600">
+                <div className="bg-purple-50 rounded-full p-2 flex-shrink-0">
                   <Phone className="w-5 h-5 text-purple-600" />
                 </div>
-                <p className="text-base">{placeDetails.contact}</p>
+                <p className="text-base break-all">{placeDetails.contact}</p>
               </div>
             </div>
           </div>
@@ -483,15 +482,15 @@ export default function Reviews() {
           {/* Divider on small screens for visual separation */}
           <div className="sm:hidden mt-3 border-t border-gray-200"></div>
           {/* Flagged Badge */}
-          <div className="flex gap-6 mt-4">
-            <div className="bg-gradient-to-r from-red-500 to-pink-500 rounded-xl p-4 shadow-lg hover:shadow-xl transition-all duration-300">
-              <div className="flex items-center gap-3">
+          <div className="flex gap-4 sm:gap-6 mt-4">
+            <div className="bg-gradient-to-r from-red-500 to-pink-500 rounded-xl p-3 sm:p-4 shadow-lg hover:shadow-xl transition-all duration-300 ">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <div className="bg-white/20 rounded-full p-2">
                   <AlertTriangle className="w-5 h-5 text-white" />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-xs font-semibold text-white/90 uppercase tracking-wide">Suspicious Reviews</span>
-                  <span className="text-lg font-bold text-white">
+                  <span className="text-base sm:text-lg font-bold text-white">
                     {reviews.length > 0 ? (() => {
                       const validReviews = reviews.filter(
                         review => review.confidence !== undefined && !isNaN(parseFloat(review.confidence))
@@ -511,12 +510,12 @@ export default function Reviews() {
         </div>
 
         {/* Fake Score Card */}
-        <div className="w-full lg:w-[400px] flex flex-col gap-4">
-          <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-glow">
-            <div className="flex gap-3 items-center">
+        <div className="w-full lg:w-[400px] flex flex-col gap-4 mt-6 lg:mt-0">
+          <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-glow">
+            <div className="flex gap-2 sm:gap-3 items-center">
               {/* Circular SVG ring showing fake score percentage */}
               <div className="score-ring" aria-hidden="true">
-                <svg width="96" height="96" viewBox="0 0 42 42">
+                <svg width="72" height="72" viewBox="0 0 42 42" className="sm:w-[96px] sm:h-[96px]">
                   <defs>
                     <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="0%">
                       <stop offset="0%" stopColor="#f97316"/>
@@ -570,8 +569,8 @@ export default function Reviews() {
               </div>
 
               <div className="min-w-0 flex-1">
-                <div className="text-lg sm:text-xl font-bold text-gray-900">FakeScore</div>
-                <div className="text-sm text-gray-600">
+                <div className="text-base sm:text-lg font-bold text-gray-900">FakeScore</div>
+                <div className="text-xs sm:text-sm text-gray-600">
                   {reviews.length > 0 ? (() => {
                     const validReviews = reviews.filter(
                       review => review.confidence !== undefined && !isNaN(parseFloat(review.confidence))
@@ -593,35 +592,35 @@ export default function Reviews() {
           </div>
 
           <div className="grid grid-cols-1 gap-4">
-            <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg border border-blue-100 shadow-sm">
-              <div className="flex items-center gap-3">
+            <div className="flex items-center justify-between p-3 sm:p-4 bg-blue-50 rounded-lg border border-blue-100 shadow-sm">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <div className="bg-blue-100 rounded-full p-2">
                   <Users className="w-5 h-5 text-blue-600" />
                 </div>
-                <div className="text-base font-medium text-blue-700">Total Reviews</div>
+                <div className="text-sm sm:text-base font-medium text-blue-700">Total Reviews</div>
               </div>
-              <div className="text-base font-bold text-blue-900">{reviews.length}</div>
+              <div className="text-sm sm:text-base font-bold text-blue-900">{reviews.length}</div>
             </div>
-            <div className="flex items-center justify-between p-4 bg-yellow-50 rounded-lg border border-yellow-100 shadow-sm">
-              <div className="flex items-center gap-3">
+            <div className="flex items-center justify-between p-3 sm:p-4 bg-yellow-50 rounded-lg border border-yellow-100 shadow-sm">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <div className="bg-yellow-100 rounded-full p-2">
                   <Star className="w-5 h-5 text-yellow-600 fill-current" />
                 </div>
-                <div className="text-base font-medium text-yellow-700">Avg Rating</div>
+                <div className="text-sm sm:text-base font-medium text-yellow-700">Avg Rating</div>
               </div>
-              <div className="flex items-center gap-1 text-base font-bold text-yellow-900">
+              <div className="flex items-center gap-1 text-sm sm:text-base font-bold text-yellow-900">
                 {avgRating}
                 <Star className="w-4 h-4 text-yellow-500 fill-current" />
               </div>
             </div>
-            <div className="flex items-center justify-between p-4 bg-red-50 rounded-lg border border-red-100 shadow-sm">
-              <div className="flex items-center gap-3">
+            <div className="flex items-center justify-between p-3 sm:p-4 bg-red-50 rounded-lg border border-red-100 shadow-sm">
+              <div className="flex items-center gap-2 sm:gap-3">
                 <div className="bg-red-100 rounded-full p-2">
                   <Flag className="w-5 h-5 text-red-600" />
                 </div>
-                <div className="text-base font-medium text-red-700">Flagged</div>
+                <div className="text-sm sm:text-base font-medium text-red-700">Flagged</div>
               </div>
-              <div className="text-base font-bold text-red-900">
+              <div className="text-sm sm:text-base font-bold text-red-900">
                 {reviews.length > 0 ? (() => {
                   const validReviews = reviews.filter(
                     review => review.confidence !== undefined && !isNaN(parseFloat(review.confidence))
@@ -640,11 +639,40 @@ export default function Reviews() {
       </div>
       
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-8">
-        {/* Left: Reviews */}
-        <div className="flex-1">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-3xl font-bold text-gray-800">Reviews</h3>
+      <div className="max-w-full sm:max-w-6xl mx-auto flex flex-col md:flex-row gap-6 sm:gap-8">
+        {/* Rating Distribution: always first on small screens, right side on md+ screens */}
+        <div className="w-full md:w-[340px] flex flex-col items-center mt-6 md:mt-0 order-1 md:order-2">
+          <div className="bg-white rounded-xl shadow p-4 sm:p-6 w-full">
+            <h2 className="font-bold mb-4 sm:mb-6 text-gray-800 text-lg text-center">Rating Distribution</h2>
+            <ul className="space-y-3 sm:space-y-4">
+              {[5, 4, 3, 2, 1].map(star => {
+                const count = reviews.filter(r => r.rating === star && !isNaN(r.rating)).length;
+                const percent = totalReviews > 0 ? (count / totalReviews) * 100 : 0;
+                return (
+                  <li key={star} className="flex items-center">
+                    <span className="flex items-center mr-2 text-yellow-500 font-bold w-8 sm:w-10 justify-end">
+                      {star} <Star className="w-5 h-5 ml-1" />
+                    </span>
+                    <div className="flex-1 mx-2">
+                      <div className="relative h-4 sm:h-5 bg-gray-200 rounded-full overflow-hidden">
+                        <div
+                          className="absolute left-0 top-0 h-4 sm:h-5 rounded-full bg-yellow-400 transition-all duration-500"
+                          style={{ width: `${percent}%` }}
+                        />
+                      </div>
+                    </div>
+                    <span className="ml-2 sm:ml-3 text-gray-700 font-semibold w-6 sm:w-8 text-right">{count}</span>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </div>
+
+        {/* Reviews: always below on small screens, left side on md+ screens */}
+        <div className="flex-1 min-w-0 order-2 md:order-1">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-800">Reviews</h3>
             <select
               value={starFilter}
               onChange={(e) => setStarFilter(e.target.value)}
@@ -661,7 +689,7 @@ export default function Reviews() {
           <button
             onClick={analyzeReview}
             disabled={analyzing}
-            className="mb-4 px-6 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition-glow font-semibold disabled:opacity-50"
+            className="mb-4 px-4 sm:px-6 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition-glow font-semibold disabled:opacity-50 w-full sm:w-auto"
           >
             {analyzing ? "Analyzing..." : "Analyze Reviews"}
           </button>
@@ -677,8 +705,8 @@ export default function Reviews() {
               {reviews
                 .filter(review => starFilter === 'all' || review.rating === parseInt(starFilter))
                 .map((review, index) => (
-                <li key={index} className="flex items-start mb-6 bg-white rounded-xl shadow p-4">
-                  <div className="w-12 h-12 flex-shrink-0 mr-4">
+                <li key={index} className="flex flex-col sm:flex-row items-start mb-6 bg-white rounded-xl shadow p-3 sm:p-4">
+                  <div className="w-12 h-12 flex-shrink-0 mr-0 sm:mr-4 mb-2 sm:mb-0">
                     {brokenImages[index] || !review.profilePicture ? (
                       <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200 border-2 border-gray-300">
                         <UserRound className="w-6 h-6 text-gray-500" />
@@ -704,51 +732,6 @@ export default function Reviews() {
               ))}
             </ul>
           )}
-        </div>
-
-        {/* Right: Rating Distribution */}
-        <div className="w-full md:w-[340px] flex flex-col items-center">
-          {/* Big Average Rating Star
-          <div className="flex flex-col items-center mb-8">
-            <span className="text-4xl font-bold text-gray-800 mb-2">{avgRating}</span>
-            <div className="flex items-center">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`w-12 h-12 mx-1 ${i < Math.round(avgRating) ? "text-yellow-400" : "text-gray-200"}`}
-                  fill={i < Math.round(avgRating) ? "#facc15" : "none"}
-                  stroke={i < Math.round(avgRating) ? "#facc15" : "#e5e7eb"}
-                />
-              ))}
-            </div>
-            <span className="text-lg text-gray-500 mt-2">{totalReviews} reviews</span>
-          </div> */}
-          {/* Star Breakdown Progress Bars */}
-          <div className="bg-white rounded-xl shadow p-6 w-full">
-            <h2 className="font-bold mb-6 text-gray-800 text-lg text-center">Rating Distribution</h2>
-            <ul className="space-y-4">
-              {[5, 4, 3, 2, 1].map(star => {
-                const count = reviews.filter(r => r.rating === star && !isNaN(r.rating)).length;
-                const percent = totalReviews > 0 ? (count / totalReviews) * 100 : 0;
-                return (
-                  <li key={star} className="flex items-center">
-                    <span className="flex items-center mr-2 text-yellow-500 font-bold w-10 justify-end">
-                      {star} <Star className="w-5 h-5 ml-1" />
-                    </span>
-                    <div className="flex-1 mx-2">
-                      <div className="relative h-5 bg-gray-200 rounded-full overflow-hidden">
-                        <div
-                          className="absolute left-0 top-0 h-5 rounded-full bg-yellow-400 transition-all duration-500"
-                          style={{ width: `${percent}%` }}
-                        />
-                      </div>
-                    </div>
-                    <span className="ml-3 text-gray-700 font-semibold w-8 text-right">{count}</span>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
         </div>
       </div>
     </div>
