@@ -176,7 +176,7 @@ const Home = () => {
           <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-sage-900 mb-4 md:mb-6">
             About <span className="text-brand-orange">EaThentic</span>
           </h2>
-          <p className="text-base md:text-lg lg:text-xl text-sage-700/90 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg lg:text-xl text-sage-700/90 max-w-3xl mx-auto leading-relaxed h-8">
             EaThentic is your AI-powered guide for spotting{" "}
             <span className="font-semibold text-red-600">fake reviews </span>
             on Google Maps easily. Say goodbye to misleading ratings and get the clear, trustworthy insights you need to find the right place to eat.
