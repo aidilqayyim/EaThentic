@@ -22,12 +22,30 @@ const Navbar = ({ aboutRef }) => {
 
   const scrollToAbout = (e) => {
     e.preventDefault();
-    if (aboutRef?.current) {
-      const offsetTop = aboutRef.current.offsetTop - 100; // Account for navbar height
+    
+    // Check if we're on the home page
+    if (window.location.pathname === '/' && aboutRef?.current) {
+      // We're on home page, scroll to about section
+      const offsetTop = aboutRef.current.offsetTop - 100;
       window.scrollTo({
         top: offsetTop,
         behavior: 'smooth'
       });
+    } else {
+      // We're on a different page, navigate to home page with about section
+      window.location.href = '/#about';
+    }
+    setMenuOpen(false);
+  };
+
+  const scrollToHome = (e) => {
+    e.preventDefault();
+    if (window.location.pathname === '/') {
+      // Already on home page: smooth scroll to top
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      // Different page: navigate to home
+      window.location.href = '/';
     }
     setMenuOpen(false);
   };
@@ -48,21 +66,12 @@ const Navbar = ({ aboutRef }) => {
           <li>
             <a
               href="/"
+              onClick={scrollToHome}
               className="relative hover:text-brand-orange transition-colors duration-300
                 after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0
                 after:bg-brand-orange after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
             >
               Home
-            </a>
-          </li>
-          <li>
-            <a
-              href="/"
-              className="relative hover:text-brand-orange transition-colors duration-300
-                after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0
-                after:bg-brand-orange after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
-            >
-              Comparison
             </a>
           </li>
           <li>
@@ -74,6 +83,16 @@ const Navbar = ({ aboutRef }) => {
             >
               About
             </button>
+          </li>
+           <li>
+            <a
+              href="/"
+              className="relative hover:text-brand-orange transition-colors duration-300
+                after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0
+                after:bg-brand-orange after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+            >
+              Comparison
+            </a>
           </li>
         </ul>
 
@@ -103,7 +122,7 @@ const Navbar = ({ aboutRef }) => {
         <div className="lg:hidden mt-3 sm:mt-4 bg-sage-50/95 backdrop-blur-lg rounded-lg shadow-lg p-4 sm:p-5 text-sage-700 font-semibold mx-3 sm:mx-0">
           <ul className="flex flex-col gap-3 sm:gap-4">
             <li>
-              <a href="/" className="hover:text-brand-orange text-base sm:text-lg block py-1" onClick={() => setMenuOpen(false)}>
+              <a href="/" className="hover:text-brand-orange text-base sm:text-lg block py-1" onClick={scrollToHome}>
                 Home
               </a>
             </li>
