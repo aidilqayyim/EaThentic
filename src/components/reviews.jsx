@@ -244,62 +244,13 @@ export default function Reviews() {
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-orange-100 via-white to-sage-100 animate-[gradientShift_12s_ease-in-out_infinite] py-6 px-2 sm:px-4 relative">
-      {/* Stage Loading Modal */}
-      {isLoadingStages && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-8 min-w-[260px] sm:min-w-[320px] w-[90vw] max-w-md">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-800 mb-4 sm:mb-6 text-center">Loading Reviews</h2>
-            <ul>
-              {stages.map((s, i) => {
-                let icon = null;
-                let animate = "";
-
-                if (s.status === "loading") {
-                  icon = (
-                    <span className="inline-block w-6 h-6 sm:w-7 sm:h-7 mr-2 sm:mr-3 animate-spin border-4 border-blue-300 border-t-blue-500 rounded-full" />
-                  );
-                  animate = "animate-pulse";
-                } else if (s.status === "success") {
-                  icon = (
-                    <span className="text-xl sm:text-2xl mr-2 sm:mr-3">✅</span>
-                  );
-                  animate = "animate-bounce";
-                } else if (s.status === "error") {
-                  icon = (
-                    <span className="text-xl sm:text-2xl mr-2 sm:mr-3">❌</span>
-                  );
-                  animate = "animate-shake";
-                }
-
-                return (
-                  <li
-                    key={i}
-                    className={`flex items-center px-2 sm:px-4 py-2 sm:py-3 mb-2 rounded-lg bg-gray-50 shadow transition-all duration-200 ${animate}`}
-                  >
-                    {icon}
-                    <span className="font-semibold text-gray-700 text-xs sm:text-base">{s.stage}</span>
-                    {s.status === "error" && (
-                      <span className="text-xs px-2 py-1 rounded bg-white border ml-auto">Error</span>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+      {/* Loading Modal */}
+      {!finished && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mb-4"></div>
+            <h2 className="text-xl font-bold text-gray-800 text-center">Loading Reviews...</h2>
           </div>
-          <style>
-            {`
-            @keyframes shake {
-              0% { transform: translateX(0); }
-              25% { transform: translateX(-4px); }
-              50% { transform: translateX(4px); }
-              75% { transform: translateX(-4px); }
-              100% { transform: translateX(0); }
-            }
-            .animate-shake {
-              animation: shake 0.5s;
-            }
-            `}
-          </style>
         </div>
       )}
       <Navbar />

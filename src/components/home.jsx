@@ -149,7 +149,7 @@ const Home = () => {
         {[
           { icon: ShieldCheck, title: "Verified Reviews", text: "Only authentic, AI-filtered feedback you can trust" },
           { icon: Compass, title: "Discover Gems", text: "Explore hidden eateries and must-try local favourites" },
-          { icon: Star, title: "Top Picks", text: "Get personalised recommendations tailored for you" },
+          { icon: Star, title: "Top Picks", text: "Get personalized recommendations tailored for you" },
         ].map((f, i) => (
           <div
             key={i}
