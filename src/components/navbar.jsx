@@ -108,7 +108,7 @@ const Navbar = ({ aboutRef }) => {
 
         {/* Desktop Contact Button */}
         <a
-          href="/"
+          href="/contact"
           className="hidden lg:inline-block bg-sage-700 text-white px-4 lg:px-6 py-2 lg:py-2.5 rounded-full
             font-semibold hover:bg-sage-900 transition-glow duration-300 text-sm lg:text-base
             transform hover:-translate-y-0.5 flex-shrink-0"
