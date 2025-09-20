@@ -741,7 +741,7 @@ export default function Reviews() {
                       <div className={`px-2 py-1 rounded-full text-xs font-semibold text-white cursor-pointer ${
                         review.classification.startsWith('Fake') ? 'bg-red-500' : 'bg-green-500'
                       }`}>
-                        {review.classification.startsWith('Fake') ? 'Fake' : 'Genuine'} {Math.round(parseFloat(review.confidence))}%
+                        {review.classification.startsWith('Fake') ? 'Fake' : 'Genuine'}: {Math.round(parseFloat(review.confidence))}%
                       </div>
                       {review.explanation && (
                         <div className="absolute right-0 top-8 w-72 p-3 bg-gray-900 text-white text-sm rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
