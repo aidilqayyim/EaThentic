@@ -724,6 +724,24 @@ export default function Reviews() {
                     <div className="font-semibold text-gray-800">{review.user}</div>
                     <div className="text-yellow-500 font-bold">{review.rating}★</div>
                     <div className="text-gray-600">{review.snippet}</div>
+                    {/* Confidence score */}
+                    {review.confidence !== undefined && (
+                      <div className="text-xs text-blue-500 mt-1">
+                        Confidence: {review.confidence}
+                      </div>
+                    )}
+                    {/* Classification */}
+                    {review.classification && (
+                      <div className={`text-xs mt-1 font-semibold ${review.classification.startsWith('Fake') ? 'text-red-500' : 'text-green-600'}`}>
+                        Classification: {review.classification}
+                      </div>
+                    )}
+                    {/* Explanation */}
+                    {review.explanation && (
+                      <div className="text-xs text-gray-500 mt-1">
+                        Explanation: {formatExplanation(review.explanation)}
+                      </div>
+                    )}
                     {review.isoDate && (
                       <div className="text-xs text-gray-400 mt-2">{review.isoDate}</div>
                     )}
