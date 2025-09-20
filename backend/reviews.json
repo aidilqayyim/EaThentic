@@ -8,8 +8,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjV10rH3MyM3d_9-HnA60SjFKYelvdnXyO_turB2cSuIa3fwWAE=s120-c-rp-mo-ba3-br100",
     "classification": "Genuine-Negative",
     "confidence": "90",
-    "explanation": "The reviewer expresses frustration with the parking situation and the staff's response, using strong language and emojis to convey their emotions. The specific details and tone suggest an authentic negative experience.",
-    "raw": "Review 1:\nClassification: Genuine-Negative\nConfidence: 90\nExplanation: The reviewer expresses frustration with the parking situation and the staff's response, using strong language and emojis to convey their emotions. The specific details and tone suggest an authentic negative experience.\n\n"
+    "explanation": "The reviewer expresses frustration and anger towards the staff's behavior, using strong language and emojis to convey their emotions. The specific details and tone suggest a genuine negative experience.",
+    "raw": "1. Review 1: Genuine-Negative|90|The reviewer expresses frustration and anger towards the staff's behavior, using strong language and emojis to convey their emotions. The specific details and tone suggest a genuine negative experience."
   },
   {
     "id": 2,
@@ -20,8 +20,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUhihdxcEw9dA7IXVnshj3ot5mRacOja-hJ6keOlMWscXvgbp49=s120-c-rp-mo-ba3-br100",
     "classification": "Genuine-Negative",
     "confidence": "80",
-    "explanation": "The reviewer mentions both positive (large portion of chicken) and negative (attitude of a worker) aspects of their experience, indicating a genuine review. The tone is casual and conversational, adding to the authenticity.",
-    "raw": "Review 2:\nClassification: Genuine-Negative\nConfidence: 80\nExplanation: The reviewer mentions both positive (large portion of chicken) and negative (attitude of a worker) aspects of their experience, indicating a genuine review. The tone is casual and conversational, adding to the authenticity.\n\n"
+    "explanation": "The reviewer mentions both positive and negative aspects of their experience, including a specific issue with a worker's attitude. The tone is casual and conversational, suggesting a genuine review.",
+    "raw": "2. Review 2: Genuine-Negative|80|The reviewer mentions both positive and negative aspects of their experience, including a specific issue with a worker's attitude. The tone is casual and conversational, suggesting a genuine review."
   },
   {
     "id": 3,
@@ -32,8 +32,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocIZ6r_Px2s0Z_EloZRhdyPxd7FLFGoQQ1XPszBzyQWUqRlnZQ=s120-c-rp-mo-br100",
     "classification": "Genuine-Positive",
     "confidence": "95",
-    "explanation": "The review is extremely positive, but the specific details about the food, service, and atmosphere suggest a genuine experience. The tone is enthusiastic but not overly promotional.",
-    "raw": "Review 3:\nClassification: Genuine-Positive\nConfidence: 95\nExplanation: The review is extremely positive, but the specific details about the food, service, and atmosphere suggest a genuine experience. The tone is enthusiastic but not overly promotional.\n\n"
+    "explanation": "The reviewer uses superlatives to describe their experience, but the tone is enthusiastic rather than overly promotional. The specific details about the food, service, and atmosphere suggest a genuine positive experience.",
+    "raw": "3. Review 3: Genuine-Positive|95|The reviewer uses superlatives to describe their experience, but the tone is enthusiastic rather than overly promotional. The specific details about the food, service, and atmosphere suggest a genuine positive experience."
   },
   {
     "id": 4,
@@ -44,8 +44,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUqD7mz5VGJvz690s76noVjR9kLKR8_ygN4QCKoJEvsraTf3gKHJQ=s120-c-rp-mo-ba5-br100",
     "classification": "Genuine-Negative",
     "confidence": "85",
-    "explanation": "The reviewer expresses disappointment with the staff and food quality, providing specific examples to support their claims. The tone is critical but not overly aggressive, suggesting an authentic negative review.",
-    "raw": "Review 4:\nClassification: Genuine-Negative\nConfidence: 85\nExplanation: The reviewer expresses disappointment with the staff and food quality, providing specific examples to support their claims. The tone is critical but not overly aggressive, suggesting an authentic negative review.\n\n"
+    "explanation": "The reviewer expresses disappointment with the staff and food quality, providing specific examples to support their claims. The tone is critical but not overly aggressive, suggesting a genuine negative experience.",
+    "raw": "4. Review 4: Genuine-Negative|85|The reviewer expresses disappointment with the staff and food quality, providing specific examples to support their claims. The tone is critical but not overly aggressive, suggesting a genuine negative experience."
   },
   {
     "id": 5,
@@ -56,8 +56,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocIclWPlBPi4AJh_eUe3RrOL8-51B1NZb1HzreJbPP2D6TopXw=s120-c-rp-mo-br100",
     "classification": "Genuine-Positive",
     "confidence": "90",
-    "explanation": "The review is positive, but the specific details about the food, service, and atmosphere suggest a genuine experience. The tone is positive but not overly promotional, and the language is straightforward.",
-    "raw": "Review 5:\nClassification: Genuine-Positive\nConfidence: 90\nExplanation: The review is positive, but the specific details about the food, service, and atmosphere suggest a genuine experience. The tone is positive but not overly promotional, and the language is straightforward.\n\n"
+    "explanation": "The reviewer provides a balanced and specific assessment of their experience, mentioning both the food and service. The tone is positive but not overly promotional, suggesting a genuine review.",
+    "raw": "5. Review 5: Genuine-Positive|90|The reviewer provides a balanced and specific assessment of their experience, mentioning both the food and service. The tone is positive but not overly promotional, suggesting a genuine review."
   },
   {
     "id": 6,
@@ -68,8 +68,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLNDkQAn4sez4Rk6uvw772BOvH_MHct3f3rd9pJejybdpptZA=s120-c-rp-mo-br100",
     "classification": "Genuine-Negative",
     "confidence": "95",
-    "explanation": "The reviewer provides a detailed account of their negative experience, including specific incidents and dates. The tone is critical and frustrated, but the level of detail and the reviewer's willingness to return to the restaurant suggest an authentic review.",
-    "raw": "Review 6:\nClassification: Genuine-Negative\nConfidence: 95\nExplanation: The reviewer provides a detailed account of their negative experience, including specific incidents and dates. The tone is critical and frustrated, but the level of detail and the reviewer's willingness to return to the restaurant suggest an authentic review.\n\n"
+    "explanation": "The reviewer provides a detailed and specific account of their poor experience, including interactions with staff and issues with their order. The tone is angry and frustrated, but the level of detail suggests a genuine review.",
+    "raw": "6. Review 6: Genuine-Negative|95|The reviewer provides a detailed and specific account of their poor experience, including interactions with staff and issues with their order. The tone is angry and frustrated, but the level of detail suggests a genuine review."
   },
   {
     "id": 7,
@@ -80,8 +80,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocINcZ75D0_iNR2WKb7_FDsRxt5uitaV2oztvkDDYrvCLUtTkw=s120-c-rp-mo-br100",
     "classification": "Genuine-Positive",
     "confidence": "90",
-    "explanation": "The review is brief but positive, with specific details about the staff and food quality. The tone is positive but not overly promotional, suggesting an authentic review.",
-    "raw": "Review 7:\nClassification: Genuine-Positive\nConfidence: 90\nExplanation: The review is brief but positive, with specific details about the staff and food quality. The tone is positive but not overly promotional, suggesting an authentic review.\n\n"
+    "explanation": "The reviewer provides a brief but specific assessment of their takeaway experience, mentioning the staff and food quality. The tone is positive and appreciative, suggesting a genuine review.",
+    "raw": "7. Review 7: Genuine-Positive|90|The reviewer provides a brief but specific assessment of their takeaway experience, mentioning the staff and food quality. The tone is positive and appreciative, suggesting a genuine review."
   },
   {
     "id": 8,
@@ -92,8 +92,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLeMaEhrn8ugv0vfIV5G5xH2tV6x9QPRZm6pCga_z7-ckVSzQ=s120-c-rp-mo-br100",
     "classification": "Genuine-Negative",
     "confidence": "85",
-    "explanation": "The reviewer provides specific details about their disappointing experience, including the date and time of their visit. The tone is critical, but the language is straightforward and the reviewer's demands for better service seem reasonable, suggesting an authentic review.",
-    "raw": "Review 8:\nClassification: Genuine-Negative\nConfidence: 85\nExplanation: The reviewer provides specific details about their disappointing experience, including the date and time of their visit. The tone is critical, but the language is straightforward and the reviewer's demands for better service seem reasonable, suggesting an authentic review."
+    "explanation": "The reviewer provides specific details about their poor experience, including the date and time of their visit. The tone is critical and disappointed, suggesting a genuine negative review.",
+    "raw": "8. Review 8: Genuine-Negative|85|The reviewer provides specific details about their poor experience, including the date and time of their visit. The tone is critical and disappointed, suggesting a genuine negative review."
   },
   {
     "id": 9,
@@ -102,10 +102,10 @@
     "user": "Mesh",
     "isoDate": "2 weeks ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocJe4suqHhHSEH7ZEf8oG0nYXSFIALJfPsxbRksoarLjU9dg8A=s120-c-rp-mo-br100",
-    "classification": "Genuine-Positive",
-    "confidence": "90",
-    "explanation": "The review provides specific details about the atmosphere and environment, indicating a genuine experience. The tone is positive and objective, without any exaggerated language.",
-    "raw": "Review 1:\nClassification: Genuine-Positive\nConfidence: 90\nExplanation: The review provides specific details about the atmosphere and environment, indicating a genuine experience. The tone is positive and objective, without any exaggerated language.\n\n"
+    "classification": "Fake-Promotional",
+    "confidence": "60",
+    "explanation": "The review is extremely brief and lacks specific details, using generic phrases to describe the atmosphere. The tone is overly positive and lacks authenticity, suggesting a fake promotional review.",
+    "raw": "9. Review 9: Fake-Promotional|60|The review is extremely brief and lacks specific details, using generic phrases to describe the atmosphere. The tone is overly positive and lacks authenticity, suggesting a fake promotional review."
   },
   {
     "id": 10,
@@ -115,9 +115,9 @@
     "isoDate": "5 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUXbzDT8lcg2LRz_WTodDdGamc0MwAz0qR7jqAhIUS_Zt2kyHdh=s120-c-rp-mo-ba4-br100",
     "classification": "Genuine-Negative",
-    "confidence": "95",
-    "explanation": "The review lists specific issues with the restaurant, including the lack of air conditioning and a closed playground. The tone is negative, but the language is straightforward and descriptive, suggesting a genuine complaint.",
-    "raw": "Review 2:\nClassification: Genuine-Negative\nConfidence: 95\nExplanation: The review lists specific issues with the restaurant, including the lack of air conditioning and a closed playground. The tone is negative, but the language is straightforward and descriptive, suggesting a genuine complaint.\n\n"
+    "confidence": "80",
+    "explanation": "The reviewer expresses disappointment with the outlet's management, mentioning specific issues with the air conditioning and playground. The tone is critical but not overly aggressive, suggesting a genuine negative review.",
+    "raw": "10. Review 10: Genuine-Negative|80|The reviewer expresses disappointment with the outlet's management, mentioning specific issues with the air conditioning and playground. The tone is critical but not overly aggressive, suggesting a genuine negative review."
   },
   {
     "id": 11,
@@ -127,9 +127,9 @@
     "isoDate": "a year ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocIBkXQW6igbvmIoXwL3qFVelI6118OfMVNd0PW67KzZ3Zlj1Q=s120-c-rp-mo-ba4-br100",
     "classification": "Genuine-Negative",
-    "confidence": "95",
-    "explanation": "The review provides specific details about the food, including the size and quality of the drumsticks. The tone is negative and frustrated, but the language is descriptive and objective, suggesting a genuine complaint.",
-    "raw": "Review 3:\nClassification: Genuine-Negative\nConfidence: 95\nExplanation: The review provides specific details about the food, including the size and quality of the drumsticks. The tone is negative and frustrated, but the language is descriptive and objective, suggesting a genuine complaint.\n\n"
+    "confidence": "90",
+    "explanation": "The reviewer provides specific details about their poor experience, including the quality of the food. The tone is angry and disappointed, suggesting a genuine negative review.",
+    "raw": "11. Review 11: Genuine-Negative|90|The reviewer provides specific details about their poor experience, including the quality of the food. The tone is angry and disappointed, suggesting a genuine negative review."
   },
   {
     "id": 12,
@@ -139,9 +139,9 @@
     "isoDate": "2 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLPy86EALVZxhR-06nNucfSyoczcEJkcaels_NzgqkwEeR8=s120-c-rp-mo-br100",
     "classification": "Genuine-Positive",
-    "confidence": "90",
-    "explanation": "The review provides specific details about the drive-thru experience, including the speed and friendliness of the staff. The tone is positive and objective, without any exaggerated language.",
-    "raw": "Review 4:\nClassification: Genuine-Positive\nConfidence: 90\nExplanation: The review provides specific details about the drive-thru experience, including the speed and friendliness of the staff. The tone is positive and objective, without any exaggerated language.\n\n"
+    "confidence": "95",
+    "explanation": "The reviewer provides a brief but specific assessment of their drive-thru experience, mentioning the staff and food quality. The tone is positive and appreciative, suggesting a genuine review.",
+    "raw": "12. Review 12: Genuine-Positive|95|The reviewer provides a brief but specific assessment of their drive-thru experience, mentioning the staff and food quality. The tone is positive and appreciative, suggesting a genuine review."
   },
   {
     "id": 13,
@@ -152,8 +152,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocJ_zO-S7tuHE6zzkaNImpVtZSNfZDqFd7zELMQSuEev-eCw4Q=s120-c-rp-mo-br100",
     "classification": "Genuine-Negative",
     "confidence": "90",
-    "explanation": "The review lists specific issues with the food, including the quality of the burger bread and fries. The tone is negative and frustrated, but the language is descriptive and objective, suggesting a genuine complaint.",
-    "raw": "Review 5:\nClassification: Genuine-Negative\nConfidence: 90\nExplanation: The review lists specific issues with the food, including the quality of the burger bread and fries. The tone is negative and frustrated, but the language is descriptive and objective, suggesting a genuine complaint.\n\n"
+    "explanation": "The reviewer expresses disappointment with their experience, mentioning specific issues with the food and comparing it unfavorably to McDonald's.",
+    "raw": "1. Review 1: Genuine-Negative|90|The reviewer expresses disappointment with their experience, mentioning specific issues with the food and comparing it unfavorably to McDonald's."
   },
   {
     "id": 14,
@@ -163,9 +163,9 @@
     "isoDate": "2 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocI4XMiDLjHyaLTF0-DW8M9Rup-DJ5X8l-rZQd-AklwScFZthA=s120-c-rp-mo-br100",
     "classification": "Genuine-Positive",
-    "confidence": "85",
-    "explanation": "The review provides brief but positive comments about the service and food. The tone is positive, but the language is somewhat generic, which reduces the confidence level.",
-    "raw": "Review 6:\nClassification: Genuine-Positive\nConfidence: 85\nExplanation: The review provides brief but positive comments about the service and food. The tone is positive, but the language is somewhat generic, which reduces the confidence level.\n\n"
+    "confidence": "95",
+    "explanation": "The reviewer praises the service, food, and staff, using positive adjectives like \"nice\", \"good\", and \"friendly\".",
+    "raw": "2. Review 2: Genuine-Positive|95|The reviewer praises the service, food, and staff, using positive adjectives like \"nice\", \"good\", and \"friendly\"."
   },
   {
     "id": 15,
@@ -175,9 +175,9 @@
     "isoDate": "2 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjW20bCN1ljs4vyQr4HXT4Z3nZvoR_HiSmYYakaBHK2kfxQklPs=s120-c-rp-mo-br100",
     "classification": "Genuine-Negative",
-    "confidence": "90",
-    "explanation": "The review provides specific details about the food, including the quality of the burger bread and chicken. The tone is negative and frustrated, with a sense of urgency and concern for the quality of food served to customers.",
-    "raw": "Review 7:\nClassification: Genuine-Negative\nConfidence: 90\nExplanation: The review provides specific details about the food, including the quality of the burger bread and chicken. The tone is negative and frustrated, with a sense of urgency and concern for the quality of food served to customers.\n\n"
+    "confidence": "85",
+    "explanation": "The reviewer expresses frustration and disappointment with their experience, using strong language to convey their emotions.",
+    "raw": "3. Review 3: Genuine-Negative|85|The reviewer expresses frustration and disappointment with their experience, using strong language to convey their emotions."
   },
   {
     "id": 16,
@@ -188,8 +188,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLprJp372J0WSa0t241Wif7Pb3C4brpNerKKeLeZTDH-40Ttg=s120-c-rp-mo-br100",
     "classification": "Genuine-Negative",
     "confidence": "95",
-    "explanation": "The review provides specific details about the quality of the chicken, including comparisons to other branches. The tone is negative and critical, but the language is descriptive and objective, suggesting a genuine complaint.",
-    "raw": "Review 8:\nClassification: Genuine-Negative\nConfidence: 95\nExplanation: The review provides specific details about the quality of the chicken, including comparisons to other branches. The tone is negative and critical, but the language is descriptive and objective, suggesting a genuine complaint."
+    "explanation": "The reviewer provides specific criticisms of the food and service, comparing it unfavorably to other KFC branches and expressing disappointment.",
+    "raw": "4. Review 4: Genuine-Negative|95|The reviewer provides specific criticisms of the food and service, comparing it unfavorably to other KFC branches and expressing disappointment."
   },
   {
     "id": 17,
@@ -199,9 +199,9 @@
     "isoDate": "Edited 5 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjVKg325jpnw9lemT2q2SdbUKERvwwJRbCObbGtypHOt7oJIDgYTfw=s120-c-rp-mo-ba3-br100",
     "classification": "Genuine-Positive",
-    "confidence": "95",
-    "explanation": "The review is specific, detailed, and highlights several positive aspects of the KFC branch, including cleanliness, hot food, and friendly staff. The tone is enthusiastic and authentic.",
-    "raw": "Review 1:\nClassification: Genuine-Positive\nConfidence: 95\nExplanation: The review is specific, detailed, and highlights several positive aspects of the KFC branch, including cleanliness, hot food, and friendly staff. The tone is enthusiastic and authentic.\n\n"
+    "confidence": "98",
+    "explanation": "The reviewer praises the cleanliness, food, and staff, using superlatives like \"very clean\" and \"5 stars\" to express their satisfaction.",
+    "raw": "5. Review 5: Genuine-Positive|98|The reviewer praises the cleanliness, food, and staff, using superlatives like \"very clean\" and \"5 stars\" to express their satisfaction."
   },
   {
     "id": 18,
@@ -212,8 +212,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocKnsS4DJIKDLPXx6D7IAAXsTWrwk_M7M4htQNUSPplc1a7ALw=s120-c-rp-mo-br100",
     "classification": "Genuine-Negative",
     "confidence": "90",
-    "explanation": "The review is strongly negative, but the specific complaints about staff rudeness, long wait times, and limited payment options suggest a genuine bad experience. The tone is angry, but not overly dramatic or promotional.",
-    "raw": "Review 2:\nClassification: Genuine-Negative\nConfidence: 90\nExplanation: The review is strongly negative, but the specific complaints about staff rudeness, long wait times, and limited payment options suggest a genuine bad experience. The tone is angry, but not overly dramatic or promotional.\n\n"
+    "explanation": "The reviewer expresses frustration and anger with the service, mentioning specific issues like long wait times and rude staff.",
+    "raw": "6. Review 6: Genuine-Negative|90|The reviewer expresses frustration and anger with the service, mentioning specific issues like long wait times and rude staff."
   },
   {
     "id": 19,
@@ -224,8 +224,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWivnee9Zyq01QQKODY538DEf-_GWcWHZfqmp7C7ldH04p0AKNdpQ=s120-c-rp-mo-ba4-br100",
     "classification": "Genuine-Positive",
     "confidence": "80",
-    "explanation": "The review is brief, but the mention of cleanliness and friendly staff suggests a positive experience. The tone is casual and authentic, but lacks specific details.",
-    "raw": "Review 3:\nClassification: Genuine-Positive\nConfidence: 80\nExplanation: The review is brief, but the mention of cleanliness and friendly staff suggests a positive experience. The tone is casual and authentic, but lacks specific details.\n\n"
+    "explanation": "The reviewer mentions a positive aspect of the outlet (cleanliness) and states that the staff are friendly, but doesn't provide much detail.",
+    "raw": "7. Review 7: Genuine-Positive|80|The reviewer mentions a positive aspect of the outlet (cleanliness) and states that the staff are friendly, but doesn't provide much detail."
   },
   {
     "id": 20,
@@ -235,9 +235,9 @@
     "isoDate": "a month ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocJlU5c6q95qt0lRvsndeH6rSLtVaKlPwS7RO98buaLrvfH6OQ=s120-c-rp-mo-br100",
     "classification": "Fake-Malicious",
-    "confidence": "70",
-    "explanation": "The review is extremely brief and lacks specific details. The tone is vague and negative, suggesting a fake review intended to harm the business.",
-    "raw": "Review 4:\nClassification: Fake-Malicious\nConfidence: 70\nExplanation: The review is extremely brief and lacks specific details. The tone is vague and negative, suggesting a fake review intended to harm the business.\n\n"
+    "confidence": "60",
+    "explanation": "The review is very short and lacks specific details, but the language used is strong and negative, suggesting it might be an attempt to harm the business's reputation.",
+    "raw": "8. Review 8: Fake-Malicious|60|The review is very short and lacks specific details, but the language used is strong and negative, suggesting it might be an attempt to harm the business's reputation."
   },
   {
     "id": 21,
@@ -247,9 +247,9 @@
     "isoDate": "a month ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXl_pnoHI9FyKO7Ej4VuOtLQ0sNFZFGk3BGGfLsjDpuKW2W7wOe=s120-c-rp-mo-br100",
     "classification": "Fake-Malicious",
-    "confidence": "75",
-    "explanation": "The review is brief and lacks specific details. The tone is overly negative and dramatic, suggesting a fake review intended to harm the business.",
-    "raw": "Review 5:\nClassification: Fake-Malicious\nConfidence: 75\nExplanation: The review is brief and lacks specific details. The tone is overly negative and dramatic, suggesting a fake review intended to harm the business.\n\n"
+    "confidence": "70",
+    "explanation": "The review is brief and lacks specific details, but the language used is strong and negative, suggesting it might be an attempt to harm the business's reputation.",
+    "raw": "9. Review 9: Fake-Malicious|70|The review is brief and lacks specific details, but the language used is strong and negative, suggesting it might be an attempt to harm the business's reputation."
   },
   {
     "id": 22,
@@ -260,8 +260,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWXCA2eFHndsFE7KaidyUzyRLA_dgbLWKSAvOtPT2LQnyRbWmAv=s120-c-rp-mo-br100",
     "classification": "Genuine-Negative",
     "confidence": "95",
-    "explanation": "The review is detailed and specific, highlighting several issues with the service, including slow service, lack of apology, and poor value. The tone is disappointed and frustrated, but authentic.",
-    "raw": "Review 6:\nClassification: Genuine-Negative\nConfidence: 95\nExplanation: The review is detailed and specific, highlighting several issues with the service, including slow service, lack of apology, and poor value. The tone is disappointed and frustrated, but authentic.\n\n"
+    "explanation": "The reviewer provides specific criticisms of the service, mentioning issues like slow service, lack of apology, and poor value for money.",
+    "raw": "10. Review 10: Genuine-Negative|95|The reviewer provides specific criticisms of the service, mentioning issues like slow service, lack of apology, and poor value for money."
   },
   {
     "id": 23,
@@ -272,8 +272,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWpHhFpTaBl4Vf-Am1fdYDjgl7oNpTLcJ05YuXBqBPfHJ-Huhci=s120-c-rp-mo-ba3-br100",
     "classification": "Genuine-Negative",
     "confidence": "90",
-    "explanation": "The review is strongly negative, but the specific complaints about food quality suggest a genuine bad experience. The tone is sarcastic, but not overly dramatic or promotional.",
-    "raw": "Review 7:\nClassification: Genuine-Negative\nConfidence: 90\nExplanation: The review is strongly negative, but the specific complaints about food quality suggest a genuine bad experience. The tone is sarcastic, but not overly dramatic or promotional.\n\n"
+    "explanation": "The reviewer expresses disappointment and frustration with the food, using strong language to convey their emotions.",
+    "raw": "11. Review 11: Genuine-Negative|90|The reviewer expresses disappointment and frustration with the food, using strong language to convey their emotions."
   },
   {
     "id": 24,
@@ -282,10 +282,10 @@
     "user": "Lady D",
     "isoDate": "3 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocKUMyGidtMlfUeBA3fCreKVVxejUP3gdl1qDeCbn_EJGPb9S1Q=s120-c-rp-mo-ba2-br100",
-    "classification": "Fake-Promotional",
+    "classification": "Genuine-Negative",
     "confidence": "85",
-    "explanation": "The review is overly dramatic and promotional, with the reviewer offering to teach the business about customer service and marketing. The tone is condescending and insincere, suggesting a fake review intended to promote the reviewer's services.",
-    "raw": "Review 8:\nClassification: Fake-Promotional\nConfidence: 85\nExplanation: The review is overly dramatic and promotional, with the reviewer offering to teach the business about customer service and marketing. The tone is condescending and insincere, suggesting a fake review intended to promote the reviewer's services."
+    "explanation": "The reviewer expresses frustration and disappointment with their experience, mentioning specific issues with the food and service, and also criticizing the manager's behavior.",
+    "raw": "12. Review 12: Genuine-Negative|85|The reviewer expresses frustration and disappointment with their experience, mentioning specific issues with the food and service, and also criticizing the manager's behavior."
   },
   {
     "id": 25,
@@ -296,8 +296,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocJaH0j7SR_M3bkWbK-oyqFz3s7B-Igwth45i-ZaYJ-tkzc=s120-c-rp-mo-ba4-br100",
     "classification": "Genuine-Positive",
     "confidence": "90",
-    "explanation": "The review is brief and mentions specific amenities that the reviewer enjoys, indicating a genuine positive experience.",
-    "raw": "Review 1:\nClassification: Genuine-Positive\nConfidence: 90\nExplanation: The review is brief and mentions specific amenities that the reviewer enjoys, indicating a genuine positive experience.\n\n"
+    "explanation": "The review is brief and specific, mentioning positive aspects of the restaurant, which suggests a genuine experience.",
+    "raw": "Review 1: Genuine-Positive|90|The review is brief and specific, mentioning positive aspects of the restaurant, which suggests a genuine experience."
   },
   {
     "id": 26,
@@ -308,8 +308,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocKSUZpq_wiFzCwAd6B97h-X_DM7Tgv0HByU8W7xUlzYCV33kA=s120-c-rp-mo-br100",
     "classification": "Genuine-Positive",
     "confidence": "80",
-    "explanation": "The review is neutral in tone, but still mentions positive aspects of the service and food quality, suggesting a genuine, albeit lukewarm, positive experience.",
-    "raw": "Review 2:\nClassification: Genuine-Positive\nConfidence: 80\nExplanation: The review is neutral in tone, but still mentions positive aspects of the service and food quality, suggesting a genuine, albeit lukewarm, positive experience.\n\n"
+    "explanation": "The review is neutral-toned, but the use of \"ok\" and \"good\" suggests a generally positive experience.",
+    "raw": "Review 2: Genuine-Positive|80|The review is neutral-toned, but the use of \"ok\" and \"good\" suggests a generally positive experience."
   },
   {
     "id": 27,
@@ -320,8 +320,8 @@
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXEnQ4U4Ixp6T5HXX__gWeQEK6hv2Em2CJ7upNED-G0VnAgz_RQ=s120-c-rp-mo-ba2-br100",
     "classification": "Genuine-Negative",
     "confidence": "95",
-    "explanation": "The review specifically mentions two negative aspects of the restaurant (lack of AC and closed playground), indicating a genuine negative experience.",
-    "raw": "Review 3:\nClassification: Genuine-Negative\nConfidence: 95\nExplanation: The review specifically mentions two negative aspects of the restaurant (lack of AC and closed playground), indicating a genuine negative experience.\n\n"
+    "explanation": "The review is specific about the issues with the restaurant, including the lack of AC and the state of the playground, which suggests a genuine negative experience.",
+    "raw": "Review 3: Genuine-Negative|95|The review is specific about the issues with the restaurant, including the lack of AC and the state of the playground, which suggests a genuine negative experience."
   },
   {
     "id": 28,
@@ -331,8 +331,248 @@
     "isoDate": "9 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLCdRLQ-zvL_HDzYoI2d_swTY57PiMtIvppgSzztGKC7ATNwQ=s120-c-rp-mo-ba2-br100",
     "classification": "Genuine-Negative",
-    "confidence": "98",
-    "explanation": "The review is detailed and specific, mentioning a particular incident with a staff member, including date and time, indicating a genuine negative experience. The tone is also emotional and frustrated, which is consistent with a real customer complaint.",
-    "raw": "Review 4:\nClassification: Genuine-Negative\nConfidence: 98\nExplanation: The review is detailed and specific, mentioning a particular incident with a staff member, including date and time, indicating a genuine negative experience. The tone is also emotional and frustrated, which is consistent with a real customer complaint."
+    "confidence": "100",
+    "explanation": "The review is detailed and specific about the poor service, including the date and time, which suggests a genuine and strongly negative experience.",
+    "raw": "Review 4: Genuine-Negative|100|The review is detailed and specific about the poor service, including the date and time, which suggests a genuine and strongly negative experience."
+  },
+  {
+    "id": 29,
+    "rating": 5,
+    "snippet": "food taste ok, staff was welcoming us.",
+    "user": "Zaraa Syakila",
+    "isoDate": "3 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLMtlQq7o_URvv8rwgYHTzWtiUXOgab8duWuXHekkScU-yVsw=s120-c-rp-mo-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "85",
+    "explanation": "The review is brief, but the use of \"ok\" and \"welcoming\" suggests a generally positive experience.",
+    "raw": "Review 5: Genuine-Positive|85|The review is brief, but the use of \"ok\" and \"welcoming\" suggests a generally positive experience."
+  },
+  {
+    "id": 30,
+    "rating": 1,
+    "snippet": "Quality so bad...and the price quite expensive for burger and wedges and end up having rotten salad and mild cheese which is soggy",
+    "user": "luqman nurhadi Azmal",
+    "isoDate": "5 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLPYCt1Cvabb6fwjh9qkx3FdxTg9iIHUN8jwMF2EFLXDvqlvUI=s120-c-rp-mo-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "100",
+    "explanation": "The review is detailed and specific about the poor quality of the food, including specific examples, which suggests a genuine and strongly negative experience.",
+    "raw": "Review 6: Genuine-Negative|100|The review is detailed and specific about the poor quality of the food, including specific examples, which suggests a genuine and strongly negative experience."
+  },
+  {
+    "id": 31,
+    "rating": 5,
+    "snippet": "The hospitality was good. Food quality also good.",
+    "user": "Elisya Hanna",
+    "isoDate": "3 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLuhJV3Dy3VFrcsV6506apoqllZLQfIKOpCQLQN95ilRd9Rzg=s120-c-rp-mo-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The review is brief, but the use of \"good\" to describe both hospitality and food quality suggests a genuine positive experience.",
+    "raw": "Review 7: Genuine-Positive|90|The review is brief, but the use of \"good\" to describe both hospitality and food quality suggests a genuine positive experience."
+  },
+  {
+    "id": 32,
+    "rating": 3,
+    "snippet": "I buy the tart, delicious. But the floor is oily😂",
+    "user": "Jia Fei Ng",
+    "isoDate": "3 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXCwWPsibzWkfH-L-p_A9YBluhNlKjU2RN3WFwwAOyaBpzcJQU0Qg=s120-c-rp-mo-ba3-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "80",
+    "explanation": "The review is brief and mentions a positive aspect (the tart) and a minor negative aspect (the oily floor), which suggests a genuine experience.",
+    "raw": "Review 8: Genuine-Positive|80|The review is brief and mentions a positive aspect (the tart) and a minor negative aspect (the oily floor), which suggests a genuine experience."
+  },
+  {
+    "id": 33,
+    "rating": 5,
+    "snippet": "Spend time together with special one here...suitable for dating",
+    "user": "aqmal hakim",
+    "isoDate": "3 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocK5QV8wo9VadYq1s5HYsV3jHxNunsoRFDKwYYoI_04F6gZwpA=s120-c-rp-mo-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "80",
+    "explanation": "The review is brief and mentions a positive aspect (suitability for dating), which suggests a genuine experience.",
+    "raw": "Review 9: Genuine-Positive|80|The review is brief and mentions a positive aspect (suitability for dating), which suggests a genuine experience."
+  },
+  {
+    "id": 34,
+    "rating": 5,
+    "snippet": "All ok. Food was awesome",
+    "user": "Ashfa Anggun",
+    "isoDate": "a month ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocKxQV0g0rvUgd_7yLp2kFuwvfLbHU9Drz-hwQdp5cvvv2dzXw=s120-c-rp-mo-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "85",
+    "explanation": "The review is brief, but the use of \"awesome\" suggests a strong positive experience.",
+    "raw": "Review 10: Genuine-Positive|85|The review is brief, but the use of \"awesome\" suggests a strong positive experience."
+  },
+  {
+    "id": 35,
+    "rating": 2,
+    "snippet": "Quality of food has declined.Food delivered not as ordered. Reluctant to return. Not recommended to others.",
+    "user": "veera muthu",
+    "isoDate": "6 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjVSK6ydz6T7NulmbKzo9oLT_9pkWcLO7KytUZ6FDuSqsD8ws2Pw=s120-c-rp-mo-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "100",
+    "explanation": "The review is detailed and specific about the decline in food quality and the reluctance to return, which suggests a genuine and strongly negative experience.",
+    "raw": "Review 11: Genuine-Negative|100|The review is detailed and specific about the decline in food quality and the reluctance to return, which suggests a genuine and strongly negative experience."
+  },
+  {
+    "id": 36,
+    "rating": 5,
+    "snippet": "All good,,I love kfc chicken",
+    "user": "MaiaKeena",
+    "isoDate": "4 weeks ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocJKzf0iXOq7pcTR8AZGNXaIU980_beb6jWsf0IRt-49vXIQ=s120-c-rp-mo-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The review is brief, but the use of \"All good\" and \"I love\" suggests a strong positive experience.",
+    "raw": "Review 12: Genuine-Positive|90|The review is brief, but the use of \"All good\" and \"I love\" suggests a strong positive experience."
+  },
+  {
+    "id": 37,
+    "rating": 5,
+    "snippet": "Staff ok and food taste good",
+    "user": "mohezh",
+    "isoDate": "3 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWFx9RwuaFJensR3GiqkdwmK-C_qC0bF_UnbbEBpmLzftvj9X2L=s120-c-rp-mo-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "Simple and concise review with a positive tone, mentioning specific aspects of the restaurant (staff and food).",
+    "raw": "Review 1: Genuine-Positive|90|Simple and concise review with a positive tone, mentioning specific aspects of the restaurant (staff and food)."
+  },
+  {
+    "id": 38,
+    "rating": 4,
+    "snippet": "Very good services and nice internal decoration#so comfort",
+    "user": "Danish Bhai",
+    "isoDate": "7 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjV03ePtnUmuZp00J6dLfnuute3nXkQLMJglv5aVeqTe7rlJKDB_=s120-c-rp-mo-ba5-br100",
+    "classification": "Fake-Promotional",
+    "confidence": "80",
+    "explanation": "The review is overly positive and uses promotional language (\"so comfort\"), with an unusual hashtag. It lacks specific details and seems more like an advertisement.",
+    "raw": "Review 2: Fake-Promotional|80|The review is overly positive and uses promotional language (\"so comfort\"), with an unusual hashtag. It lacks specific details and seems more like an advertisement."
+  },
+  {
+    "id": 39,
+    "rating": 4,
+    "snippet": "This place always have a nice atmosphere, however ever since they implemented the machine self ordering system, they're taking things a little too slowly.\n\nSome old customers requested to order manually through the counter but was refused and asked to order through the machine, this is not so good of an attitude. The orders were prepared rather slowly even though there were only two orders today when we went here.\n\nThey chose to implement the system but did not carry it through completely because they did not show our order number at \"Ready for pickup\" but just at \"preparing order\" and expected us to just show up at the counter when they put the food there.\n\nThe chicken is pretty fresh though and the food is good.",
+    "user": "Ruth River Silverstone",
+    "isoDate": "3 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUn1HFbIklRjTG4Lodw4TegX0eMovudub_EiSnsbuJ6gHJLv2cR=s120-c-rp-mo-ba4-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "95",
+    "explanation": "The review provides a balanced opinion, mentioning both positive (atmosphere and food quality) and negative aspects (slow service and poor implementation of the self-ordering system). The tone is constructive and specific.",
+    "raw": "Review 3: Genuine-Negative|95|The review provides a balanced opinion, mentioning both positive (atmosphere and food quality) and negative aspects (slow service and poor implementation of the self-ordering system). The tone is constructive and specific."
+  },
+  {
+    "id": 40,
+    "rating": 5,
+    "snippet": "Went here for Break Fasting. Arrive around 7.10pm, and still got vacant table. Ample car park. Proceed to order and wait around 15 minutes. By the time i pick the food, its already time for Break Fasting, but the staff keep on working to fulfil customer order. They even apologies for serve the food late. Good job. But its not their fault, its my fault for ordering quite late. The food is superb! Nicely cook and taste good. Better than other outlet.",
+    "user": "Farid Red",
+    "isoDate": "3 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUKoiTYOIOzk5Ii597VGFEP3gceAkmEZZ8sIBSfXvcDkCLsno5X=s120-c-rp-mo-ba4-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "95",
+    "explanation": "The review is detailed and specific, mentioning the time of visit, the food, and the staff's attitude. The tone is positive, and the reviewer takes responsibility for ordering late.",
+    "raw": "Review 4: Genuine-Positive|95|The review is detailed and specific, mentioning the time of visit, the food, and the staff's attitude. The tone is positive, and the reviewer takes responsibility for ordering late."
+  },
+  {
+    "id": 41,
+    "rating": 1,
+    "snippet": "Speed to serve food is super slow.",
+    "user": "Tiger Sai",
+    "isoDate": "Edited 5 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjViTXXHIU2mvQEIyB5B6vt7AhBykJO9Vd1LpnPmX6lBfKjKdcedNg=s120-c-rp-mo-ba4-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "90",
+    "explanation": "The review is brief but specific, mentioning a clear issue with the service (slow speed).",
+    "raw": "Review 5: Genuine-Negative|90|The review is brief but specific, mentioning a clear issue with the service (slow speed)."
+  },
+  {
+    "id": 42,
+    "rating": 2,
+    "snippet": "Poor. Came for drive thru when there was no queue at all. They got my drinks mixed up after I have waited for almost 20 minutes?  It's written in the stars for me to avoid this branch. KFC should just shut up shop in Malaysia.",
+    "user": "syafiq sharani",
+    "isoDate": "a year ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjU04YMV-nbdj1plWo4A3D0UgAX5CwFQR1cyU9-AZc962MktQSpk=s120-c-rp-mo-ba4-br100",
+    "classification": "Fake-Malicious",
+    "confidence": "95",
+    "explanation": "The review is overly negative and exaggerated, with a tone of anger and frustration. The language is dramatic (\"written in the stars\"), and the reviewer makes an unreasonable demand (shutting down the branch).",
+    "raw": "Review 6: Fake-Malicious|95|The review is overly negative and exaggerated, with a tone of anger and frustration. The language is dramatic (\"written in the stars\"), and the reviewer makes an unreasonable demand (shutting down the branch)."
+  },
+  {
+    "id": 43,
+    "rating": 2,
+    "snippet": "this is slow food not fast food, no come anymore",
+    "user": "Ka Chung Wong",
+    "isoDate": "3 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocKY1VnN9xjSD8ng7qethiV7TbMHFH1vTCUAUB2tnwRrcrL29g=s120-c-rp-mo-br100",
+    "classification": "Fake-Malicious",
+    "confidence": "90",
+    "explanation": "The review is brief and lacks specific details, with an overly negative tone and an unreasonable statement (\"no come anymore\").",
+    "raw": "Review 7: Fake-Malicious|90|The review is brief and lacks specific details, with an overly negative tone and an unreasonable statement (\"no come anymore\")."
+  },
+  {
+    "id": 44,
+    "rating": 1,
+    "snippet": "Aircon is switched off. To cut cost?",
+    "user": "AJ Heng",
+    "isoDate": "3 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjVey5u-QsXsFCCcvmJn2FpwUHawYVYreezneMNmc__9o2oiSoZ6hw=s120-c-rp-mo-ba3-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "80",
+    "explanation": "The review is brief but specific, mentioning a clear issue with the restaurant (aircon being switched off).",
+    "raw": "Review 8: Genuine-Negative|80|The review is brief but specific, mentioning a clear issue with the restaurant (aircon being switched off)."
+  },
+  {
+    "id": 45,
+    "rating": 1,
+    "snippet": "Waiting almost 1 hour. All the workers are kinda slow. 1 of them purposely stand still and stare outside. The girl also  scan a stack of kupon really slowly while looking around. It took a good 10 mins or so.",
+    "user": "Xenith",
+    "isoDate": "2 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXjPVhpfZ1Ag5Jq8OBXHY1jZdG8DsUoycD4OVFLtctwbz65cLHi=s120-c-rp-mo-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "95",
+    "explanation": "The review is detailed and specific, mentioning the waiting time and the behavior of the staff. The tone is negative, but the reviewer provides evidence to support their claim.",
+    "raw": "Review 9: Genuine-Negative|95|The review is detailed and specific, mentioning the waiting time and the behavior of the staff. The tone is negative, but the reviewer provides evidence to support their claim."
+  },
+  {
+    "id": 46,
+    "rating": 5,
+    "snippet": "Nice and comfortable. Playground for kids. Toilet and prayer room also provided.",
+    "user": "hidayah shaari",
+    "isoDate": "5 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjX8w8EDWa73JFNxFDEtqcrONsOvDaX4F8uRrGw6fLkLW3LJZA7q=s120-c-rp-mo-ba6-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The review is positive and mentions specific amenities (playground, toilet, and prayer room). The tone is cheerful and appreciative.",
+    "raw": "Review 10: Genuine-Positive|90|The review is positive and mentions specific amenities (playground, toilet, and prayer room). The tone is cheerful and appreciative."
+  },
+  {
+    "id": 47,
+    "rating": 5,
+    "snippet": "I’ve lodged a complaint with regards to the food quality from the drive thru at their website. Not even 30minutes later, the manager named Ms Hidayah has the courtesy to call me and apologized. She promise me to be more meticulous on quality checking and she also offer us replacement of the product. Thank you for taking my words into account. I really appreciate your effort. Definitely will support u guys again in future.",
+    "user": "Hazel Anuar",
+    "isoDate": "5 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWgVKS3tdGthIOJTSXtbW2DnLnAHi1kK76911BN6gOSPIy9ex5Y=s120-c-rp-mo-ba4-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "100",
+    "explanation": "The review is detailed and specific, mentioning a positive experience with the manager and the resolution of a complaint. The tone is appreciative and sincere.",
+    "raw": "Review 11: Genuine-Positive|100|The review is detailed and specific, mentioning a positive experience with the manager and the resolution of a complaint. The tone is appreciative and sincere."
+  },
+  {
+    "id": 48,
+    "rating": 5,
+    "snippet": "Chicken fresh air con very good everything is delicious",
+    "user": "Shah nawaz",
+    "isoDate": "Edited 2 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXC7RVa09QmguZNu5D1lRd25yFzPpkaQBb7sTJjNuJISdTzPqL3=s120-c-rp-mo-br100",
+    "classification": "Fake-Promotional",
+    "confidence": "80",
+    "explanation": "The review is overly positive and lacks specific details, with a tone that seems more like an advertisement. The language is simple and lacks depth.",
+    "raw": "Review 12: Fake-Promotional|80|The review is overly positive and lacks specific details, with a tone that seems more like an advertisement. The language is simple and lacks depth."
   }
 ]
