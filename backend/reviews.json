@@ -7,18 +7,9 @@
     "isoDate": "4 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocIC5IPNCHLlBVSKzXdxMNu1TNybFVffG-EyirSC5xjbseSSRA=s120-c-rp-mo-ba6-br100",
     "classification": "Genuine-Negative",
-    "confidence": "90",
-    "explanation": "The review expresses a negative sentiment towards the drink, mentioning that it is \"too sweet\" and \"sweet plus tasteless\". The review also mentions that the customer had to call for an adjustment, indicating a genuine experience. The tone and content of the review suggest a real customer experience rather than a fake or promotional review.\"",
-    "raw": "{\"id\":\"msg_bdrk_01VV7BKWrPTd62gHxVNZJGEC\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-3-haiku-20240307\",\"content\":[{\"type\":\"text\",\"text\":\"Classification: Genuine-Negative\\nConfidence: 90%\\nExplanation: The review expresses a negative sentiment towards the drink, mentioning that it is \\\"too sweet\\\" and \\\"sweet plus tasteless\\\". The review also mentions that the customer had to call for an adjustment, indicating a genuine experience. The tone and content of the review suggest a real customer experience rather than a fake or promotional review.\"}],\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"usage\":{\"input_tokens\":156,\"output_tokens\":87}}"
-    "rating": 5,
-    "snippet": "Very polite and delicious food.\nLike the Maggi Mee Goreng and Roti Canai",
-    "user": "OLIVE GAN ZI NA 颜子娜 Moe",
-    "isoDate": "5 months ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUOFi_ja62lbogZGfqXu5Mvpp2VdDd0UQ9RTGfzDJ5qr6rL2cFQ=s120-c-rp-mo-br100",
-    "classification": "Genuine-Positive",
-    "confidence": "85",
-    "explanation": "The review uses simple, enthusiastic language and mentions specific dishes (Maggi Mee Goreng, Roti Canai), which is typical of genuine positive feedback. There's no exaggerated praise or signs of hidden motives, though the brevity slightly lowers confidence.\",\"stop_reason\":\"stop\"}]}",
-    "raw": "{\"choices\":[{\"text\":\"</think>\\n\\nClassification: Genuine-Positive  \\nConfidence: 85  \\nExplanation: The review uses simple, enthusiastic language and mentions specific dishes (Maggi Mee Goreng, Roti Canai), which is typical of genuine positive feedback. There's no exaggerated praise or signs of hidden motives, though the brevity slightly lowers confidence.\",\"stop_reason\":\"stop\"}]}"
+    "confidence": "80",
+    "explanation": "The reviewer mentions a specific issue with their drink, but also mentions that they've already asked for an adjustment, indicating a genuine experience.",
+    "raw": "Review 1: Genuine-Negative|80|The reviewer mentions a specific issue with their drink, but also mentions that they've already asked for an adjustment, indicating a genuine experience."
   },
   {
     "id": 2,
@@ -27,18 +18,10 @@
     "user": "ALIFF HAIQAL ALIE",
     "isoDate": "Edited a year ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUHL8wUyXEcaYZF-iJGO-8PitiI629Ng7HN-1_hlcdS-47mjDPy=s120-c-rp-mo-ba3-br100",
-    "rating": 3,
-    "snippet": "Located in Inside aman height condo\nGreat place to have a quick breakfast bite like roti canai",
-    "user": "Daniel Tai",
-    "isoDate": "Edited 2 years ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjV1GlSCkeOloobeVAYdT72JRY8TDoCIo1ENM-zv9fbNuWr1RyxLRQ=s120-c-rp-mo-ba5-br100",
     "classification": "Genuine-Positive",
     "confidence": "90",
-    "explanation": "The review appears to be genuine and positive. It describes the restaurant's portion size, taste, and price in a favorable manner, suggesting a positive experience. The mention of the restaurant accommodating sports events also indicates a genuine, personal observation. Overall, the review seems to be an authentic, unbiased assessment of the establishment.\"",
-    "raw": "{\"id\":\"msg_bdrk_01UxydUzfyBBzhb8jpwGDkCN\",\"type\":\"message\",\"role\":\"assistant\",\"model\":\"claude-3-haiku-20240307\",\"content\":[{\"type\":\"text\",\"text\":\"Classification: Genuine-Positive\\nConfidence: 90%\\nExplanation: The review appears to be genuine and positive. It describes the restaurant's portion size, taste, and price in a favorable manner, suggesting a positive experience. The mention of the restaurant accommodating sports events also indicates a genuine, personal observation. Overall, the review seems to be an authentic, unbiased assessment of the establishment.\"}],\"stop_reason\":\"end_turn\",\"stop_sequence\":null,\"usage\":{\"input_tokens\":189,\"output_tokens\":87}}"
-    "confidence": "85",
-    "explanation": "The review mentions a specific location (condo) and a menu item (roti canai) with a positive tone, suggesting authentic experience. However, the brevity and lack of detailed elaboration slightly reduce confidence.\",\"stop_reason\":\"stop\"}]}",
-    "raw": "{\"choices\":[{\"text\":\"</think>\\n\\nClassification: [Genuine-Positive]  \\nConfidence: [85]  \\nExplanation: The review mentions a specific location (condo) and a menu item (roti canai) with a positive tone, suggesting authentic experience. However, the brevity and lack of detailed elaboration slightly reduce confidence.\",\"stop_reason\":\"stop\"}]}"
+    "explanation": "The reviewer uses superlatives like \"the best\" and provides specific details about the restaurant's amenities, indicating a genuine and enthusiastic review.",
+    "raw": "Review 2: Genuine-Positive|90|The reviewer uses superlatives like \"the best\" and provides specific details about the restaurant's amenities, indicating a genuine and enthusiastic review."
   },
   {
     "id": 3,
@@ -47,19 +30,10 @@
     "user": "Hong Loon",
     "isoDate": "3 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUoRCXOiII6UDIefvJaoCxM6YnnAe_qkAHAv0djEY3PVN2XofoK=s120-c-rp-mo-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
-    "rating": 5,
-    "snippet": "Reasonable priced and delicious mamak food in Aman Heights",
-    "user": "Daniel Ong",
-    "isoDate": "5 years ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLbu5Skx3_pF3Cw39thbaDky5ZMkmMfF7MeBLBh_O-Hg51QUQ=s120-c-rp-mo-ba4-br100",
-    "classification": "Genuine-Positive",
-    "confidence": "85",
-    "explanation": "The review is concise and uses natural language, praising both price and quality without exaggerated or overly promotional terms. The mention of a specific location (\"Aman Heights\") adds authenticity. However, the confidence is not 100% due to its brevity, which leaves some room for uncertainty.\",\"stop_reason\":\"stop\"}]}",
-    "raw": "{\"choices\":[{\"text\":\"</think>\\n\\nClassification: [Genuine-Positive]  \\nConfidence: [85]  \\nExplanation: The review is concise and uses natural language, praising both price and quality without exaggerated or overly promotional terms. The mention of a specific location (\\\"Aman Heights\\\") adds authenticity. However, the confidence is not 100% due to its brevity, which leaves some room for uncertainty.\",\"stop_reason\":\"stop\"}]}"
+    "classification": "Fake-Malicious",
+    "confidence": "80",
+    "explanation": "The reviewer makes an exaggerated claim about a \"food poisoning crisis\" and uses an emoticon, which may be an attempt to manipulate or mislead readers.",
+    "raw": "Review 3: Fake-Malicious|80|The reviewer makes an exaggerated claim about a \"food poisoning crisis\" and uses an emoticon, which may be an attempt to manipulate or mislead readers."
   },
   {
     "id": 4,
@@ -68,19 +42,10 @@
     "user": "Lucas Koh",
     "isoDate": "6 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjVmWG2_jJZep34gbyqpYwl7yYfqV8SCFrk7zCNwulglul2qepcC=s120-c-rp-mo-ba2-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
-    "rating": 5,
-    "snippet": "Pool view.. Nice curry....",
-    "user": "Fauzi Adilah",
-    "isoDate": "5 years ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXyhgmB3IJXR9ZjrjnscTo_7TNbXEv_nGWe-Vy73w_kGbthbV9s=s120-c-rp-mo-ba3-br100",
-    "classification": "Genuine-Positive",
+    "classification": "Genuine-Negative",
     "confidence": "70",
-    "explanation": "The review is brief and mentions specific aspects (\"Pool view,\" \"Nice curry\") in a casual tone, which is typical of genuine positive feedback. However, the lack of detail and possible fragmented phrasing slightly lowers confidence, as it could also be hastily written or incomplete. There's no clear indication of malice or promotional intent.\",\"stop_reason\":\"stop\"}]}",
-    "raw": "{\"choices\":[{\"text\":\"</think>\\n\\nClassification: [Genuine-Positive]\\nConfidence: [70]\\nExplanation: The review is brief and mentions specific aspects (\\\"Pool view,\\\" \\\"Nice curry\\\") in a casual tone, which is typical of genuine positive feedback. However, the lack of detail and possible fragmented phrasing slightly lowers confidence, as it could also be hastily written or incomplete. There's no clear indication of malice or promotional intent.\",\"stop_reason\":\"stop\"}]}"
+    "explanation": "The reviewer provides a specific criticism about the teh tarik, but frames it as a hope for improvement, indicating a genuine review.",
+    "raw": "Review 4: Genuine-Negative|70|The reviewer provides a specific criticism about the teh tarik, but frames it as a hope for improvement, indicating a genuine review."
   },
   {
     "id": 5,
@@ -89,19 +54,10 @@
     "user": "Belle H",
     "isoDate": "2 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjVpBI94SuHSJo4fwVONPIq0EnRmRu7nSlF4VgVvi1hGURn4qRW6=s120-c-rp-mo-ba6-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
-    "rating": 4,
-    "snippet": "Nice!",
-    "user": "ALQatabi “Kingdom Heart”",
-    "isoDate": "5 years ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWfmC_88BoqBJGaMf7nEcYmbDAlMUK1SihDpRL-TmCV0V1KpiPz=s120-c-rp-mo-ba4-br100",
     "classification": "Genuine-Positive",
-    "confidence": "70",
-    "explanation": "The review \"Nice!\" is brief and lacks detail, which is common in genuine positive feedback. However, its extreme brevity could also raise suspicion about authenticity. The word \"Nice\" itself is positive but non-specific, making it hard to determine deeper intent. Higher confidence is limited due to the lack of context or elaboration.\",\"stop_reason\":\"stop\"}]}",
-    "raw": "{\"choices\":[{\"text\":\"</think>\\n\\nClassification: [Genuine-Positive]\\nConfidence: [70]\\nExplanation: The review \\\"Nice!\\\" is brief and lacks detail, which is common in genuine positive feedback. However, its extreme brevity could also raise suspicion about authenticity. The word \\\"Nice\\\" itself is positive but non-specific, making it hard to determine deeper intent. Higher confidence is limited due to the lack of context or elaboration.\",\"stop_reason\":\"stop\"}]}"
+    "confidence": "80",
+    "explanation": "The reviewer provides a balanced assessment of the restaurant, mentioning both positives (efficient service, caring staff) and negatives (mediocre food), indicating a genuine review.",
+    "raw": "Review 5: Genuine-Neutral|80|The reviewer provides a balanced assessment of the restaurant, mentioning both positives (efficient service, caring staff) and negatives (mediocre food), indicating a genuine review."
   },
   {
     "id": 6,
@@ -110,19 +66,10 @@
     "user": "Yogananthan Selva Raju",
     "isoDate": "2 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjViAFgwhqoG6-1jKkzpNZ1aRV-Rmq59hbhlh7ZP15wnbUVlK_M=s120-c-rp-mo-ba4-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
-    "rating": 4,
-    "snippet": "Clear defined food",
-    "user": "Yoganathan Sivapragasam",
-    "isoDate": "5 years ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocKBpxZPfU5pUDkFMmQ0HOhEwRtX1yiUJcqKVwpYRBzgmF-Vgw=s120-c-rp-mo-br100",
-    "classification": "Fake-Malicious",
-    "confidence": "85",
-    "explanation": "The review \"Clear defined food\" is vague and nonsensical, lacking specific details about taste, service, or dishes. This suggests it might be fake, possibly malicious, as it uses an odd phrase to undermine without meaningful critique.\",\"stop_reason\":\"stop\"}]}",
-    "raw": "{\"choices\":[{\"text\":\"</think>\\n\\nClassification: [Fake-Malicious]\\nConfidence: [85]\\nExplanation: The review \\\"Clear defined food\\\" is vague and nonsensical, lacking specific details about taste, service, or dishes. This suggests it might be fake, possibly malicious, as it uses an odd phrase to undermine without meaningful critique.\",\"stop_reason\":\"stop\"}]}"
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The reviewer provides specific details about their experience, including the time of day and the speed of service, indicating a genuine review.",
+    "raw": "Review 6: Genuine-Positive|90|The reviewer provides specific details about their experience, including the time of day and the speed of service, indicating a genuine review."
   },
   {
     "id": 7,
@@ -131,18 +78,10 @@
     "user": "Jas Chan",
     "isoDate": "Edited 3 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocIf489oooumN26WH2mNhgqvRrF1z-NydsLipO2flQcK2MaUkKn2=s120-c-rp-mo-ba3-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
-    "snippet": "Ok",
-    "user": "mani kandan",
-    "isoDate": "5 years ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocJYgcgt50XgyVEOQcbn9sbswoECt1hDwyJYkFfm9tXWAC7X4A=s120-c-rp-mo-br100",
-    "classification": "Insufficient-Text",
-    "confidence": "0",
-    "explanation": "Review text is too short for meaningful analysis",
-    "raw": "Skipped analysis due to short text length"
+    "classification": "Genuine-Positive",
+    "confidence": "80",
+    "explanation": "The reviewer provides a brief but positive assessment of the restaurant, mentioning its affordability and good food, indicating a genuine review.",
+    "raw": "Review 7: Genuine-Positive|80|The reviewer provides a brief but positive assessment of the restaurant, mentioning its affordability and good food, indicating a genuine review."
   },
   {
     "id": 8,
@@ -151,19 +90,10 @@
     "user": "Shanti Dwita Lestari",
     "isoDate": "a year ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUpfCI23y7xFoXq0RFFEND8D64lbksaLavF9OUq3XxbQH1sMMM=s120-c-rp-mo-ba3-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
-    "rating": 3,
-    "snippet": "Clean",
-    "user": "Jing Ya",
-    "isoDate": "6 years ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWBPEjGcrNkp6C4zoUiSIvenFPJmOjAq6uiFLeG8B0R8xSZF31w=s120-c-rp-mo-ba2-br100",
     "classification": "Genuine-Positive",
-    "confidence": "70",
-    "explanation": "The single-word review \"Clean\" is likely genuine and positive, as it succinctly conveys satisfaction with the establishment's hygiene or ambiance. However, its brevity leaves some ambiguity, lowering confidence slightly. There’s no clear indication of fakery or malicious intent.\",\"stop_reason\":\"stop\"}]}",
-    "raw": "{\"choices\":[{\"text\":\"</think>\\n\\nClassification: [Genuine-Positive]  \\nConfidence: [70]  \\nExplanation: The single-word review \\\"Clean\\\" is likely genuine and positive, as it succinctly conveys satisfaction with the establishment's hygiene or ambiance. However, its brevity leaves some ambiguity, lowering confidence slightly. There’s no clear indication of fakery or malicious intent.\",\"stop_reason\":\"stop\"}]}"
+    "confidence": "80",
+    "explanation": "The reviewer mentions specific dishes they enjoy and provides a brief but positive assessment of the restaurant, indicating a genuine review.",
+    "raw": "Review 8: Genuine-Positive|80|The reviewer mentions specific dishes they enjoy and provides a brief but positive assessment of the restaurant, indicating a genuine review."
   },
   {
     "id": 9,
@@ -172,19 +102,10 @@
     "user": "Sandie Choong",
     "isoDate": "3 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocL1r6iMPjv8uPG5qJ3EpwxQzOYPlcqlVoqMLSNdddBvK1GuNg=s120-c-rp-mo-ba6-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
-    "rating": 5,
-    "snippet": "コンドミニアムの敷地内にあるママックレストラン。Rotiの種類が豊富なので気に入っています。",
-    "user": "Takayoshi Tetsuka",
-    "isoDate": "a year ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjX3Cy90DkifuNcMMW_gXX7c5SMAFzSQHvIvfkFbfjS5SmqBlwb0=s120-c-rp-mo-ba6-br100",
     "classification": "Genuine-Positive",
-    "confidence": "85",
-    "explanation": "The review mentions specific details like the restaurant's location within a condominium and praises the variety of roti, which sounds authentic and personal. There’s no exaggerated language or signs of hidden promotion or malice. The tone is positive but not overly effusive, typical of a genuine customer experience.\",\"stop_reason\":\"stop\"}]}",
-    "raw": "{\"choices\":[{\"text\":\"</think>\\n\\nClassification: [Genuine-Positive]  \\nConfidence: [85]  \\nExplanation: The review mentions specific details like the restaurant's location within a condominium and praises the variety of roti, which sounds authentic and personal. There’s no exaggerated language or signs of hidden promotion or malice. The tone is positive but not overly effusive, typical of a genuine customer experience.\",\"stop_reason\":\"stop\"}]}"
+    "confidence": "90",
+    "explanation": "The reviewer provides specific details about their meal, including the dishes they ordered and the sauces they enjoyed, indicating a genuine review.",
+    "raw": "Review 9: Genuine-Positive|90|The reviewer provides specific details about their meal, including the dishes they ordered and the sauces they enjoyed, indicating a genuine review."
   },
   {
     "id": 10,
@@ -193,19 +114,10 @@
     "user": "Siii Will",
     "isoDate": "3 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXxzItcUoJkebYkS6BFAVWwefwEqNzVuggDebsqsPC6rEYZVSPq=s120-c-rp-mo-ba2-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
-    "rating": 3,
-    "snippet": "在公寓里面的小食店,畢竟是私人地方進出並不容易,里面所賣的印度燒餅還不錯！",
-    "user": "WOON FAR TATT",
-    "isoDate": "3 years ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjW1KPwFH151OnnYPEO5H3eXhuPwyb6IkcrIaszWBPQsHUlo-9j_CQ=s120-c-rp-mo-ba5-br100",
-    "classification": "Genuine-Positive",
-    "confidence": "85",
-    "explanation": "The review mentions both a minor inconvenience (location accessibility) and a positive note about the food quality (\"印度燒餅還不錯\"). The mixed but balanced tone suggests authenticity, as fake reviews tend to be overly negative or positive without nuance. The criticism isn’t harsh enough to indicate malice, and the praise isn’t exaggerated for promotion.\",\"stop_reason\":\"stop\"}]}",
-    "raw": "{\"choices\":[{\"text\":\"</think>\\n\\nClassification: Genuine-Positive  \\nConfidence: 85  \\nExplanation: The review mentions both a minor inconvenience (location accessibility) and a positive note about the food quality (\\\"印度燒餅還不錯\\\"). The mixed but balanced tone suggests authenticity, as fake reviews tend to be overly negative or positive without nuance. The criticism isn’t harsh enough to indicate malice, and the praise isn’t exaggerated for promotion.\",\"stop_reason\":\"stop\"}]}"
+    "classification": "Genuine-Negative",
+    "confidence": "90",
+    "explanation": "The reviewer provides a specific and detailed complaint about their order, including a conversation with the staff, indicating a genuine review.",
+    "raw": "Review 10: Genuine-Negative|90|The reviewer provides a specific and detailed complaint about their order, including a conversation with the staff, indicating a genuine review."
   },
   {
     "id": 11,
@@ -214,10 +126,10 @@
     "user": "Thevaraj Subramaniam",
     "isoDate": "2 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUVDAG47i8j3h-qBBqE70GyufJr-ijS0K7wVA3IhoLV5QirEKMnmQ=s120-c-rp-mo-ba5-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The reviewer provides a glowing review, mentioning specific dishes and their long history of visiting the restaurant, indicating a genuine review.",
+    "raw": "Review 11: Genuine-Positive|90|The reviewer provides a glowing review, mentioning specific dishes and their long history of visiting the restaurant, indicating a genuine review."
   },
   {
     "id": 12,
@@ -226,10 +138,10 @@
     "user": "Kah Yang Eng",
     "isoDate": "6 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjW7hOHrLrfhpDhRv-wdz7srHF6gARtH5MzzdLHOLXUm6HWG-1l7Sw=s120-c-rp-mo-ba4-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Genuine-Positive",
+    "confidence": "80",
+    "explanation": "The reviewer provides a balanced assessment of the restaurant, mentioning both positives (crispy roti canai) and negatives (unresponsive staff, weird interior), indicating a genuine review.",
+    "raw": "Review 12: Genuine-Neutral|80|The reviewer provides a balanced assessment of the restaurant, mentioning both positives (crispy roti canai) and negatives (unresponsive staff, weird interior), indicating a genuine review."
   },
   {
     "id": 13,
@@ -238,10 +150,10 @@
     "user": "MSM Suhaimi Mohamad",
     "isoDate": "3 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWHNu731Rh_-oFrcKHqcey9K6OkIjZEs8KuS-YpG81ADJnt_CFR=s120-c-rp-mo-ba5-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Genuine-Positive",
+    "confidence": "80",
+    "explanation": "The review mentions both positive (roti telur cheese) and negative (hard capati, slow service) aspects, indicating a genuine opinion.",
+    "raw": "Review 1: Genuine-Positive|80|The review mentions both positive (roti telur cheese) and negative (hard capati, slow service) aspects, indicating a genuine opinion."
   },
   {
     "id": 14,
@@ -250,10 +162,10 @@
     "user": "James Wong",
     "isoDate": "3 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWe3fKe3FpkkZVR61aLpqAvKo4TmJ2VYs2oEypMuzlz8vjLz5jB=s120-c-rp-mo-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Genuine-Negative",
+    "confidence": "90",
+    "explanation": "The review expresses strong dissatisfaction with the service attitude, indicating a genuine negative experience.",
+    "raw": "Review 2: Genuine-Negative|90|The review expresses strong dissatisfaction with the service attitude, indicating a genuine negative experience."
   },
   {
     "id": 15,
@@ -262,10 +174,10 @@
     "user": "Tiah Oon Tjoe",
     "isoDate": "7 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWMGUezqWwx-8pZ-_JwukMPMcWEpdmFipqlnM5Qn-Ln6ApQIiO9=s120-c-rp-mo-ba4-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Genuine-Positive",
+    "confidence": "95",
+    "explanation": "The review provides specific details about the food and atmosphere, and the tone is enthusiastic and encouraging, indicating a genuine positive review.",
+    "raw": "Review 3: Genuine-Positive|95|The review provides specific details about the food and atmosphere, and the tone is enthusiastic and encouraging, indicating a genuine positive review."
   },
   {
     "id": 16,
@@ -274,10 +186,10 @@
     "user": "sunthar fez",
     "isoDate": "3 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXqqEXwe1NvV47rb3q0qvukL-DlEcj0TFrYzftgXgwWclfsjQG4=s120-c-rp-mo-ba5-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Genuine-Positive",
+    "confidence": "80",
+    "explanation": "The review is brief but specific, mentioning good service and fast serving, indicating a genuine positive experience.",
+    "raw": "Review 4: Genuine-Positive|80|The review is brief but specific, mentioning good service and fast serving, indicating a genuine positive experience."
   },
   {
     "id": 17,
@@ -286,10 +198,10 @@
     "user": "Heloisa Heng",
     "isoDate": "3 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocKKGRT8BznpX2eK7cMnjLBkiK7b1kK0FxDE_tM1RwiV9d7ofg=s120-c-rp-mo-ba5-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Genuine-Negative",
+    "confidence": "70",
+    "explanation": "The review is brief and mentions a specific issue with the roti canai, indicating a genuine negative comment.",
+    "raw": "Review 5: Genuine-Negative|70|The review is brief and mentions a specific issue with the roti canai, indicating a genuine negative comment."
   },
   {
     "id": 18,
@@ -298,10 +210,10 @@
     "user": "Yehia Al-Qubati",
     "isoDate": "4 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocJE-lxWlLeqjNdkz1PgWev-oGWTpGWPidQVex0aOcmyKRwoEw=s120-c-rp-mo-ba2-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Fake-Malicious",
+    "confidence": "90",
+    "explanation": "The review is overly dramatic and exaggerated, with an unrealistic scenario (eating roti boom with salt instead of sugar and almost vomiting), indicating a fake and malicious review.",
+    "raw": "Review 6: Fake-Malicious|90|The review is overly dramatic and exaggerated, with an unrealistic scenario (eating roti boom with salt instead of sugar and almost vomiting), indicating a fake and malicious review."
   },
   {
     "id": 19,
@@ -310,10 +222,10 @@
     "user": "Pravin Rajan",
     "isoDate": "2 months ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWTcsbWC0mJokIKDUeQ3ufNoRpm_mqRpvIIi1CNMm8pt10uSEg43Q=s120-c-rp-mo-ba2-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Genuine-Positive",
+    "confidence": "85",
+    "explanation": "The review mentions a positive aspect (good food) and a minor issue (leaking air conditioning), indicating a genuine opinion.",
+    "raw": "Review 7: Genuine-Positive|85|The review mentions a positive aspect (good food) and a minor issue (leaking air conditioning), indicating a genuine opinion."
   },
   {
     "id": 20,
@@ -322,10 +234,10 @@
     "user": "Alan Law",
     "isoDate": "Edited 5 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocK6DuDwpLNUcsqVWeiGZWJmC5afkmTdSt7CaUigGoXuUC_MVQ=s120-c-rp-mo-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Genuine-Negative",
+    "confidence": "80",
+    "explanation": "The review provides a detailed account of a negative experience, including a photo, indicating a genuine opinion.",
+    "raw": "Review 8: Genuine-Negative|80|The review provides a detailed account of a negative experience, including a photo, indicating a genuine opinion."
   },
   {
     "id": 21,
@@ -334,10 +246,10 @@
     "user": "Nia Tbk",
     "isoDate": "6 years ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjVYMhWYZNEaAiNaQ3JJX4S795dTNXOc2KbGxdCShp6FWzatcUpp=s120-c-rp-mo-ba3-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
+    "classification": "Genuine-Positive",
+    "confidence": "95",
+    "explanation": "The review is enthusiastic and provides specific details about the food, including a creative suggestion, indicating a genuine positive review.",
+    "raw": "Review 9: Genuine-Positive|95|The review is enthusiastic and provides specific details about the food, including a creative suggestion, indicating a genuine positive review."
   },
   {
     "id": 22,
@@ -346,17 +258,321 @@
     "user": "Yah Huay Ngoi",
     "isoDate": "a year ago",
     "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWYR-yhWb6ULVF9J4ZnZqZSz7QV67o60yLbOdV5LV2W5OD5p77f=s120-c-rp-mo-ba4-br100",
-    "classification": "",
-    "confidence": "",
-    "explanation": "Analysis failed: Too many requests, please wait before trying again.",
-    "raw": ""
-    "snippet": "Hari2 makan sini, Sebab bawah rumah je",
-    "user": "Najib Wajdi",
-    "isoDate": "4 years ago",
-    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjV3-FrEeI4Vb0CLNTHnD100FmjUMcJS9jI25ijTqsLK2Ly8UVOgnA=s120-c-rp-mo-ba4-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The review mentions specific positive aspects (delicious food, reasonable prices, good drinks) and provides context (following Google reviews), indicating a genuine opinion.",
+    "raw": "Review 10: Genuine-Positive|90|The review mentions specific positive aspects (delicious food, reasonable prices, good drinks) and provides context (following Google reviews), indicating a genuine opinion."
+  },
+  {
+    "id": 23,
+    "rating": 5,
+    "snippet": "As of 27 July 2019.\nIts been 2 months, this mamak still has the best Teh Ice taste in my opinion.\n(Sometimes can be a bit too sweet)\nThey have air conditioned room as well.",
+    "user": "Gaia Drazer",
+    "isoDate": "6 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjV8i6hktvwMT4C4AnlhTobJtNiwBg215DKWr755oxhxUCrAqJg=s120-c-rp-mo-ba3-br100",
     "classification": "Genuine-Positive",
     "confidence": "85",
-    "explanation": "The review uses casual Malay language (\"Hari2 makan sini\") to express regular patronage, likely indicating genuine satisfaction. The mention of convenience (\"Sebab bawah rumah je\") adds authenticity. However, the brevity and lack of detailed praise slightly reduce confidence.\",\"stop_reason\":\"stop\"}]}",
-    "raw": "{\"choices\":[{\"text\":\"</think>\\n\\nClassification: [Genuine-Positive]  \\nConfidence: [85]  \\nExplanation: The review uses casual Malay language (\\\"Hari2 makan sini\\\") to express regular patronage, likely indicating genuine satisfaction. The mention of convenience (\\\"Sebab bawah rumah je\\\") adds authenticity. However, the brevity and lack of detailed praise slightly reduce confidence.\",\"stop_reason\":\"stop\"}]}"
+    "explanation": "The review provides specific details about the Teh Ice taste and mentions a minor issue (sometimes too sweet), indicating a genuine opinion.",
+    "raw": "Review 11: Genuine-Positive|85|The review provides specific details about the Teh Ice taste and mentions a minor issue (sometimes too sweet), indicating a genuine opinion."
+  },
+  {
+    "id": 24,
+    "rating": 4,
+    "snippet": "I sit here and work, after dropping off my parents at Hospital Serdang for their check ups.",
+    "user": "Rachael Philip",
+    "isoDate": "3 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUd3BSGGnhfzav8hzVOACVNfBpe-ku96rWPYsihzQsvcQnHbE7vKA=s120-c-rp-mo-ba3-br100",
+    "classification": "Fake-Promotional",
+    "confidence": "100",
+    "explanation": "The review does not mention the food or service at all, and seems to be promoting the restaurant as a workspace, indicating a fake and promotional review.",
+    "raw": "Review 12: Fake-Promotional|100|The review does not mention the food or service at all, and seems to be promoting the restaurant as a workspace, indicating a fake and promotional review."
+  },
+  {
+    "id": 25,
+    "rating": 4,
+    "snippet": "Great food, intermediate price, medium service.",
+    "user": "KeoN AnwaR",
+    "isoDate": "6 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUERKDVVs7M37__xCAWOzD8EdP9UOqrfktTaMgq5hiHn-nSa69j=s120-c-rp-mo-ba2-br100",
+    "classification": "Fake-Promotional",
+    "confidence": "80",
+    "explanation": "The review is brief and provides a balanced assessment of the restaurant, mentioning both positives (food, price) and negatives (service).",
+    "raw": "Review 1: Genuine-Neutral|80|The review is brief and provides a balanced assessment of the restaurant, mentioning both positives (food, price) and negatives (service)."
+  },
+  {
+    "id": 26,
+    "rating": 5,
+    "snippet": "Food is quite good and fresh so far. Affordable yet decently tasty food, quite recommended. Mixed rice is quite good too with reasonable pricing. Maggi goreng, rotis is overall ok too. Service is average but food is served fast. Dining ambience is quite good considering the price of food. Air conditioned area is comfortable to sit in, outdoors are ok at night too.",
+    "user": "Nivlac",
+    "isoDate": "a year ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXI_voKUTXeJN24mRYqteL24IsKl4EaID398NbKnPbpawZH2woF=s120-c-rp-mo-ba3-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The review is detailed and provides specific examples of the restaurant's strengths, including food quality, price, and ambiance. The reviewer also mentions some minor drawbacks, but overall the tone is positive.",
+    "raw": "Review 2: Genuine-Positive|90|The review is detailed and provides specific examples of the restaurant's strengths, including food quality, price, and ambiance. The reviewer also mentions some minor drawbacks, but overall the tone is positive."
+  },
+  {
+    "id": 27,
+    "rating": 5,
+    "snippet": "Reasonably priced and good food. But due to its location across 2 schools, its crowded with school students. So its quite noisy compared go any other mamaks. Overall its a nice place to be with aircond too!",
+    "user": "Bob Hew",
+    "isoDate": "a year ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocKforjHfhdjrEmNuh_bwYCuyqHLmJyZBvRQi6fS9SL_btUH=s120-c-rp-mo-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "80",
+    "explanation": "The review is generally positive, highlighting the restaurant's value for money and comfortable ambiance. The reviewer mentions some drawbacks, such as noise levels, but these are minor complaints.",
+    "raw": "Review 3: Genuine-Positive|80|The review is generally positive, highlighting the restaurant's value for money and comfortable ambiance. The reviewer mentions some drawbacks, such as noise levels, but these are minor complaints."
+  },
+  {
+    "id": 28,
+    "rating": 2,
+    "snippet": "The food is normal. Not too delicious. Like roti can be rock. But always like the masakan melayu ( abg yg goreng dekat luar tu. Malam shj). All the tomyam is good. Western ala kadar je. (Biasa mamak western ke laut sikit)\n\nService is not very good. I understand there is too many people but please aware of your customer. Like kene sidai dekat 40 mnit dah. There is one incident the boss take my order and deliver thats is not my order. The blame me for the mistake he made. I always come here just ordering one menu only. Bihun goreng tomyam is a must try.\n\nAtmosphere is ok. I came because of the air cond. inside very loud if too many customer",
+    "user": "Mohamad Rashidi Abdul Rashid",
+    "isoDate": "a year ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWDCd1bBc4xaO98AZy3VRJekK1WXL-XmmQj-Q4fv0eMfUrgrwpK=s120-c-rp-mo-ba3-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "80",
+    "explanation": "The review is mixed, but the negative comments (food quality, service) outweigh the positive ones (atmosphere). The reviewer provides specific examples of their disappointing experiences.",
+    "raw": "Review 4: Genuine-Negative|80|The review is mixed, but the negative comments (food quality, service) outweigh the positive ones (atmosphere). The reviewer provides specific examples of their disappointing experiences."
+  },
+  {
+    "id": 29,
+    "rating": 5,
+    "snippet": "Late night Roti Naan here is never disappointing. A lepak place. Good food. Not so clean.",
+    "user": "Maryam Hazwani",
+    "isoDate": "5 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWZL49mDYDi7UT3Nub_nOf1rDomdLKKRtT5V7XM0m8VDgVjcxU=s120-c-rp-mo-ba3-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "70",
+    "explanation": "The review is brief and focuses on the positives (food, ambiance), with a minor complaint about cleanliness.",
+    "raw": "Review 5: Genuine-Positive|70|The review is brief and focuses on the positives (food, ambiance), with a minor complaint about cleanliness."
+  },
+  {
+    "id": 30,
+    "rating": 5,
+    "snippet": "Food taste great. Service is fast. Air-cond dining place. Place is clean with Category A cleanliness level.",
+    "user": "Siow Lip Han",
+    "isoDate": "8 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjVjkYS5E4akvwaBoZqE7aF52n2TH-pEIUfRVJRTHf7YwnH740LH2A=s120-c-rp-mo-ba3-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The review is extremely positive, highlighting the restaurant's strengths in food quality, service, and ambiance.",
+    "raw": "Review 6: Genuine-Positive|90|The review is extremely positive, highlighting the restaurant's strengths in food quality, service, and ambiance."
+  },
+  {
+    "id": 31,
+    "rating": 5,
+    "snippet": "First time being here and already loving it, huge portion is an extra on top of having really delicious food, though you may have to wait a bit since it's always crowded",
+    "user": "Sopi",
+    "isoDate": "10 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjVg-T2_Xrsc4KhSAwtfqn91q-7YRPFOxEQuNqpVqElDHzct9RE7=s120-c-rp-mo-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "80",
+    "explanation": "The review is enthusiastic and focuses on the positives (food quality, portion size), with a minor complaint about wait times.",
+    "raw": "Review 7: Genuine-Positive|80|The review is enthusiastic and focuses on the positives (food quality, portion size), with a minor complaint about wait times."
+  },
+  {
+    "id": 32,
+    "rating": 3,
+    "snippet": "Nasi goreng mamak is better than Melayu. The washroom needs to be added or improved always full even only with their staff usage. The fried chicken is not fresh can smell and taste the spoiled. They just re-heat the unselling food. Always crowded.",
+    "user": "Mohammad",
+    "isoDate": "2 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUaJNl10LBy65oSdCANHxvjuaxUgFLqzTJEygj8jshbWihrWzgxjQ=s120-c-rp-mo-ba4-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "80",
+    "explanation": "The review is mixed, but the negative comments (food quality, cleanliness) outweigh the positive ones. The reviewer provides specific examples of their disappointing experiences.",
+    "raw": "Review 8: Genuine-Negative|80|The review is mixed, but the negative comments (food quality, cleanliness) outweigh the positive ones. The reviewer provides specific examples of their disappointing experiences."
+  },
+  {
+    "id": 33,
+    "rating": 4,
+    "snippet": "Good taste of Roti Canai..\nNasi lemak as well.\nDrinks also taste Good",
+    "user": "Dee",
+    "isoDate": "7 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXtG4RsETg6yN0eH1zdOPXFhwAW-1M9SuszYRJE-fiJ88Ww2ibqIw=s120-c-rp-mo-ba7-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "70",
+    "explanation": "The review is brief and focuses on the positives (food quality), with no negative comments.",
+    "raw": "Review 9: Genuine-Positive|70|The review is brief and focuses on the positives (food quality), with no negative comments."
+  },
+  {
+    "id": 34,
+    "rating": 2,
+    "snippet": "I ordered a tomyam campur, the sotong seems like not fresh, the chicken also no fresh.\nThe staff seems like don't bother to help us to make order.",
+    "user": "Soon Yong Wei (孙杨威)",
+    "isoDate": "a year ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjVMokeEiCcFwguX9YltlWTJnjsMEtoS4h39iXBGHU6dBb-HO6rf=s120-c-rp-mo-ba2-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "80",
+    "explanation": "The review is negative, highlighting the restaurant's weaknesses in food quality and service.",
+    "raw": "Review 10: Genuine-Negative|80|The review is negative, highlighting the restaurant's weaknesses in food quality and service."
+  },
+  {
+    "id": 35,
+    "rating": 5,
+    "snippet": "Cheap & huge portion. Really recommended.",
+    "user": "noorfarhah jasmin",
+    "isoDate": "3 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjUvq64Tho7Q1B-8WwRoyv3t_PZR-iVr2ZK90W6F74IFoDot_Qk2=s120-c-rp-mo-ba2-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "70",
+    "explanation": "The review is brief and focuses on the positives (price, portion size), with no negative comments.",
+    "raw": "Review 11: Genuine-Positive|70|The review is brief and focuses on the positives (price, portion size), with no negative comments."
+  },
+  {
+    "id": 36,
+    "rating": 4,
+    "snippet": "I see improvement since the restaurant was open. Until now the mamak restaurant has 3 lot in a row to make the restaurant bigger. They also has renovate the interior to make it look beautiful and clean. The food is okay. Not bad at all. The special part is the food quantity. You'll get a big amount in a plate. Also the food not expensive. This place is good for a family to grab a snack. Parking is not much. Sometimes you have to park far away. The waiter is all friendly. But sometimes lazy. This place also has an air conditioned room. So no problem to sit there doing an assignment.",
+    "user": "Daniel Mail",
+    "isoDate": "7 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLTngG5ONb9xBKRtX8A7Lr56RFd3avGWezlx9BNRMeqKnsNrQ=s120-c-rp-mo-ba3-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The review is detailed and provides a balanced assessment of the restaurant, highlighting its strengths (food quantity, price, ambiance) and weaknesses (parking, service). The tone is overall positive and encouraging.",
+    "raw": "Review 12: Genuine-Positive|90|The review is detailed and provides a balanced assessment of the restaurant, highlighting its strengths (food quantity, price, ambiance) and weaknesses (parking, service). The tone is overall positive and encouraging."
+  },
+  {
+    "id": 37,
+    "rating": 4,
+    "snippet": "this restaurant was our gang's regular spot during our university years. although the taste did reduced abit, the quantity of single serving is still ALOT.\nfor students, I'm pretty sure you can order for 1 person and shared with two.",
+    "user": "punisher17 (thenna)",
+    "isoDate": "2 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjX4PdI0wS5kFb5HKsEY-m1XO5SonaUISS8gUiQHSMi2EFbmFvtU=s120-c-rp-mo-ba3-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The reviewer shares a personal experience and provides specific details about the restaurant, including a helpful tip for students. The tone is casual and conversational.",
+    "raw": "Review 1: Genuine-Positive|90|The reviewer shares a personal experience and provides specific details about the restaurant, including a helpful tip for students. The tone is casual and conversational."
+  },
+  {
+    "id": 38,
+    "rating": 4,
+    "snippet": "if you're here for the first time, try their nasi lemak goreng.\nsome might need 2 people to finish one serving of it.\nso be prepared.",
+    "user": "muhammad asri Hashim",
+    "isoDate": "Edited a year ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXU78QvC6vAiQGGkRTMfg2YBbdiclPWDvejCAJpHyaLvwNglQrN=s120-c-rp-mo-ba3-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "95",
+    "explanation": "The reviewer provides a helpful tip for first-time visitors and shares their experience with the serving size. The tone is friendly and informative.",
+    "raw": "Review 2: Genuine-Positive|95|The reviewer provides a helpful tip for first-time visitors and shares their experience with the serving size. The tone is friendly and informative."
+  },
+  {
+    "id": 39,
+    "rating": 5,
+    "snippet": "Best local joint to eat. Great food with great prices.",
+    "user": "Sadman Rahman",
+    "isoDate": "6 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXTEdOFYUhZF-VcycE0k9q3mTeewa11Kfmf8VvMExlCv_C1G6sLgw=s120-c-rp-mo-ba4-br100",
+    "classification": "Fake-Promotional",
+    "confidence": "80",
+    "explanation": "The review is brief and lacks specific details, using generic phrases like \"Great food with great prices.\" It seems like an attempt to promote the restaurant without providing genuine feedback.",
+    "raw": "Review 3: Fake-Promotional|80|The review is brief and lacks specific details, using generic phrases like \"Great food with great prices.\" It seems like an attempt to promote the restaurant without providing genuine feedback."
+  },
+  {
+    "id": 40,
+    "rating": 3,
+    "snippet": "Went during the night. Around 9.30pm, very crowded, service for masakan panas very slow. Waiting for like 40 min for a plate of Nasi Goreng kampung..better order roti canai etc during crowded times. Taste is at average.",
+    "user": "nasuha 4794",
+    "isoDate": "3 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocIrOXh5fXs0qaSBTEcTemWxELkehS6KJhUgUhKvXyzvgpIXMQ=s120-c-rp-mo-ba4-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "85",
+    "explanation": "The reviewer shares a specific experience with slow service and average food quality. The tone is neutral and provides constructive feedback.",
+    "raw": "Review 4: Genuine-Negative|85|The reviewer shares a specific experience with slow service and average food quality. The tone is neutral and provides constructive feedback."
+  },
+  {
+    "id": 41,
+    "rating": 4,
+    "snippet": "This restaurant offer the best value for money mamaks dishes in the town. Period. The foods are well served and tasty (exclude mamak goreng which sometimes got overcooked). It also offer variety of foods such as western food and malay dish.  It got air cond room too. And the staffs are friendly and attentive to customer needs. The only downside for me is often overcrowded with customers and you may need to wait long.",
+    "user": "Ryan New",
+    "isoDate": "3 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjW56kPvvl7KJepEXv1yzzSmUhOfgPexkCdlYyzsJNmpm7NHi4t3=s120-c-rp-mo-ba4-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "95",
+    "explanation": "The reviewer provides a detailed and balanced review, highlighting the restaurant's strengths and weaknesses. The tone is informative and helpful.",
+    "raw": "Review 5: Genuine-Positive|95|The reviewer provides a detailed and balanced review, highlighting the restaurant's strengths and weaknesses. The tone is informative and helpful."
+  },
+  {
+    "id": 42,
+    "rating": 5,
+    "snippet": "Clean place, good price, good service and tasty food",
+    "user": "hesam moghaddam",
+    "isoDate": "7 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocLbqQkkp4oxocjPpD6TUwM-WNwKVPF4XI43hc7StRMMHzq0DQ=s120-c-rp-mo-ba4-br100",
+    "classification": "Fake-Promotional",
+    "confidence": "70",
+    "explanation": "The review is brief and lacks specific details, using generic phrases like \"Clean place, good price, good service and tasty food.\" It seems like an attempt to promote the restaurant without providing genuine feedback.",
+    "raw": "Review 6: Fake-Promotional|70|The review is brief and lacks specific details, using generic phrases like \"Clean place, good price, good service and tasty food.\" It seems like an attempt to promote the restaurant without providing genuine feedback."
+  },
+  {
+    "id": 43,
+    "rating": 4,
+    "snippet": "There are lot of variety of foods available which includes Indian food items. The taste is good and atmosphere is nice. Advanced billing system when compared to other restaurants. Reasonable price.",
+    "user": "Anand S",
+    "isoDate": "2 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjX9FPhfpnMklGYxljiv10PQ0Eubw04gZ3JtFeypJYeyjcHDGvHX=s120-c-rp-mo-ba4-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "90",
+    "explanation": "The reviewer provides specific details about the restaurant's variety of food options, atmosphere, and billing system. The tone is positive and informative.",
+    "raw": "Review 7: Genuine-Positive|90|The reviewer provides specific details about the restaurant's variety of food options, atmosphere, and billing system. The tone is positive and informative."
+  },
+  {
+    "id": 44,
+    "rating": 5,
+    "snippet": "Good food & services, but relatively noisier due to tiled wall",
+    "user": "Hafiidz Hassan",
+    "isoDate": "8 months ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWhHSqsHpz1ROglgTnbvD1cGrdfVjHF3HV4mRYHV3h-69riFK6Q=s120-c-rp-mo-ba3-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "85",
+    "explanation": "The reviewer shares a balanced review, highlighting the restaurant's strengths and weaknesses. The tone is neutral and provides constructive feedback.",
+    "raw": "Review 8: Genuine-Positive|85|The reviewer shares a balanced review, highlighting the restaurant's strengths and weaknesses. The tone is neutral and provides constructive feedback."
+  },
+  {
+    "id": 45,
+    "rating": 1,
+    "snippet": "Security and service of the staff is a problem...\n\nSkip the part where they change your order like adding one telur on top of your meal to kinda earn more...\n\nStaff service is terrible, they forget to record down my table despite a order record card has been given...start to question sarcasmly where is my table like I am trying to not to pay my meal....\n\nThen a bunch of Indian/Malay kid surround me when I am trying to pay my meal literally surround me which I really feel unsafe, the cashier did nothing but laugh with them when they say \"they can see my phone password and e wallet password and we will steal your phone later and take your money\"... Which I dun really think that kind of situation is funny nor the joke...\n\nSecurity is a concern and they serve bunch gangsta there.... Food is good but environment is really concerning...\n\nI seldom put a review and this store is should be totally avoided...",
+    "user": "Garrick Ng",
+    "isoDate": "2 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjXTU7SymFb47w67-7zsZ_D2_0_kVGEIMFsx8Pdv_oWig4bSQP4=s120-c-rp-mo-ba2-br100",
+    "classification": "Genuine-Negative",
+    "confidence": "100",
+    "explanation": "The reviewer shares a detailed and disturbing experience with poor service and security concerns. The tone is angry and frustrated, but the review seems genuine and not exaggerated.",
+    "raw": "Review 9: Genuine-Negative|100|The reviewer shares a detailed and disturbing experience with poor service and security concerns. The tone is angry and frustrated, but the review seems genuine and not exaggerated."
+  },
+  {
+    "id": 46,
+    "rating": 3,
+    "snippet": "The food is okay if you planning to grab a quick grab and have a taste of Indian Cuisine. The price is normal as well as its service.. Overall it's good for student who want to go for a quick grab or dinner",
+    "user": "Shakir",
+    "isoDate": "6 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjW6K9Avd8K7Tlk2DTH8bXzv6vY-LgyojXvZZ6YwKo1unFnpadHp=s120-c-rp-mo-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "80",
+    "explanation": "The reviewer provides a brief and balanced review, highlighting the restaurant's strengths and weaknesses. The tone is neutral and provides constructive feedback.",
+    "raw": "Review 10: Genuine-Positive|80|The reviewer provides a brief and balanced review, highlighting the restaurant's strengths and weaknesses. The tone is neutral and provides constructive feedback."
+  },
+  {
+    "id": 47,
+    "rating": 5,
+    "snippet": "Like any UPM student who lives outside, I pretty much am a frequent customer of PKS. My favourite dish there might be the chicken curry and rice but honestly love everything. The Milo ais is the best in Sri Serdang. The place is well light and have affordable menu items for everyone who would like to have a delicious meal.",
+    "user": "Apoorva Nair",
+    "isoDate": "3 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a-/ALV-UjWDgG3T4SrmXBC78sHp_6evp90tBQx4SNcdK-0xTnUXjaFy0n2j_g=s120-c-rp-mo-ba6-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "95",
+    "explanation": "The reviewer shares a personal experience and provides specific details about their favorite dishes. The tone is enthusiastic and positive.",
+    "raw": "Review 11: Genuine-Positive|95|The reviewer shares a personal experience and provides specific details about their favorite dishes. The tone is enthusiastic and positive."
+  },
+  {
+    "id": 48,
+    "rating": 5,
+    "snippet": "Roti Tisu for just RM2.50 (quality is maintained too), I rate 5 stars only because 6 stars and above are unavailable.\n\nThey have quite optimum workforce all the time mostly, by workforce, I mean waiters that memorize our tricky order with high accuracy. Kudos!",
+    "user": "Chew Wei Quek",
+    "isoDate": "3 years ago",
+    "profilePicture": "https://lh3.googleusercontent.com/a/ACg8ocJhA6xGwxI8J5nBaHRmKv-lCCzNa8iBvnGC8nZWHInBT7UscY1E=s120-c-rp-mo-ba4-br100",
+    "classification": "Genuine-Positive",
+    "confidence": "100",
+    "explanation": "The reviewer provides a detailed and humorous review, highlighting the restaurant's strengths and providing specific examples. The tone is playful and enthusiastic.",
+    "raw": "Review 12: Genuine-Positive|100|The reviewer provides a detailed and humorous review, highlighting the restaurant's strengths and providing specific examples. The tone is playful and enthusiastic."
   }
 ]

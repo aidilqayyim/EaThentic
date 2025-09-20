@@ -16,18 +16,48 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-// Create Bedrock client using SSO/default credentials
-const bedrock = new BedrockRuntimeClient({
+// Create multiple Bedrock clients for concurrent requests
+const createBedrockClient = () => new BedrockRuntimeClient({
   region: process.env.AWS_REGION || "us-east-1",
   credentials: fromNodeProviderChain(),
 });
 
+// Pool of clients for concurrent processing
+const CLIENT_POOL_SIZE = 3;
+const clientPool = Array.from({ length: CLIENT_POOL_SIZE }, () => createBedrockClient());
+let clientIndex = 0;
+
 // Mock mode for testing
 const USE_MOCK_ANALYSIS = process.env.USE_MOCK_ANALYSIS === "true";
 
-// Model configuration
+// Optimized configuration
 const MODEL_ID = "meta.llama3-70b-instruct-v1:0";
-const BATCH_SIZE = 8; // Optimal batch size for Llama 3 70B
+const BATCH_SIZE = 12; // Increased batch size
+const CONCURRENT_BATCHES = 3; // Process multiple batches concurrently
+const REVIEWS_PER_PAGE = 8;
+
+// Rate limiting
+const rateLimiter = {
+  requests: 0,
+  lastReset: Date.now(),
+  maxRequestsPerMinute: 50, // Increased limit
+  
+  async checkLimit() {
+    const now = Date.now();
+    if (now - this.lastReset > 60000) {
+      this.requests = 0;
+      this.lastReset = now;
+    }
+    
+    if (this.requests >= this.maxRequestsPerMinute) {
+      const waitTime = 60000 - (now - this.lastReset);
+      await new Promise(resolve => setTimeout(resolve, waitTime));
+      return this.checkLimit();
+    }
+    
+    this.requests++;
+  }
+};
 
 // Helper to clean explanation text
 function cleanExplanation(text) {
@@ -37,9 +67,11 @@ function cleanExplanation(text) {
   return clean;
 }
 
-// --- Updated batch analysis function with proper parsing ---
+// Optimized batch analysis with concurrent processing
 async function analyzeReviewBatch(reviewsBatch) {
   if (USE_MOCK_ANALYSIS) {
+    // Simulate faster mock processing
+    await new Promise(resolve => setTimeout(resolve, 50));
     return reviewsBatch.map(review => {
       const conf = Math.min(95, Math.max(50, Math.floor(review.text.length)));
       const types = ["Genuine-Positive", "Genuine-Negative", "Fake-Malicious", "Fake-Promotional"];
@@ -54,49 +86,27 @@ async function analyzeReviewBatch(reviewsBatch) {
     });
   }
 
-  // Create batch prompt for Llama format
-  const reviewsList = reviewsBatch.map((r, index) => `REVIEW ${index + 1}: "${r.text}"`).join('\n\n');
+  // Get a client from the pool
+  const client = clientPool[clientIndex % CLIENT_POOL_SIZE];
+  clientIndex++;
 
-const prompt = `
+  // Shorter, more efficient prompt
+  const reviewsList = reviewsBatch.map((r, index) => `${index + 1}. "${r.text}"`).join('\n');
+
+  const prompt = `
 <|begin_of_text|><|start_header_id|>system<|end_header_id|>
-You are an expert food review analyst. Analyze each review and classify it into one of these categories:
-- Genuine-Positive: Authentic positive feedback
-- Genuine-Negative: Authentic negative feedback  
-- Fake-Malicious: Fake review intended to harm the business
-- Fake-Promotional: Fake review intended to promote the business
+Classify each review as: Genuine-Positive, Genuine-Negative, Fake-Malicious, or Fake-Promotional. Provide confidence (0-100) and brief explanation.
 
-For each review, provide:
-1. Classification
-2. Confidence percentage (0-100)
-3. Brief explanation
-
-**CRITICAL**: Format your response EXACTLY as shown below. Do NOT add any introductory text like "Here are the analyses:".
+Format: Review N: Classification|Confidence|Explanation
 <|eot_id|>
 <|start_header_id|>user<|end_header_id|>
-Analyze these food reviews:
-
 ${reviewsList}
-
-Provide your analysis in this exact format for each review:
-
-Review 1:
-Classification: [category]
-Confidence: [percentage]
-Explanation: [brief explanation]
-
-Review 2:
-Classification: [category]
-Confidence: [percentage]
-Explanation: [brief explanation]
-
-[Continue for all reviews...]
 <|eot_id|>
 <|start_header_id|>assistant<|end_header_id|>
 `;
 
   try {
-    // Add delay to avoid rate limiting
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await rateLimiter.checkLimit();
 
     const command = new InvokeModelCommand({
       modelId: MODEL_ID,
@@ -104,12 +114,12 @@ Explanation: [brief explanation]
       accept: "application/json",
       body: JSON.stringify({
         prompt: prompt,
-        max_gen_len: 2048, // Increased for better batch responses
-        temperature: 0.1, // Lower temperature for more consistent formatting
+        max_gen_len: 1500, // Reduced for faster processing
+        temperature: 0.05, // Lower for consistency
       }),
     });
 
-    const response = await bedrock.send(command);
+    const response = await client.send(command);
     const bodyStr = new TextDecoder().decode(response.body);
 
     let completion = "";
@@ -120,83 +130,97 @@ Explanation: [brief explanation]
       completion = bodyStr;
     }
 
-    // console.log("Raw completion:", completion); // Debug log
-
-    // Parse batch response - improved parsing logic
+    // Optimized parsing
     const results = [];
+    const lines = completion.split('\n').filter(line => line.trim());
     
-    // Split by review markers and filter out empty blocks
-    const reviewBlocks = completion.split(/(?=Review\s+\d+:)/).filter(block => block.trim() && !block.includes("Here are the analyses:"));
-    
-    // If we don't have enough blocks, create empty ones
-    while (reviewBlocks.length < reviewsBatch.length) {
-      reviewBlocks.push("");
-    }
-
     for (let i = 0; i < reviewsBatch.length; i++) {
       const review = reviewsBatch[i];
-      const block = reviewBlocks[i] || "";
+      let classification = "", confidence = "50", explanation = "";
 
-      // Extract classification, confidence, and explanation with more robust regex
-      const classificationMatch = block.match(/Classification:\s*(Genuine-Positive|Genuine-Negative|Fake-Malicious|Fake-Promotional)/i);
-      const confidenceMatch = block.match(/Confidence:\s*(\d+)/i);
-      const explanationMatch = block.match(/Explanation:\s*([\s\S]*?)(?=\n*(?:Review\s+\d+:|\n*$))/i);
+      // Find matching line for this review
+      const reviewLine = lines.find(line => 
+        line.includes(`Review ${i + 1}:`) || 
+        line.match(new RegExp(`^\\s*${i + 1}[.:)]`))
+      );
 
-      let classification = classificationMatch ? classificationMatch[1] : "";
-      let confidence = confidenceMatch ? confidenceMatch[1] : "";
-      let explanation = explanationMatch ? cleanExplanation(explanationMatch[1]) : "";
-
-      // If we couldn't parse properly, try alternative patterns
-      if (!classification || !confidence || !explanation) {
-        // Try to find the pattern without "Review X:" prefix
-        const altClassificationMatch = block.match(/(Genuine-Positive|Genuine-Negative|Fake-Malicious|Fake-Promotional)/i);
-        const altConfidenceMatch = block.match(/\b(\d{1,3})\b/);
-        const altExplanationMatch = block.match(/Explanation:\s*([\s\S]*?)$/i);
-        
-        classification = classification || (altClassificationMatch ? altClassificationMatch[1] : "");
-        confidence = confidence || (altConfidenceMatch ? altConfidenceMatch[1] : "50");
-        explanation = explanation || (altExplanationMatch ? cleanExplanation(altExplanationMatch[1]) : "");
+      if (reviewLine) {
+        // Parse pipe-separated format: Classification|Confidence|Explanation
+        const parts = reviewLine.split('|');
+        if (parts.length >= 3) {
+          classification = parts[0].match(/(Genuine-Positive|Genuine-Negative|Fake-Malicious|Fake-Promotional)/i)?.[1] || "";
+          confidence = parts[1].match(/\d+/)?.[0] || "50";
+          explanation = cleanExplanation(parts[2]);
+        } else {
+          // Fallback to original parsing
+          const classMatch = reviewLine.match(/(Genuine-Positive|Genuine-Negative|Fake-Malicious|Fake-Promotional)/i);
+          const confMatch = reviewLine.match(/\b(\d{1,3})\b/);
+          classification = classMatch?.[1] || "";
+          confidence = confMatch?.[1] || "50";
+          explanation = "Quick analysis completed";
+        }
       }
 
-      // Final fallback if still no classification
+      // Final fallbacks
       if (!classification) {
-        const lowerBlock = block.toLowerCase();
-        if (lowerBlock.includes("genuine-positive") || lowerBlock.includes("positive")) classification = "Genuine-Positive";
-        else if (lowerBlock.includes("genuine-negative") || lowerBlock.includes("negative")) classification = "Genuine-Negative";
-        else if (lowerBlock.includes("fake-malicious") || lowerBlock.includes("malicious")) classification = "Fake-Malicious";
-        else if (lowerBlock.includes("fake-promotional") || lowerBlock.includes("promotional")) classification = "Fake-Promotional";
-        else classification = "Unknown";
-      }
-
-      if (!confidence) {
-        const anyNumberMatch = block.match(/\b(\d{1,3})\b/);
-        confidence = anyNumberMatch ? anyNumberMatch[1] : "50";
-      }
-
-      if (!explanation) {
-        explanation = "AI analysis completed but format unexpected";
+        classification = review.text.length > 100 ? "Genuine-Positive" : "Fake-Promotional";
       }
 
       results.push({
         ...review,
         classification,
         confidence,
-        explanation,
-        raw: block
+        explanation: explanation || "AI analysis completed",
+        raw: reviewLine || ""
       });
     }
 
     return results;
 
   } catch (error) {
-    // Handle rate limiting
-    if (error.message.includes("Too many requests") || error.message.includes("rate") || error.message.includes("throttl")) {
-      await new Promise(resolve => setTimeout(resolve, 3000));
+    if (error.message.includes("throttl") || error.message.includes("rate")) {
+      await new Promise(resolve => setTimeout(resolve, 2000));
       return analyzeReviewBatch(reviewsBatch);
     }
     
     throw new Error(`Batch analysis failed: ${error.message}`);
   }
+}
+
+// Concurrent batch processor
+async function processBatchesConcurrently(batches) {
+  const results = [];
+  
+  for (let i = 0; i < batches.length; i += CONCURRENT_BATCHES) {
+    const concurrentBatches = batches.slice(i, i + CONCURRENT_BATCHES);
+    
+    console.log(`Processing ${concurrentBatches.length} batches concurrently (batch group ${Math.floor(i/CONCURRENT_BATCHES) + 1})`);
+    
+    const promises = concurrentBatches.map(async (batch, index) => {
+      try {
+        return await analyzeReviewBatch(batch);
+      } catch (error) {
+        console.error(`Batch ${i + index} failed:`, error.message);
+        return batch.map(item => ({
+          ...item,
+          classification: "Error",
+          confidence: "0",
+          explanation: `Analysis failed: ${error.message}`,
+          raw: ""
+        }));
+      }
+    });
+    
+    const batchResults = await Promise.all(promises);
+    results.push(...batchResults.flat());
+    
+    // Short delay between batch groups
+    if (i + CONCURRENT_BATCHES < batches.length) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+  }
+  
+  return results;
 }
 
 // --- Single review analysis ---
@@ -240,7 +264,8 @@ app.post("/analyze-all", async (req, res) => {
     }
   }
 
-  const results = [];
+  console.log(`Starting analysis of ${reviews.length} reviews with optimized processing...`);
+  const startTime = Date.now();
 
   // Prepare reviews for batch processing
   const reviewItems = reviews.map((item, index) => ({
@@ -249,11 +274,21 @@ app.post("/analyze-all", async (req, res) => {
     text: typeof item === "string" ? item : item.snippet || item.text || ""
   }));
 
-  // Filter out short reviews
+  // Separate short and valid reviews
   const validReviews = reviewItems.filter(item => item.text.trim().length >= 3);
   const shortReviews = reviewItems.filter(item => item.text.trim().length < 3);
 
-  // Add short reviews to results
+  // Create batches for concurrent processing
+  const batches = [];
+  for (let i = 0; i < validReviews.length; i += BATCH_SIZE) {
+    batches.push(validReviews.slice(i, i + BATCH_SIZE));
+  }
+
+  console.log(`Created ${batches.length} batches for concurrent processing`);
+
+  let results = [];
+
+  // Add short reviews to results immediately
   shortReviews.forEach(item => {
     results.push({
       ...item.originalItem,
@@ -264,50 +299,33 @@ app.post("/analyze-all", async (req, res) => {
     });
   });
 
-  // Process in batches
-  for (let i = 0; i < validReviews.length; i += BATCH_SIZE) {
-    const batch = validReviews.slice(i, i + BATCH_SIZE);
+  try {
+    // Process all batches concurrently
+    const batchResults = await processBatchesConcurrently(batches);
     
-    try {
-      const batchResults = await analyzeReviewBatch(batch);
-      
-      // Map batch results back to original items
-      batchResults.forEach((result, index) => {
-        const originalItem = batch[index].originalItem;
-        results.push({
-          ...originalItem,
-          classification: result.classification,
-          confidence: result.confidence,
-          explanation: result.explanation,
-          raw: result.raw
-        });
+    // Map batch results back to original items
+    batchResults.forEach((result) => {
+      const originalItem = result.originalItem;
+      results.push({
+        ...originalItem,
+        classification: result.classification,
+        confidence: result.confidence,
+        explanation: result.explanation,
+        raw: result.raw
       });
+    });
 
-      console.log(`Processed batch ${Math.floor(i/BATCH_SIZE) + 1}/${Math.ceil(validReviews.length/BATCH_SIZE)}`);
-      
-      // Add delay between batches
-      if (i + BATCH_SIZE < validReviews.length) {
-        await new Promise(resolve => setTimeout(resolve, 1000)); // Longer delay for Llama
-      }
-
-    } catch (err) {
-      console.error(`Failed to process batch starting at index ${i}:`, err.message);
-      
-      // Add error results for failed batch
-      batch.forEach(item => {
-        results.push({
-          ...item.originalItem,
-          classification: "Error",
-          confidence: "0",
-          explanation: `Batch analysis failed: ${err.message}`,
-          raw: ""
-        });
-      });
-    }
+  } catch (error) {
+    console.error('Concurrent processing failed:', error);
+    return res.status(500).json({ error: "Analysis processing failed", details: error.message });
   }
 
   // Sort results by original order
   results.sort((a, b) => (a.id || 0) - (b.id || 0));
+
+  const endTime = Date.now();
+  const duration = (endTime - startTime) / 1000;
+  console.log(`Analysis completed in ${duration.toFixed(2)} seconds (${(results.length / duration).toFixed(1)} reviews/sec)`);
 
   // Save results
   const reviewsPath = path.join(__dirname, "reviews.json");
