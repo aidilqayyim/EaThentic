@@ -1,138 +1,227 @@
-const express = require("express");
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const AWS = require("aws-sdk");
-const fs = require("fs");
-const path = require("path");
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+// AWS SDK v3 imports
+import { BedrockRuntimeClient, InvokeModelCommand } from "@aws-sdk/client-bedrock-runtime";
+import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
-// Configure AWS SDK
-AWS.config.update({
-  region: process.env.AWS_REGION || "ap-southeast-1",
+// Create Bedrock client using SSO/default credentials
+const bedrock = new BedrockRuntimeClient({
+  region: process.env.AWS_REGION || "us-east-1",
+  credentials: fromNodeProviderChain(),
 });
-
-const bedrock = new AWS.BedrockRuntime();
 
 // Mock mode for testing
 const USE_MOCK_ANALYSIS = process.env.USE_MOCK_ANALYSIS === "true";
-
-// Helper function to convert body to string
-async function bodyToString(body) {
-  if (!body) return "";
-  if (typeof body === "string") return body;
-  if (Buffer.isBuffer(body)) return body.toString("utf-8");
-  if (body instanceof Uint8Array) return new TextDecoder().decode(body);
-  return JSON.stringify(body);
-}
 
 // Helper to clean explanation text
 function cleanExplanation(text) {
   if (!text) return "";
   let clean = text.replace(/\\+/g, "").replace(/\s+/g, " ").trim();
-  const metadataPattern = /\}\],.*$/;
-  clean = clean.replace(metadataPattern, "").trim();
-  if (clean.startsWith('"') && clean.endsWith('"')) {
-    clean = clean.slice(1, -1).trim();
-  }
+  if (clean.startsWith('"') && clean.endsWith('"')) clean = clean.slice(1, -1).trim();
   return clean;
 }
 
-// Bedrock call without retries
+// --- Updated analyzeReview function with rate limiting and short text handling ---
 async function analyzeReview(review) {
+  // Handle very short reviews that don't need AI analysis
+  if (!review || review.trim().length < 3) {
+    return {
+      classification: "Insufficient-Text",
+      confidence: "0",
+      explanation: "Review text is too short for meaningful analysis",
+      raw: "Skipped analysis due to short text length"
+    };
+  }
+
   if (USE_MOCK_ANALYSIS) {
     const conf = Math.min(95, Math.max(50, Math.floor(review.length)));
     const types = ["Genuine-Positive", "Genuine-Negative", "Fake-Malicious", "Fake-Promotional"];
     const classification = types[Math.floor(Math.random() * types.length)];
     return {
-      completion: `Classification: ${classification}\nConfidence: ${conf}\nExplanation: Mocked analysis based on length.`,
+      classification,
+      confidence: conf.toString(),
+      explanation: "Mocked analysis based on length",
+      raw: `Classification: ${classification}\nConfidence: ${conf}\nExplanation: Mocked`,
     };
   }
 
   const prompt = `
-  Classify the following food review as [Genuine-Positive/Genuine-Negative/Fake-Malicious/Fake-Promotional].
-  Also provide a confidence percentage (0-100) and a brief explanation.
+Classify the following food review as [Genuine-Positive/Genuine-Negative/Fake-Malicious/Fake-Promotional].
+Also provide a confidence percentage (0-100) and a brief explanation.
 
-  Review: "${review}"
-  
-  Format your response as:
-  Classification: [Genuine-Positive/Genuine-Negative/Fake-Malicious/Fake-Promotional]
-  Confidence: [0-100] (in percentage)
-  Explanation: [brief explanation]
-  `;
+Review: "${review}"
 
-  const params = {
-    modelId: "anthropic.claude-3-haiku-20240307-v1:0",
-    accept: "application/json",
-    contentType: "application/json",
-    body: JSON.stringify({
-      anthropic_version: "bedrock-2023-05-31",
-      messages: [{ role: "user", content: prompt }],
-      max_tokens: 1024,
-    }),
-  };
+Format your response as:
+Classification: [Genuine-Positive/Genuine-Negative/Fake-Malicious/Fake-Promotional]
+Confidence: [0-100]
+Explanation: [brief explanation]
+`;
 
-  const response = await bedrock.invokeModel(params).promise();
-  const bodyStr = await bodyToString(response.body);
+  console.log("Review text:", review);
+  console.log("Prompt sent to Bedrock:", prompt);
 
-  let parsed;
   try {
-    parsed = JSON.parse(bodyStr);
-  } catch {
-    parsed = { text: bodyStr };
-  }
+    // Add delay to avoid rate limiting (100ms between requests)
+    await new Promise(resolve => setTimeout(resolve, 100));
 
-  let completion = "";
-  if (parsed.completion) completion = parsed.completion;
-  else if (parsed.text) completion = parsed.text;
-  else if (parsed?.choices?.length) {
-    completion = parsed.choices.map(c => c.text || JSON.stringify(c)).join("\n");
-  } else if (parsed?.outputs?.length) {
-    completion = parsed.outputs.map(o => {
-      if (o.outputText) return o.outputText;
-      if (o.content?.[0]?.text) return o.content[0].text;
-      return JSON.stringify(o);
-    }).join("\n");
-  } else {
-    completion = JSON.stringify(parsed);
-  }
+    // Correct format for DeepSeek models in Bedrock
+    const command = new InvokeModelCommand({
+      modelId: "us.deepseek.r1-v1:0",
+      contentType: "application/json",
+      accept: "application/json",
+      body: JSON.stringify({
+        prompt: prompt,
+        max_tokens: 1024,
+        temperature: 0.7,
+      }),
+    });
 
-  return { completion, rawParsed: parsed };
+    const response = await bedrock.send(command);
+    const bodyStr = new TextDecoder().decode(response.body);
+    
+    console.log("Raw response from Bedrock:", bodyStr);
+
+    let completion = "";
+    try {
+      const parsed = JSON.parse(bodyStr);
+      // DeepSeek typically returns text in 'completions' array
+      completion = parsed.completions?.[0]?.data?.text || 
+                   parsed.completions?.[0]?.text ||
+                   parsed.text ||
+                   parsed.outputText ||
+                   bodyStr; // Fallback to raw response
+    } catch (err) {
+      console.error("Failed to parse Bedrock response:", err);
+      completion = bodyStr;
+    }
+
+    console.log("Completion text:", completion);
+
+    // Extract classification, confidence, and explanation
+    const classificationMatch = completion.match(/Classification:\s*(Genuine-Positive|Genuine-Negative|Fake-Malicious|Fake-Promotional)/i);
+    const confidenceMatch = completion.match(/Confidence:\s*(\d+)/i);
+    const explanationMatch = completion.match(/Explanation:\s*([\s\S]*?)(?=\n\w+:|$)/i);
+
+    let classification = classificationMatch ? classificationMatch[1] : "";
+    let confidence = confidenceMatch ? confidenceMatch[1] : "";
+    let explanation = explanationMatch ? cleanExplanation(explanationMatch[1]) : "";
+
+    // Fallback: if standard parsing fails, try to infer from the text
+    if (!classification) {
+      const lowerCompletion = completion.toLowerCase();
+      if (lowerCompletion.includes("genuine-positive") || lowerCompletion.includes("positive")) classification = "Genuine-Positive";
+      else if (lowerCompletion.includes("genuine-negative") || lowerCompletion.includes("negative")) classification = "Genuine-Negative";
+      else if (lowerCompletion.includes("fake-malicious") || lowerCompletion.includes("malicious")) classification = "Fake-Malicious";
+      else if (lowerCompletion.includes("fake-promotional") || lowerCompletion.includes("promotional")) classification = "Fake-Promotional";
+      else classification = "Unknown";
+    }
+
+    if (!confidence) {
+      // Try to extract any number that might be confidence
+      const anyNumberMatch = completion.match(/\b(\d{1,3})\b/);
+      confidence = anyNumberMatch ? anyNumberMatch[1] : "50";
+    }
+
+    if (!explanation) {
+      explanation = "AI analysis completed but format unexpected";
+    }
+
+    console.log({ classification, confidence, explanation });
+
+    return { 
+      classification, 
+      confidence, 
+      explanation, 
+      raw: completion 
+    };
+
+  } catch (error) {
+    console.error("Bedrock API error:", error);
+    
+    // Handle rate limiting specifically
+    if (error.message.includes("Too many requests") || error.message.includes("rate") || error.message.includes("throttl")) {
+      // Wait longer and retry once
+      console.log("Rate limit detected, waiting 2 seconds before retry...");
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      try {
+        const retryResult = await analyzeReview(review);
+        return retryResult;
+      } catch (retryError) {
+        throw new Error(`Bedrock API call failed after retry: ${retryError.message}`);
+      }
+    }
+    
+    throw new Error(`Bedrock API call failed: ${error.message}`);
+  }
 }
 
-// Single review analyze endpoint
+// --- Routes ---
 app.post("/analyze", async (req, res) => {
   const { review } = req.body;
   if (!review) return res.status(400).json({ error: "No review provided" });
 
   try {
     const result = await analyzeReview(review);
-    let classification = "";
-    let confidence = "";
-    let explanation = "";
-
-    if (result.completion) {
-      const match = result.completion.match(
-        /Classification:\s*(Genuine-Positive|Genuine-Negative|Fake-Malicious|Fake-Promotional)[\s\S]*?Confidence:\s*(\d+)[\s\S]*?Explanation:\s*([\s\S]*)/i
-      );
-      if (match) {
-        classification = match[1];
-        confidence = match[2];
-        explanation = cleanExplanation(match[3]);
-      }
-    }
-
-    res.json({ classification, confidence, explanation, raw: result.completion });
+    res.json(result);
   } catch (error) {
     res.status(500).json({ error: "Analysis failed", details: error.message });
   }
 });
 
-// Fetch all reviews
+app.post("/analyze-all", async (req, res) => {
+  let reviews = req.body.reviews;
+
+  if (!reviews || !Array.isArray(reviews) || reviews.length === 0) {
+    const reviewsPath = path.join(__dirname, "reviews.json");
+    try {
+      reviews = JSON.parse(fs.readFileSync(reviewsPath, "utf-8"));
+    } catch {
+      return res.status(500).json({ error: "Failed to read reviews file" });
+    }
+  }
+
+  const results = [];
+  const BATCH_DELAY = 500; // 500ms between reviews to avoid rate limiting
+
+  for (const [idx, item] of reviews.entries()) {
+    const reviewText = typeof item === "string" ? item : item.snippet || item.text || "";
+    
+    // Add delay between processing each review
+    if (idx > 0) {
+      await new Promise(resolve => setTimeout(resolve, BATCH_DELAY));
+    }
+
+    try {
+      const result = await analyzeReview(reviewText);
+      results.push({ ...item, snippet: reviewText, ...result });
+      console.log(`Processed review ${idx + 1}/${reviews.length}`);
+    } catch (err) {
+      results.push({ ...item, snippet: reviewText, classification: "Error", confidence: "0", explanation: `Analysis failed: ${err.message}`, raw: "" });
+      console.error(`Failed to process review ${idx + 1}:`, err.message);
+    }
+  }
+
+  // Save results
+  const reviewsPath = path.join(__dirname, "reviews.json");
+  fs.writeFileSync(reviewsPath, JSON.stringify(results, null, 2), "utf-8");
+
+  res.json(results);
+});
+
+// Fetch reviews (SSE)
 app.get("/reviews", (req, res) => {
   res.set({
     "Content-Type": "text/event-stream",
@@ -147,6 +236,7 @@ app.get("/reviews", (req, res) => {
       res.write("event: done\ndata: {}\n\n");
       return res.end();
     }
+
     try {
       const reviews = JSON.parse(data);
       res.write(`event: reviews\ndata: ${JSON.stringify(reviews)}\n\n`);
@@ -158,96 +248,6 @@ app.get("/reviews", (req, res) => {
       res.end();
     }
   });
-});
-
-// Analyze all reviews sequentially without delays or retries
-app.post("/analyze-all", async (req, res) => {
-  let reviews = req.body.reviews;
-  if (!reviews || !Array.isArray(reviews) || reviews.length === 0) {
-    const reviewsPath = path.join(__dirname, "reviews.json");
-    try {
-      const data = fs.readFileSync(reviewsPath, "utf-8");
-      reviews = JSON.parse(data);
-    } catch {
-      return res.status(500).json({ error: "Failed to read reviews file" });
-    }
-  }
-
-  const mapped = reviews.map((item, idx) =>
-    typeof item === "string" ? { id: idx, snippet: item } : item
-  );
-
-  const results = [];
-  let tooManyRequestsCount = 0; // Counter for "Too Many Requests" errors
-
-  for (const item of mapped) {
-    if (tooManyRequestsCount >= 20) {
-      console.error("Stopping analysis due to repeated 'Too Many Requests' errors.");
-      break;
-    }
-
-    const reviewText = (item.snippet || item.review || item.text || item.content || "").toString();
-    if (!reviewText) {
-      results.push({ ...item, classification: "", confidence: "", explanation: "No text", raw: "" });
-      continue;
-    }
-
-    try {
-      const result = await analyzeReview(reviewText);
-      const raw = result.completion || "";
-      let classification = "";
-      let confidence = "";
-      let explanation = raw;
-
-      const match = result.completion.match(
-        /Classification:\s*(Genuine-Positive|Genuine-Negative|Fake-Malicious|Fake-Promotional)[\s\S]*?Confidence:\s*(\d+)[\s\S]*?Explanation:\s*([\s\S]*)/i
-      );
-      if (match) {
-        classification = match[1];
-        confidence = match[2];
-        explanation = cleanExplanation(match[3]);
-      }
-
-      results.push({ ...item, snippet: reviewText, classification, confidence, explanation, raw });
-    } catch (err) {
-      console.error("Single review analysis failed:", err.message);
-
-      // Increment the counter for "Too Many Requests" errors
-      if (err.message.includes("Too many requests")) {
-        tooManyRequestsCount++;
-      }
-
-      results.push({ ...item, snippet: reviewText, classification: "", confidence: "", explanation: `Analysis failed: ${err.message}`, raw: "" });
-    }
-  }
-
-  const reviewsPath = path.join(__dirname, "reviews.json");
-  fs.writeFileSync(reviewsPath, JSON.stringify(results, null, 2), "utf-8");
-  res.json(results);
-});
-
-// Fetch multiple photos for a place
-app.get("/photos/:placeId", async (req, res) => {
-  const { placeId } = req.params;
-  if (!placeId) {
-    return res.status(400).json({ error: "Place ID is required" });
-  }
-
-  try {
-    // This would typically use Google Places API
-    // For now, return mock photo URLs
-    const mockPhotos = [
-      `https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)}`,
-      `https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)}`,
-      `https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)}`,
-      `https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)}`,
-      `https://picsum.photos/800/600?random=${Math.floor(Math.random() * 1000)}`
-    ];
-    
-    res.json({ photos: mockPhotos });
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch photos", details: error.message });
-  }
 });
 
 // Test endpoint

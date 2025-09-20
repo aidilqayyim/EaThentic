@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@aws-sdk/credential-providers": "^3.893.0",
     "aws-sdk": "^2.1692.0",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
