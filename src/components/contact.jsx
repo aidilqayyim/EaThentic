@@ -59,7 +59,7 @@ const Contact = () => {
           {/* Right Side - Contact Form */}
           <div className="animate-fadeInUp">
             <div className="bg-gradient-to-br from-orange-50/90 to-white/90 backdrop-blur-sm rounded-2xl border border-orange-200/50 shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-sage-900 mb-6">Send a Message</h2>
+              <h2 className="text-2xl font-bold text-sage-900 mb-6">Drop us your feedback</h2>
               
               <form action="https://formspree.io/f/xandrlld" method="POST" className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-6">
@@ -133,7 +133,7 @@ const Contact = () => {
                   className="w-full bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-all duration-300 transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
                 >
                   <Send className="w-5 h-5" />
-                  Send Message
+                  Send Feedback
                 </button>
               </form>
             </div>
