@@ -117,17 +117,16 @@ export default function Reviews() {
       }
     );
 
-    // Fetch reviews from AWS API
+    // Fetch reviews from AWS API with staged loading
     const fetchReviews = async () => {
       try {
-        // Update first stage to loading
-        setStages(prev =>
-          prev.map((s) =>
-            s.stage === "Getting reviews"
-              ? { ...s, status: "loading", color: "grey" }
-              : s
-          )
-        );
+        // Reset stages to initial loading state
+        setStages([
+          { stage: "Getting reviews", status: "loading", color: "grey" },
+          { stage: "Loading the first reviews", status: "loading", color: "grey" },
+          { stage: "Loading the rest of the reviews", status: "loading", color: "grey" },
+          { stage: "Filtering the reviews", status: "loading", color: "grey" },
+        ]);
 
         const res = await fetch(`https://6nogrtm6y1.execute-api.us-east-1.amazonaws.com/review?placeId=${placeId}`);
         
@@ -136,17 +135,44 @@ export default function Reviews() {
         }
         
         const data = await res.json();
-        console.log(data.reviews);
+        console.log('Lambda response:', data);
         
-        // Update stages to success
-        setStages(prev =>
-          prev.map((s) => ({ ...s, status: "success", color: "green" }))
-        );
-        
-        if (data.reviews && Array.isArray(data.reviews)) {
+        // Check if this is a staged response or final response
+        if (data.stage && data.status) {
+          // This is a staged response - update the specific stage
+          setStages(prev => prev.map(s => 
+            s.stage === data.stage 
+              ? { ...s, status: data.status, color: data.status === "error" ? "red" : data.status === "success" ? "green" : "grey" }
+              : s
+          ));
+          
+          if (data.status === "error") {
+            throw new Error(data.error || `Failed at stage: ${data.stage}`);
+          }
+          
+          // If there's partial data, update reviews
+          if (data.data && Array.isArray(data.data)) {
+            setReviews(data.data);
+            reviewsRef.current = data.data;
+          }
+          
+          // Continue polling if not completed
+          if (!data.completed) {
+            // Implement polling logic if needed for real-time updates
+            return;
+          }
+        } else if (data.reviews && Array.isArray(data.reviews)) {
+          // This is the final response with all reviews
+          console.log('Final reviews:', data.reviews);
+          
+          // Update all stages to success
+          setStages(prev => prev.map(s => ({ ...s, status: "success", color: "green" })));
+          
           setReviews(data.reviews);
           reviewsRef.current = data.reviews;
         } else {
+          // Empty response
+          setStages(prev => prev.map(s => ({ ...s, status: "success", color: "green" })));
           setReviews([]);
           reviewsRef.current = [];
         }
@@ -155,9 +181,7 @@ export default function Reviews() {
       } catch (error) {
         console.error('Error fetching reviews:', error);
         setError(error.message || "Failed to fetch reviews");
-        setStages(prev =>
-          prev.map((s) => ({ ...s, status: "error", color: "red" }))
-        );
+        setStages(prev => prev.map(s => ({ ...s, status: "error", color: "red" })));
       }
     };
 
