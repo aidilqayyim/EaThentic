@@ -25,6 +25,10 @@ const bedrock = new BedrockRuntimeClient({
 // Mock mode for testing
 const USE_MOCK_ANALYSIS = process.env.USE_MOCK_ANALYSIS === "true";
 
+// Model configuration
+const MODEL_ID = "meta.llama3-70b-instruct-v1:0";
+const BATCH_SIZE = 8; // Optimal batch size for Llama 3 70B
+
 // Helper to clean explanation text
 function cleanExplanation(text) {
   if (!text) return "";
@@ -33,10 +37,172 @@ function cleanExplanation(text) {
   return clean;
 }
 
-// --- Updated analyzeReview function with rate limiting and short text handling ---
-async function analyzeReview(review) {
-  // Handle very short reviews that don't need AI analysis
-  if (!review || review.trim().length < 3) {
+// --- Updated batch analysis function with proper parsing ---
+async function analyzeReviewBatch(reviewsBatch) {
+  if (USE_MOCK_ANALYSIS) {
+    return reviewsBatch.map(review => {
+      const conf = Math.min(95, Math.max(50, Math.floor(review.text.length)));
+      const types = ["Genuine-Positive", "Genuine-Negative", "Fake-Malicious", "Fake-Promotional"];
+      const classification = types[Math.floor(Math.random() * types.length)];
+      return {
+        ...review,
+        classification,
+        confidence: conf.toString(),
+        explanation: "Mocked analysis based on length",
+        raw: `Classification: ${classification}\nConfidence: ${conf}\nExplanation: Mocked`,
+      };
+    });
+  }
+
+  // Create batch prompt for Llama format
+  const reviewsList = reviewsBatch.map((r, index) => `REVIEW ${index + 1}: "${r.text}"`).join('\n\n');
+
+const prompt = `
+<|begin_of_text|><|start_header_id|>system<|end_header_id|>
+You are an expert food review analyst. Analyze each review and classify it into one of these categories:
+- Genuine-Positive: Authentic positive feedback
+- Genuine-Negative: Authentic negative feedback  
+- Fake-Malicious: Fake review intended to harm the business
+- Fake-Promotional: Fake review intended to promote the business
+
+For each review, provide:
+1. Classification
+2. Confidence percentage (0-100)
+3. Brief explanation
+
+**CRITICAL**: Format your response EXACTLY as shown below. Do NOT add any introductory text like "Here are the analyses:".
+<|eot_id|>
+<|start_header_id|>user<|end_header_id|>
+Analyze these food reviews:
+
+${reviewsList}
+
+Provide your analysis in this exact format for each review:
+
+Review 1:
+Classification: [category]
+Confidence: [percentage]
+Explanation: [brief explanation]
+
+Review 2:
+Classification: [category]
+Confidence: [percentage]
+Explanation: [brief explanation]
+
+[Continue for all reviews...]
+<|eot_id|>
+<|start_header_id|>assistant<|end_header_id|>
+`;
+
+  try {
+    // Add delay to avoid rate limiting
+    await new Promise(resolve => setTimeout(resolve, 200));
+
+    const command = new InvokeModelCommand({
+      modelId: MODEL_ID,
+      contentType: "application/json",
+      accept: "application/json",
+      body: JSON.stringify({
+        prompt: prompt,
+        max_gen_len: 2048, // Increased for better batch responses
+        temperature: 0.1, // Lower temperature for more consistent formatting
+      }),
+    });
+
+    const response = await bedrock.send(command);
+    const bodyStr = new TextDecoder().decode(response.body);
+
+    let completion = "";
+    try {
+      const parsed = JSON.parse(bodyStr);
+      completion = parsed.generation || parsed.completion || parsed.text || bodyStr;
+    } catch (err) {
+      completion = bodyStr;
+    }
+
+    // console.log("Raw completion:", completion); // Debug log
+
+    // Parse batch response - improved parsing logic
+    const results = [];
+    
+    // Split by review markers and filter out empty blocks
+    const reviewBlocks = completion.split(/(?=Review\s+\d+:)/).filter(block => block.trim() && !block.includes("Here are the analyses:"));
+    
+    // If we don't have enough blocks, create empty ones
+    while (reviewBlocks.length < reviewsBatch.length) {
+      reviewBlocks.push("");
+    }
+
+    for (let i = 0; i < reviewsBatch.length; i++) {
+      const review = reviewsBatch[i];
+      const block = reviewBlocks[i] || "";
+
+      // Extract classification, confidence, and explanation with more robust regex
+      const classificationMatch = block.match(/Classification:\s*(Genuine-Positive|Genuine-Negative|Fake-Malicious|Fake-Promotional)/i);
+      const confidenceMatch = block.match(/Confidence:\s*(\d+)/i);
+      const explanationMatch = block.match(/Explanation:\s*([\s\S]*?)(?=\n*(?:Review\s+\d+:|\n*$))/i);
+
+      let classification = classificationMatch ? classificationMatch[1] : "";
+      let confidence = confidenceMatch ? confidenceMatch[1] : "";
+      let explanation = explanationMatch ? cleanExplanation(explanationMatch[1]) : "";
+
+      // If we couldn't parse properly, try alternative patterns
+      if (!classification || !confidence || !explanation) {
+        // Try to find the pattern without "Review X:" prefix
+        const altClassificationMatch = block.match(/(Genuine-Positive|Genuine-Negative|Fake-Malicious|Fake-Promotional)/i);
+        const altConfidenceMatch = block.match(/\b(\d{1,3})\b/);
+        const altExplanationMatch = block.match(/Explanation:\s*([\s\S]*?)$/i);
+        
+        classification = classification || (altClassificationMatch ? altClassificationMatch[1] : "");
+        confidence = confidence || (altConfidenceMatch ? altConfidenceMatch[1] : "50");
+        explanation = explanation || (altExplanationMatch ? cleanExplanation(altExplanationMatch[1]) : "");
+      }
+
+      // Final fallback if still no classification
+      if (!classification) {
+        const lowerBlock = block.toLowerCase();
+        if (lowerBlock.includes("genuine-positive") || lowerBlock.includes("positive")) classification = "Genuine-Positive";
+        else if (lowerBlock.includes("genuine-negative") || lowerBlock.includes("negative")) classification = "Genuine-Negative";
+        else if (lowerBlock.includes("fake-malicious") || lowerBlock.includes("malicious")) classification = "Fake-Malicious";
+        else if (lowerBlock.includes("fake-promotional") || lowerBlock.includes("promotional")) classification = "Fake-Promotional";
+        else classification = "Unknown";
+      }
+
+      if (!confidence) {
+        const anyNumberMatch = block.match(/\b(\d{1,3})\b/);
+        confidence = anyNumberMatch ? anyNumberMatch[1] : "50";
+      }
+
+      if (!explanation) {
+        explanation = "AI analysis completed but format unexpected";
+      }
+
+      results.push({
+        ...review,
+        classification,
+        confidence,
+        explanation,
+        raw: block
+      });
+    }
+
+    return results;
+
+  } catch (error) {
+    // Handle rate limiting
+    if (error.message.includes("Too many requests") || error.message.includes("rate") || error.message.includes("throttl")) {
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      return analyzeReviewBatch(reviewsBatch);
+    }
+    
+    throw new Error(`Batch analysis failed: ${error.message}`);
+  }
+}
+
+// --- Single review analysis ---
+async function analyzeReview(reviewText) {
+  // Handle very short reviews
+  if (!reviewText || reviewText.trim().length < 3) {
     return {
       classification: "Insufficient-Text",
       confidence: "0",
@@ -45,127 +211,8 @@ async function analyzeReview(review) {
     };
   }
 
-  if (USE_MOCK_ANALYSIS) {
-    const conf = Math.min(95, Math.max(50, Math.floor(review.length)));
-    const types = ["Genuine-Positive", "Genuine-Negative", "Fake-Malicious", "Fake-Promotional"];
-    const classification = types[Math.floor(Math.random() * types.length)];
-    return {
-      classification,
-      confidence: conf.toString(),
-      explanation: "Mocked analysis based on length",
-      raw: `Classification: ${classification}\nConfidence: ${conf}\nExplanation: Mocked`,
-    };
-  }
-
-  const prompt = `
-Classify the following food review as [Genuine-Positive/Genuine-Negative/Fake-Malicious/Fake-Promotional].
-Also provide a confidence percentage (0-100) and a brief explanation.
-
-Review: "${review}"
-
-Format your response as:
-Classification: [Genuine-Positive/Genuine-Negative/Fake-Malicious/Fake-Promotional]
-Confidence: [0-100]
-Explanation: [brief explanation]
-`;
-
-  console.log("Review text:", review);
-  console.log("Prompt sent to Bedrock:", prompt);
-
-  try {
-    // Add delay to avoid rate limiting (100ms between requests)
-    await new Promise(resolve => setTimeout(resolve, 100));
-
-    // Correct format for DeepSeek models in Bedrock
-    const command = new InvokeModelCommand({
-      modelId: "us.deepseek.r1-v1:0",
-      contentType: "application/json",
-      accept: "application/json",
-      body: JSON.stringify({
-        prompt: prompt,
-        max_tokens: 1024,
-        temperature: 0.7,
-      }),
-    });
-
-    const response = await bedrock.send(command);
-    const bodyStr = new TextDecoder().decode(response.body);
-    
-    console.log("Raw response from Bedrock:", bodyStr);
-
-    let completion = "";
-    try {
-      const parsed = JSON.parse(bodyStr);
-      // DeepSeek typically returns text in 'completions' array
-      completion = parsed.completions?.[0]?.data?.text || 
-                   parsed.completions?.[0]?.text ||
-                   parsed.text ||
-                   parsed.outputText ||
-                   bodyStr; // Fallback to raw response
-    } catch (err) {
-      console.error("Failed to parse Bedrock response:", err);
-      completion = bodyStr;
-    }
-
-    console.log("Completion text:", completion);
-
-    // Extract classification, confidence, and explanation
-    const classificationMatch = completion.match(/Classification:\s*(Genuine-Positive|Genuine-Negative|Fake-Malicious|Fake-Promotional)/i);
-    const confidenceMatch = completion.match(/Confidence:\s*(\d+)/i);
-    const explanationMatch = completion.match(/Explanation:\s*([\s\S]*?)(?=\n\w+:|$)/i);
-
-    let classification = classificationMatch ? classificationMatch[1] : "";
-    let confidence = confidenceMatch ? confidenceMatch[1] : "";
-    let explanation = explanationMatch ? cleanExplanation(explanationMatch[1]) : "";
-
-    // Fallback: if standard parsing fails, try to infer from the text
-    if (!classification) {
-      const lowerCompletion = completion.toLowerCase();
-      if (lowerCompletion.includes("genuine-positive") || lowerCompletion.includes("positive")) classification = "Genuine-Positive";
-      else if (lowerCompletion.includes("genuine-negative") || lowerCompletion.includes("negative")) classification = "Genuine-Negative";
-      else if (lowerCompletion.includes("fake-malicious") || lowerCompletion.includes("malicious")) classification = "Fake-Malicious";
-      else if (lowerCompletion.includes("fake-promotional") || lowerCompletion.includes("promotional")) classification = "Fake-Promotional";
-      else classification = "Unknown";
-    }
-
-    if (!confidence) {
-      // Try to extract any number that might be confidence
-      const anyNumberMatch = completion.match(/\b(\d{1,3})\b/);
-      confidence = anyNumberMatch ? anyNumberMatch[1] : "50";
-    }
-
-    if (!explanation) {
-      explanation = "AI analysis completed but format unexpected";
-    }
-
-    console.log({ classification, confidence, explanation });
-
-    return { 
-      classification, 
-      confidence, 
-      explanation, 
-      raw: completion 
-    };
-
-  } catch (error) {
-    console.error("Bedrock API error:", error);
-    
-    // Handle rate limiting specifically
-    if (error.message.includes("Too many requests") || error.message.includes("rate") || error.message.includes("throttl")) {
-      // Wait longer and retry once
-      console.log("Rate limit detected, waiting 2 seconds before retry...");
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      try {
-        const retryResult = await analyzeReview(review);
-        return retryResult;
-      } catch (retryError) {
-        throw new Error(`Bedrock API call failed after retry: ${retryError.message}`);
-      }
-    }
-    
-    throw new Error(`Bedrock API call failed: ${error.message}`);
-  }
+  const result = await analyzeReviewBatch([{ text: reviewText }]);
+  return result[0];
 }
 
 // --- Routes ---
@@ -194,25 +241,73 @@ app.post("/analyze-all", async (req, res) => {
   }
 
   const results = [];
-  const BATCH_DELAY = 500; // 500ms between reviews to avoid rate limiting
 
-  for (const [idx, item] of reviews.entries()) {
-    const reviewText = typeof item === "string" ? item : item.snippet || item.text || "";
+  // Prepare reviews for batch processing
+  const reviewItems = reviews.map((item, index) => ({
+    id: item.id || index,
+    originalItem: item,
+    text: typeof item === "string" ? item : item.snippet || item.text || ""
+  }));
+
+  // Filter out short reviews
+  const validReviews = reviewItems.filter(item => item.text.trim().length >= 3);
+  const shortReviews = reviewItems.filter(item => item.text.trim().length < 3);
+
+  // Add short reviews to results
+  shortReviews.forEach(item => {
+    results.push({
+      ...item.originalItem,
+      classification: "Insufficient-Text",
+      confidence: "0",
+      explanation: "Review text is too short for meaningful analysis",
+      raw: "Skipped analysis due to short text length"
+    });
+  });
+
+  // Process in batches
+  for (let i = 0; i < validReviews.length; i += BATCH_SIZE) {
+    const batch = validReviews.slice(i, i + BATCH_SIZE);
     
-    // Add delay between processing each review
-    if (idx > 0) {
-      await new Promise(resolve => setTimeout(resolve, BATCH_DELAY));
-    }
-
     try {
-      const result = await analyzeReview(reviewText);
-      results.push({ ...item, snippet: reviewText, ...result });
-      console.log(`Processed review ${idx + 1}/${reviews.length}`);
+      const batchResults = await analyzeReviewBatch(batch);
+      
+      // Map batch results back to original items
+      batchResults.forEach((result, index) => {
+        const originalItem = batch[index].originalItem;
+        results.push({
+          ...originalItem,
+          classification: result.classification,
+          confidence: result.confidence,
+          explanation: result.explanation,
+          raw: result.raw
+        });
+      });
+
+      console.log(`Processed batch ${Math.floor(i/BATCH_SIZE) + 1}/${Math.ceil(validReviews.length/BATCH_SIZE)}`);
+      
+      // Add delay between batches
+      if (i + BATCH_SIZE < validReviews.length) {
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Longer delay for Llama
+      }
+
     } catch (err) {
-      results.push({ ...item, snippet: reviewText, classification: "Error", confidence: "0", explanation: `Analysis failed: ${err.message}`, raw: "" });
-      console.error(`Failed to process review ${idx + 1}:`, err.message);
+      console.error(`Failed to process batch starting at index ${i}:`, err.message);
+      
+      // Add error results for failed batch
+      batch.forEach(item => {
+        results.push({
+          ...item.originalItem,
+          classification: "Error",
+          confidence: "0",
+          explanation: `Batch analysis failed: ${err.message}`,
+          raw: ""
+        });
+      });
     }
   }
+
+  // Sort results by original order
+  results.sort((a, b) => (a.id || 0) - (b.id || 0));
 
   // Save results
   const reviewsPath = path.join(__dirname, "reviews.json");
