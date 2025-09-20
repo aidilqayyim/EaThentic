@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.893.0",
     "@react-google-maps/api": "^2.20.7",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
@@ -11,6 +12,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
+    "follow-redirects": "^1.15.11",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.544.0",
     "node-fetch": "^2.6.12",

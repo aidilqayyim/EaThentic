@@ -109,54 +109,60 @@ export default function Reviews() {
             name: place.name,
             address: place.formatted_address,
             hours: place.opening_hours?.weekday_text || [],
-            contact: place.formatted_phone_number || "N/A", // Set contact information
+            contact: place.formatted_phone_number || "N/A",
           });
-          setAvgRating(place.rating || 0); // Set average rating from place.rating
-          setTotalReviews(place.user_ratings_total || 0); // Set total reviews from place.user_ratings_total
+          setAvgRating(place.rating || 0);
+          setTotalReviews(place.user_ratings_total || 0);
         }
       }
     );
 
-    const evtSource = new EventSource(
-      `http://localhost:4000/reviews?placeId=${placeId}`
-    );
-
-    evtSource.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-
-      if (data.type === "stage") {
-        setStages((prev) =>
+    // Fetch reviews from AWS API
+    const fetchReviews = async () => {
+      try {
+        // Update first stage to loading
+        setStages(prev =>
           prev.map((s) =>
-            s.stage === data.stage
-              ? { ...s, status: data.status, color: data.color }
+            s.stage === "Getting reviews"
+              ? { ...s, status: "loading", color: "grey" }
               : s
           )
         );
-      } else if (data.type === "reviews") {
-        setReviews(data.reviews);
-        reviewsRef.current = data.reviews;
-      } else if (data.type === "error") {
-        setError(data.message);
-        evtSource.close();
-      } else if (data.type === "done") {
+
+        const res = await fetch(`https://6nogrtm6y1.execute-api.us-east-1.amazonaws.com/review?placeId=${placeId}`);
+        
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        
+        const data = await res.json();
+        console.log(data.reviews);
+        
+        // Update stages to success
+        setStages(prev =>
+          prev.map((s) => ({ ...s, status: "success", color: "green" }))
+        );
+        
+        if (data.reviews && Array.isArray(data.reviews)) {
+          setReviews(data.reviews);
+          reviewsRef.current = data.reviews;
+        } else {
+          setReviews([]);
+          reviewsRef.current = [];
+        }
+        
         setFinished(true);
-        evtSource.close();
-        const reviewsJson = JSON.stringify(reviewsRef.current, null, 2);
-        console.log("Fetched Reviews:", reviewsJson);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+        setError(error.message || "Failed to fetch reviews");
+        setStages(prev =>
+          prev.map((s) => ({ ...s, status: "error", color: "red" }))
+        );
       }
     };
 
-    evtSource.onerror = () => {
-      if (!finished) {
-        setError("Connection lost");
-      }
-      evtSource.close();
-    };
-
-    return () => {
-      evtSource.close();
-    };
-  }, [finished]);
+    fetchReviews();
+  }, []);
 
   useEffect(() => {
     if (reviews.length > 0) {
