@@ -171,17 +171,11 @@ const Results = () => {
       <div className="relative z-10 container mx-auto px-4 pt-20">
         {/* Header */}
         <div className="flex items-center justify-start mb-8">
-          <button
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-orange-600 hover:text-orange-700 transition-colors font-semibold"
-          >
-            <ArrowLeft size={20} /> Back to Home
-          </button>
         </div>
 
         {/* Search Bar Section */}
         <div className="w-full mb-8">
-          <div className="rounded-2xl shadow-md px-8 py-6 flex flex-col items-center max-w-none">
+          <div className="rounded-2xl  px-8 py-6 flex flex-col items-center max-w-none ">
             <form
               onSubmit={handleNewSearch}
               className="relative w-full flex gap-3"
@@ -189,7 +183,7 @@ const Results = () => {
               <input
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="flex-1 h-14 pl-12 pr-4 rounded-xl bg-white border border-orange-300 text-lg text-sage-900 placeholder-gray-500 shadow-sm focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-300 transition-all duration-300"
+                className="flex-1 h-16 pl-12 pr-4 rounded-xl bg-white border border-orange-300 text-lg text-sage-900 placeholder-gray-500 focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-300 transition-all duration-300"
                 placeholder="Search for restaurants, cafes, food..."
                 type="text"
               />

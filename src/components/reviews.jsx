@@ -240,6 +240,7 @@ export default function Reviews() {
       </div>
     );
   }
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-tr from-orange-100 via-white to-sage-100 animate-[gradientShift_12s_ease-in-out_infinite] py-6 px-2 sm:px-4 relative">
@@ -735,7 +736,13 @@ export default function Reviews() {
               {reviews
                 .filter(review => starFilter === 'all' || review.rating === parseInt(starFilter))
                 .map((review, index) => (
-                <li key={index} className="flex flex-col sm:flex-row items-start mb-6 bg-white rounded-xl shadow p-3 sm:p-4">
+                <li key={index} className={`flex flex-col sm:flex-row items-start mb-6 bg-white rounded-xl shadow p-3 sm:p-4 relative ${
+                  review.classification && review.confidence !== undefined
+                    ? review.classification.startsWith('Fake')
+                      ? 'border-2 border-red-500'
+                      : 'border-2 border-green-500'
+                    : ''
+                }`}>
                   <div className="w-12 h-12 flex-shrink-0 mr-0 sm:mr-4 mb-2 sm:mb-0">
                     {brokenImages[index] || !review.profilePicture ? (
                       <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200 border-2 border-gray-300">
@@ -754,28 +761,26 @@ export default function Reviews() {
                     <div className="font-semibold text-gray-800">{review.user}</div>
                     <div className="text-yellow-500 font-bold">{review.rating}★</div>
                     <div className="text-gray-600">{review.snippet}</div>
-                    {/* Confidence score */}
-                    {review.confidence !== undefined && (
-                      <div className="text-xs text-blue-500 mt-1">
-                        Confidence: {review.confidence}
-                      </div>
-                    )}
-                    {/* Classification */}
-                    {review.classification && (
-                      <div className={`text-xs mt-1 font-semibold ${review.classification.startsWith('Fake') ? 'text-red-500' : 'text-green-600'}`}>
-                        Classification: {review.classification}
-                      </div>
-                    )}
-                    {/* Explanation */}
-                    {review.explanation && (
-                      <div className="text-xs text-gray-500 mt-1">
-                        Explanation: {formatExplanation(review.explanation)}
-                      </div>
-                    )}
                     {review.isoDate && (
                       <div className="text-xs text-gray-400 mt-2">{review.isoDate}</div>
                     )}
                   </div>
+                  {/* Classification Bubble */}
+                  {review.classification && review.confidence !== undefined && (
+                    <div className="absolute top-3 right-3 group">
+                      <div className={`px-2 py-1 rounded-full text-xs font-semibold text-white cursor-pointer ${
+                        review.classification.startsWith('Fake') ? 'bg-red-500' : 'bg-green-500'
+                      }`}>
+                        {review.classification.startsWith('Fake') ? 'Fake' : 'Genuine'}: {Math.round(parseFloat(review.confidence))}%
+                      </div>
+                      {review.explanation && (
+                        <div className="absolute right-0 top-8 w-72 p-3 bg-gray-900 text-white text-sm rounded-lg shadow-xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none z-10">
+                          <div className="font-semibold mb-1">Explanation:</div>
+                          <div className="leading-relaxed">{formatExplanation(review.explanation)}</div>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>

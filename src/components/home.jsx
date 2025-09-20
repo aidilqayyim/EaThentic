@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
-import { Search, Star, Compass, ShieldCheck } from 'lucide-react';
+import { Search, Star, Compass, ShieldCheck, Users, Target, Award } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import Logo from '../components/logo';
@@ -10,6 +10,7 @@ const Home = () => {
   const [manualSearch, setManualSearch] = useState(false);
   const inputRef = useRef(null);
   const autocompleteRef = useRef(null);
+  const aboutRef = useRef(null);
   const navigate = useNavigate();
 
   const navigateToResults = useCallback(() => {
@@ -69,7 +70,7 @@ const Home = () => {
       <div className="absolute w-72 h-72 bg-orange-200/30 rounded-full blur-3xl top-10 left-10 animate-float" />
       <div className="absolute w-96 h-96 bg-sage-300/20 rounded-full blur-3xl bottom-20 right-10 animate-pulse-slow" />
 
-      <Navbar />
+      <Navbar aboutRef={aboutRef} />
 
       {/* Hero Section */}
       <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-12 relative z-10 w-full max-w-6xl pt-20">
@@ -146,6 +147,69 @@ const Home = () => {
             <p className="text-sage-700">{f.text}</p>
           </div>
         ))}
+      </div>
+
+      {/* About Section */}
+      <div ref={aboutRef} className="relative z-10 mt-32 w-full max-w-6xl">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-sage-900 mb-4">About <span className="text-brand-orange">EaThentic</span></h2>
+          <p className="text-xl text-sage-700 max-w-3xl mx-auto">
+            We're revolutionizing how you discover authentic dining experiences through AI-powered review verification
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
+          <div className="space-y-6">
+            <h3 className="text-2xl font-bold text-sage-900">Our Mission</h3>
+            <p className="text-lg text-sage-700 leading-relaxed">
+              In a world flooded with fake reviews and misleading ratings, we believe every diner deserves authentic insights. 
+              Our advanced AI technology filters out promotional and malicious reviews, ensuring you only see genuine feedback 
+              from real customers.
+            </p>
+            <p className="text-lg text-sage-700 leading-relaxed">
+              Whether you're exploring a new city or looking for hidden gems in your neighborhood, TrueReviews guides you 
+              to exceptional dining experiences you can trust.
+            </p>
+          </div>
+          <div className="bg-gradient-to-br from-orange-100 to-sage-100 rounded-2xl p-8">
+            <div className="grid grid-cols-1 gap-6">
+              {[
+                { icon: Users, title: "10,000+", subtitle: "Verified Reviews" },
+                { icon: Target, title: "95%", subtitle: "Accuracy Rate" },
+                { icon: Award, title: "500+", subtitle: "Partner Restaurants" },
+              ].map((stat, i) => (
+                <div key={i} className="flex items-center gap-4">
+                  <div className="bg-orange-500 rounded-full p-3">
+                    <stat.icon className="text-white" size={24} />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold text-sage-900">{stat.title}</div>
+                    <div className="text-sage-700">{stat.subtitle}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
+          <h3 className="text-2xl font-bold text-sage-900 mb-6 text-center">How It Works</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { step: "01", title: "Search", desc: "Enter any restaurant or location to find reviews" },
+              { step: "02", title: "Analyze", desc: "Our AI scans and verifies review authenticity" },
+              { step: "03", title: "Discover", desc: "Get genuine insights and make informed decisions" },
+            ].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="bg-orange-500 text-white rounded-full w-12 h-12 flex items-center justify-center text-lg font-bold mx-auto mb-4">
+                  {item.step}
+                </div>
+                <h4 className="text-xl font-bold text-sage-900 mb-2">{item.title}</h4>
+                <p className="text-sage-700">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
