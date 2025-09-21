@@ -33,6 +33,7 @@ export default function Reviews() {
   const [avgRating, setAvgRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
   const [starFilter, setStarFilter] = useState('all');
+  const [classificationFilter, setClassificationFilter] = useState('all');
   const [reviewLoading, setReviewLoading] = useState([]); // Array of loading states per review
 
   const handleImageError = (index) => {
@@ -689,14 +690,17 @@ export default function Reviews() {
         <div className="flex-1 min-w-0 order-2 md:order-1">
           <div className="mb-4">
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">Reviews</h3>
-            <div className="flex flex-wrap gap-2 items-center">
+            {/* Show Analyze button until pressed */}
+            {!analyzing && (
               <button
                 onClick={analyzeReview}
                 disabled={analyzing}
-                className="px-4 sm:px-6 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition-glow font-semibold disabled:opacity-50"
+                className="mb-4 px-4 sm:px-6 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition-glow font-semibold disabled:opacity-50 w-full sm:w-auto"
               >
-                {analyzing ? "Analyzing..." : "Analyze Reviews"}
+                Analyze Reviews
               </button>
+            )}
+            <div className="flex flex-wrap gap-2 items-center">
               <select
                 value={starFilter}
                 onChange={(e) => setStarFilter(e.target.value)}
@@ -731,16 +735,6 @@ export default function Reviews() {
               </button>
             </div>
           </div>
-          {/* Show Analyze button until pressed */}
-          {!analyzing && (
-            <button
-              onClick={analyzeReview}
-              disabled={analyzing}
-              className="mb-4 px-4 sm:px-6 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition-glow font-semibold disabled:opacity-50 w-full sm:w-auto"
-            >
-              Analyze Reviews
-            </button>
-          )}
           {analyzeError && (
             <p className="text-red-600 mb-2 flex items-center gap-2">
               <span>❌</span> {analyzeError}
