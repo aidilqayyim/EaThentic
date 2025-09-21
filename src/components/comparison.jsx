@@ -343,7 +343,7 @@ const Comparison = () => {
                 </div>
                 <div className="bg-white/10 rounded-2xl p-4 backdrop-blur-sm">
                   <p className="text-lg font-semibold mb-2">✨ Why we recommend this restaurant:</p>
-                  <p className="opacity-90">This restaurant has the highest authentic rating with low fake review risk, making it the most trustworthy choice for your dining experience.</p>
+                  <p className="opacity-90">This restaurant has the lowest fake score, making it the most trustworthy choice for your dining experience.</p>
                 </div>
               </div>
             </div>
