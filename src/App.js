@@ -5,6 +5,7 @@ import Results from './components/Results';
 import Reviews from './components/reviews';
 import FAQ from './components/faq';
 import Contact from './components/contact';
+import Comparison from './components/comparison';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/results" element={<Results />} />
         <Route path="/results/review" element={<Reviews />} />
+        <Route path="/comparison" element={<Comparison />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>

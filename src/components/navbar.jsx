@@ -84,7 +84,16 @@ const Navbar = ({ aboutRef }) => {
               About
             </button>
           </li>
-
+          <li>
+            <a
+              href="/comparison"
+              className="relative hover:text-brand-orange transition-colors duration-300
+                after:content-[''] after:absolute after:left-1/2 after:-bottom-1 after:h-[2px] after:w-0
+                after:bg-brand-orange after:transition-all after:duration-300 hover:after:w-full hover:after:left-0"
+            >
+              Comparison
+            </a>
+          </li>
           <li>
             <a
               href="/faq"
@@ -127,16 +136,20 @@ const Navbar = ({ aboutRef }) => {
                 Home
               </a>
             </li>
-
-            <li>
-              <a href="/faq" className="hover:text-brand-orange text-base sm:text-lg block py-1" onClick={() => setMenuOpen(false)}>
-                FAQ
-              </a>
-            </li>
             <li>
               <button onClick={scrollToAbout} className="hover:text-brand-orange text-base sm:text-lg block py-1 text-left">
                 About
               </button>
+            </li>
+            <li>
+              <a href="/comparison" className="hover:text-brand-orange text-base sm:text-lg block py-1" onClick={() => setMenuOpen(false)}>
+                Comparison
+              </a>
+            </li>
+            <li>
+              <a href="/faq" className="hover:text-brand-orange text-base sm:text-lg block py-1" onClick={() => setMenuOpen(false)}>
+                FAQ
+              </a>
             </li>
           </ul>
           <a
