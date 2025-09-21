@@ -393,16 +393,6 @@ const Comparison = () => {
                 <div className="text-xs text-blue-600 mt-1">Combined data points</div>
               </div>
               
-              <div className="bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 rounded-2xl p-6 text-center shadow-lg border border-purple-100 hover:shadow-xl transition-all duration-300">
-                <div className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-full p-4 w-fit mx-auto mb-4 shadow-lg">
-                  <TrendingUp className="text-white" size={28} />
-                </div>
-                <div className="text-3xl font-bold text-purple-900 mb-2">
-                  {Math.round((restaurants.filter(r => r.fakeScore < 40).length / restaurants.length) * 100)}%
-                </div>
-                <div className="text-purple-700 font-semibold">Authenticity Rate</div>
-                <div className="text-xs text-purple-600 mt-1">Reliable options</div>
-              </div>
             </div>
 
             {/* Consistent Restaurant Cards */}
