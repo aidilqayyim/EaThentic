@@ -178,16 +178,15 @@ const Comparison = () => {
 
   const getRecommendation = () => {
     if (!analyzed || restaurants.length === 0) return null;
-    
-    const authenticRestaurants = restaurants
-      .filter(r => r.fakeScore < 40)
-      .sort((a, b) => {
-        const scoreA = parseFloat(a.rating) || 0;
-        const scoreB = parseFloat(b.rating) || 0;
-        return scoreB - scoreA;
-      });
-    
-    return authenticRestaurants.length > 0 ? authenticRestaurants[0] : null;
+
+    // Sort all restaurants by fakeScore in ascending order (lowest first)
+    const sortedByFakeScore = [...restaurants].sort((a, b) => {
+      const scoreA = a.fakeScore ?? 100; // fallback to 100 if null
+      const scoreB = b.fakeScore ?? 100;
+      return scoreA - scoreB;
+    });
+
+    return sortedByFakeScore[0]; // pick the restaurant with lowest fakeScore
   };
 
   return (
