@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Phone, MapPin, Send, Instagram, X } from 'lucide-react';
+import { Send, Instagram, X } from 'lucide-react';
 import Navbar from './navbar';
 
 const Contact = () => {

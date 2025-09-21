@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import { ArrowLeft, MapPin, Star, Clock, ExternalLink, Search } from 'lucide-react';
+import { MapPin, Star, Clock, ExternalLink, Search } from 'lucide-react';
 import Navbar from '../components/navbar';
-import Logo from '../components/logo';
 
 const Results = () => {
   const [searchParams] = useSearchParams();
@@ -16,15 +15,26 @@ const Results = () => {
   const query = searchParams.get('query');
   const location = searchParams.get('location');
 
-  useEffect(() => {
-    console.log('URL params:', { query, location }); // Debug log
-    setSearchQuery(query || '');
-    if (query) {
-      searchPlacesByQuery();
-    }
-  }, [query, location]);
+  const handleSearchResults = useCallback((results, map) => {
+    const filtered = results
+      .filter(p => p.name && p.geometry)
+      .filter(p => p.rating && p.rating > 0)
+      .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+      .slice(0, 20);
 
-  const searchPlacesByQuery = async () => {
+    if (filtered.length === 0) {
+      setError('No restaurants found');
+      setPlaces([]);
+      setLoading(false);
+      return;
+    }
+
+    addMarkersToMap(filtered, map);
+    setPlaces(filtered);
+    setLoading(false);
+  }, []);
+
+  const searchPlacesByQuery = useCallback(async () => {
     setLoading(true);
     setError(null);
 
@@ -72,8 +82,6 @@ const Results = () => {
       }
       // If no location, do a global search without location restrictions
 
-      console.log('Final search request:', request); // Debug log
-
       service.textSearch(request, (results, status) => {
         if (status === window.google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
           handleSearchResults(results, map);
@@ -88,26 +96,15 @@ const Results = () => {
       setError('Failed to initialize search. Please try again.');
       setLoading(false);
     }
-  };
+  }, [query, location, searchQuery, handleSearchResults]);
 
-  const handleSearchResults = (results, map) => {
-    const filtered = results
-      .filter(p => p.name && p.geometry)
-      .filter(p => p.rating && p.rating > 0)
-      .sort((a, b) => (b.rating || 0) - (a.rating || 0))
-      .slice(0, 20);
-
-    if (filtered.length === 0) {
-      setError('No restaurants found');
-      setPlaces([]);
-      setLoading(false);
-      return;
+  useEffect(() => {
+    console.log('URL params:', { query, location }); // Debug log
+    setSearchQuery(query || '');
+    if (query) {
+      searchPlacesByQuery();
     }
-
-    addMarkersToMap(filtered, map);
-    setPlaces(filtered);
-    setLoading(false);
-  };
+  }, [query, location, searchPlacesByQuery]);
 
   const addMarkersToMap = (places, map) => {
     const bounds = new window.google.maps.LatLngBounds();
