@@ -533,14 +533,5 @@ app.get("/analyze-all-stream", async (req, res) => {
   delete jobs[jobId];
 });
 
-// Test endpoint
-app.get("/", (req, res) => res.send("Backend is running!"));
-
-// ✅ Add here: serve React build
-app.use(express.static(path.join(__dirname, "../build")));
-app.get("*", (req, res) => {
-  res.status(404).send('Route not found');
-});
-
 const PORT = 5000;
 app.listen(PORT, () => console.log(`Backend running on http://localhost:${PORT}`));
