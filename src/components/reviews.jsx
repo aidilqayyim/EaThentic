@@ -1,7 +1,8 @@
+// reviews.jsx
+
 import { useEffect, useState, useRef } from "react";
 import { Star, UserRound, Store, MapPin, Clock, Phone, AlertTriangle, Users, Flag } from "lucide-react";
 import Navbar from '../components/navbar';
-
 
 export default function Reviews() {
   const [reviews, setReviews] = useState([]);
@@ -32,11 +33,11 @@ export default function Reviews() {
   const [avgRating, setAvgRating] = useState(0);
   const [totalReviews, setTotalReviews] = useState(0);
   const [starFilter, setStarFilter] = useState('all');
+  const [reviewLoading, setReviewLoading] = useState([]); // Array of loading states per review
 
   const handleImageError = (index) => {
     setBrokenImages((prev) => ({ ...prev, [index]: true }));
   };
-
 
   // Helper to clean explanation text
   const formatExplanation = (text) => {
@@ -196,32 +197,66 @@ export default function Reviews() {
     }
   }, [reviews]);
 
+  // Streaming analysis with SSE using jobId
   async function analyzeReview() {
     if (!reviewsRef.current || reviewsRef.current.length === 0) {
       setAnalyzeError("No reviews to analyze.");
       return;
     }
+
     setAnalyzing(true);
     setAnalyzeError(null);
+
+    setReviewLoading(Array(reviewsRef.current.length).fill(true));
+    setReviews(reviewsRef.current);
+
     try {
-      const response = await fetch("http://localhost:5000/analyze-all", {
+      // 1. Start the job and get jobId
+      const startRes = await fetch("http://localhost:5000/analyze-all-stream/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ reviews: reviewsRef.current }),
       });
-      if (!response.ok) {
-        let msg = "Failed to analyze reviews";
-        try {
-          const errData = await response.json();
-          if (errData && errData.error) msg = errData.error;
-        } catch { }
-        throw new Error(msg);
-      }
-      const data = await response.json();
-      setReviews(data);
+      if (!startRes.ok) throw new Error("Failed to start analysis job");
+      const { jobId } = await startRes.json();
+      if (!jobId) throw new Error("No jobId returned from backend");
+
+      // 2. Connect to SSE with jobId
+      const es = new EventSource(`http://localhost:5000/analyze-all-stream?jobId=${jobId}`);
+
+      es.addEventListener("batch", (e) => {
+        const batch = JSON.parse(e.data);
+        setReviews(prev => {
+          const merged = [...prev];
+          batch.forEach(result => {
+            const idx = merged.findIndex(r => r.id === result.id);
+            if (idx >= 0) merged[idx] = result;
+          });
+          return merged;
+        });
+        setReviewLoading(prev => {
+          const updated = [...prev];
+          batch.forEach(result => {
+            const idx = reviewsRef.current.findIndex(r => r.id === result.id);
+            if (idx >= 0) updated[idx] = false;
+          });
+          return updated;
+        });
+      });
+
+      es.addEventListener("done", () => {
+        setAnalyzing(false);
+        es.close();
+      });
+
+      es.addEventListener("error", (e) => {
+        setAnalyzeError("Streaming error");
+        setAnalyzing(false);
+        es.close();
+      });
     } catch (err) {
       setAnalyzeError(err.message);
-    } finally {
+      setReviewLoading(Array(reviewsRef.current.length).fill(false));
       setAnalyzing(false);
     }
   }
@@ -241,7 +276,6 @@ export default function Reviews() {
     );
   }
   
-
   return (
     <div className="min-h-screen bg-gradient-to-tr from-orange-100 via-white to-sage-100 animate-[gradientShift_12s_ease-in-out_infinite] py-6 px-2 sm:px-4 relative">
       {/* Loading Modal */}
@@ -668,13 +702,16 @@ export default function Reviews() {
               <option value="1">1 Star</option>
             </select>
           </div>
-          <button
-            onClick={analyzeReview}
-            disabled={analyzing}
-            className="mb-4 px-4 sm:px-6 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition-glow font-semibold disabled:opacity-50 w-full sm:w-auto"
-          >
-            {analyzing ? "Analyzing..." : "Analyze Reviews"}
-          </button>
+          {/* Show Analyze button until pressed */}
+          {!analyzing && (
+            <button
+              onClick={analyzeReview}
+              disabled={analyzing}
+              className="mb-4 px-4 sm:px-6 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition-glow font-semibold disabled:opacity-50 w-full sm:w-auto"
+            >
+              Analyze Reviews
+            </button>
+          )}
           {analyzeError && (
             <p className="text-red-600 mb-2 flex items-center gap-2">
               <span>❌</span> {analyzeError}
@@ -715,13 +752,21 @@ export default function Reviews() {
                     {review.isoDate && (
                       <div className="text-xs text-gray-400 mt-2">{review.isoDate}</div>
                     )}
+                    {/* Per-review loading spinner */}
+                    {analyzing && reviewLoading[index] && (!review.classification || !review.explanation) && (
+                      <div className="mt-2 flex items-center gap-2">
+                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-orange-500"></div>
+                        <span className="text-xs text-orange-500">Analyzing...</span>
+                      </div>
+                    )}
+                    {/* Show explanation as soon as it's available */}
                     {review.classification && review.explanation && (
                       <div className="mt-2 p-2 bg-gray-50 rounded text-xs text-gray-500 border-l-2 border-gray-300">
                         {formatExplanation(review.explanation)}
                       </div>
                     )}
                   </div>
-                  {/* Classification Bubble */}
+                  {/* Classification Bubble: show as soon as available */}
                   {review.classification && review.confidence !== undefined && (
                     <div className="absolute top-3 right-3">
                       <div className={`px-3 py-2 rounded-full text-xs font-semibold text-white shadow-lg ${
@@ -740,4 +785,3 @@ export default function Reviews() {
     </div>
   );
 }
-
