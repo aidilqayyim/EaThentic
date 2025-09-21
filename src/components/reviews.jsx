@@ -700,6 +700,7 @@ export default function Reviews() {
                   <option value="all">All Classifications</option>
                   <option value="fake">Fake</option>
                   <option value="genuine">Genuine</option>
+                  <option value="suspicious">Suspicious</option>
                   <option value="unknown">Unknown</option>
                   <option value="insufficient">Insufficient</option>
                 </select>
@@ -729,6 +730,7 @@ export default function Reviews() {
                 if (classificationFilter === 'all') return true;
                 if (classificationFilter === 'fake') return review.classification?.startsWith('Fake');
                 if (classificationFilter === 'genuine') return review.classification && !review.classification.startsWith('Fake') && review.classification !== 'Unknown' && review.classification !== 'Insufficient';
+                if (classificationFilter === 'suspicious') return review.confidence !== undefined && parseFloat(review.confidence) < 50;
                 if (classificationFilter === 'unknown') return review.classification === 'Unknown';
                 if (classificationFilter === 'insufficient') return review.classification === 'Insufficient';
                 return true;
@@ -741,11 +743,13 @@ export default function Reviews() {
                 {filteredReviews.map((review, index) => (
                 <li key={index} className={`flex flex-col sm:flex-row items-start mb-6 bg-white rounded-xl shadow p-3 sm:p-4 relative ${
                   review.classification && review.confidence !== undefined
-                    ? review.classification.startsWith('Fake')
+                    ? parseFloat(review.confidence) < 50
+                      ? 'border-2'
+                      : review.classification.startsWith('Fake')
                       ? 'border-2 border-red-500'
                       : 'border-2 border-green-500'
                     : ''
-                }`}>
+                }`} style={review.classification && review.confidence !== undefined && parseFloat(review.confidence) < 50 ? {borderColor: '#FFA200'} : {}}>
                   <div className="w-12 h-12 flex-shrink-0 mr-0 sm:mr-4 mb-2 sm:mb-0">
                     {brokenImages[index] || !review.profilePicture ? (
                       <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gray-200 border-2 border-gray-300">
@@ -785,19 +789,23 @@ export default function Reviews() {
                   {review.classification && review.confidence !== undefined && (
                     <div className="absolute top-3 right-3">
                       <div className={`px-3 py-2 rounded-full text-xs font-semibold text-white shadow-lg ${
-                        review.classification.startsWith('Fake') 
+                        parseFloat(review.confidence) < 50
+                          ? 'text-black'
+                          : review.classification.startsWith('Fake') 
                           ? 'bg-red-500' 
                           : review.classification === 'Unknown' || review.classification === 'Insufficient'
                           ? 'bg-gray-500' 
                           : 'bg-green-500'
-                      }`}>
-                        {review.classification.startsWith('Fake') 
-                          ? 'Fake' 
-                          : review.classification === 'Unknown' 
-                          ? 'Unknown' 
-                          : review.classification === 'Insufficient' 
-                          ? 'Insufficient' 
-                          : 'Genuine'}: {Math.round(parseFloat(review.confidence))}%
+                      }`} style={parseFloat(review.confidence) < 50 ? {backgroundColor: '#FF8C00'} : {}}>
+                        {parseFloat(review.confidence) < 50
+                          ? 'Suspicious'
+                          : `${review.classification.startsWith('Fake') 
+                            ? 'Fake' 
+                            : review.classification === 'Unknown' 
+                            ? 'Unknown' 
+                            : review.classification === 'Insufficient' 
+                            ? 'Insufficient' 
+                            : 'Genuine'}: ${Math.round(parseFloat(review.confidence))}%`}
                       </div>
                     </div>
                   )}
