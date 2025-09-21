@@ -13,6 +13,8 @@ export default function Reviews() {
   const [analyzeError, setAnalyzeError] = useState(null);
   const [brokenImages, setBrokenImages] = useState({});
 
+  const [retryCount, setRetryCount] = useState(0);
+
   const [photos, setPhotos] = useState([]);
   const [currentPhotoIndex, setCurrentPhotoIndex] = useState(0);
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
@@ -114,57 +116,47 @@ export default function Reviews() {
       }
     );
 
-    // Fetch reviews from AWS API with staged loading
-    const fetchReviews = async () => {
+    // Add this retry wrapper function
+    const fetchReviewsWithRetry = async (retryAttempt = 0) => {
       try {
-
         const res = await fetch(`https://6nogrtm6y1.execute-api.us-east-1.amazonaws.com/review?placeId=${placeId}`);
+        
+        if (res.status === 500 && retryAttempt < 2) {
+          console.log(`HTTP 500 error, retrying... (attempt ${retryAttempt + 1}/2)`);
+          setRetryCount(retryAttempt + 1);
+          
+          // Wait 1 second before retry
+          await new Promise(resolve => setTimeout(resolve, 1000));
+          
+          // Retry by reloading the page
+          if (retryAttempt < 1) {
+            window.location.reload();
+            return;
+          } else {
+            // Second retry attempt
+            return fetchReviewsWithRetry(retryAttempt + 1);
+          }
+        }
         
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         
-        const data = await res.json();
-        console.log('Lambda response:', data);
+        // Reset retry count on success
+        setRetryCount(0);
         
-        // Check if this is a staged response or final response
-        if (data.stage && data.status) {
-          
-          if (data.status === "error") {
-            throw new Error(data.error || `Failed at stage: ${data.stage}`);
-          }
-          
-          // If there's partial data, update reviews
-          if (data.data && Array.isArray(data.data)) {
-            setReviews(data.data);
-            reviewsRef.current = data.data;
-          }
-          
-          // Continue polling if not completed
-          if (!data.completed) {
-            // Implement polling logic if needed for real-time updates
-            return;
-          }
-        } else if (data.reviews && Array.isArray(data.reviews)) {
-          // This is the final response with all reviews
-          console.log('Final reviews:', data.reviews);
-          
-          setReviews(data.reviews);
-          reviewsRef.current = data.reviews;
-        } else {
-          // Empty response
-          setReviews([]);
-          reviewsRef.current = [];
+        // ... rest of your existing fetch logic
+      } catch (error) {
+        if (error.message.includes('500') && retryAttempt < 2) {
+          return fetchReviewsWithRetry(retryAttempt + 1);
         }
         
-        setFinished(true);
-      } catch (error) {
         console.error('Error fetching reviews:', error);
         setError(error.message || "Failed to fetch reviews");
       }
     };
 
-    fetchReviews();
+    fetchReviewsWithRetry();  
   }, []);
 
   useEffect(() => {
