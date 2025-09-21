@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Plus, X, Star, MapPin, Users, Target, Award, BarChart3, Crown, ThumbsUp, TrendingUp, Shield } from 'lucide-react';
+import { Search, X, Star, MapPin, Users, BarChart3, Crown, ThumbsUp, TrendingUp, Shield } from 'lucide-react';
 import Navbar from './navbar';
 
 const Comparison = () => {
@@ -8,8 +8,6 @@ const Comparison = () => {
   const [analyzing, setAnalyzing] = useState(false);
   const [analyzed, setAnalyzed] = useState(false);
   const [analyzeError, setAnalyzeError] = useState(null);
-  const [reviewLoading, setReviewLoading] = useState([]);
-  const [analyzingStarted, setAnalyzingStarted] = useState(false);
   const inputRef = useRef(null);
   const autocompleteRef = useRef(null);
   const restaurantsRef = useRef([]);
@@ -45,7 +43,7 @@ const Comparison = () => {
 
       autocompleteRef.current = autocomplete;
     }
-  }, [restaurants.length]);
+  }, [restaurants]);
 
   // Keep restaurantsRef in sync with restaurants state
   useEffect(() => {
@@ -75,21 +73,6 @@ const Comparison = () => {
     setAnalyzed(false);
   };
 
-  // Helper to format explanation text
-  const formatExplanation = (text) => {
-    if (!text) return "";
-    let clean = text.replace(/\\+/g, "").replace(/\s+/g, " ").trim();
-    const metadataPattern = /\}\],.*$/;
-    clean = clean.replace(metadataPattern, "").trim();
-    if (clean.startsWith('"') && clean.endsWith('"')) {
-      clean = clean.slice(1, -1).trim();
-    }
-    if (clean.endsWith('"')) {
-      clean = clean.slice(0, -1).trim();
-    }
-    return clean;
-  };
-
   // Streaming analysis with SSE using jobId
   const analyzeAll = async () => {
     console.log('analyzeAll called', { restaurants, length: restaurants.length });
@@ -101,7 +84,6 @@ const Comparison = () => {
 
     setAnalyzing(true);
     setAnalyzeError(null);
-    setAnalyzingStarted(true);
 
     try {
       // Create mock reviews for all restaurants for testing
@@ -119,7 +101,7 @@ const Comparison = () => {
       console.log('Starting analysis with reviews:', allReviews.length);
 
       // 1. Start the job and get jobId
-      const startRes = await fetch("http://localhost:5000/analyze-all-stream/start", {
+      const startRes = await fetch("http://43.216.83.231:5000/analyze-all-stream/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ reviews: allReviews }),
@@ -140,11 +122,11 @@ const Comparison = () => {
       console.log('Got jobId:', jobId);
 
       // 2. Connect to SSE with jobId
-      const es = new EventSource(`http://localhost:5000/analyze-all-stream?jobId=${jobId}`);
+      const es = new EventSource(`http://43.216.83.231:5000/analyze-all-stream?jobId=${jobId}`);
 
       es.addEventListener("batch", (e) => {
         console.log('Received batch:', e.data);
-        const batch = JSON.parse(e.data);
+        // const batch = JSON.parse(e.data);
         
       });
 
@@ -192,18 +174,6 @@ const Comparison = () => {
       setRestaurants(updatedRestaurants);
       setAnalyzed(true);
     }
-  };
-
-  const getFakeScoreColor = (score) => {
-    if (score >= 70) return 'text-red-600 bg-red-50 border-red-200';
-    if (score >= 40) return 'text-orange-600 bg-orange-50 border-orange-200';
-    return 'text-green-600 bg-green-50 border-green-200';
-  };
-
-  const getFakeScoreLabel = (score) => {
-    if (score >= 70) return 'High Risk';
-    if (score >= 40) return 'Medium Risk';
-    return 'Low Risk';
   };
 
   const getRecommendation = () => {
@@ -312,7 +282,7 @@ const Comparison = () => {
                         restaurant.fakeScore < 70 ? 'bg-orange-500 text-white' :
                         'bg-red-500 text-white'
                       }`}>
-                        {getFakeScoreLabel(restaurant.fakeScore)}
+                        {restaurant.fakeScore < 40 ? 'Low Risk' : restaurant.fakeScore < 70 ? 'Medium Risk' : 'High Risk'}
                       </div>
                     </div>
                   </div>
@@ -508,7 +478,7 @@ const Comparison = () => {
                             restaurant.fakeScore < 70 ? 'bg-gradient-to-r from-orange-500 to-yellow-500 text-white' :
                             'bg-gradient-to-r from-red-500 to-pink-500 text-white'
                           }`}>
-                            {getFakeScoreLabel(restaurant.fakeScore)}
+                            {restaurant.fakeScore < 40 ? 'Low Risk' : restaurant.fakeScore < 70 ? 'Medium Risk' : 'High Risk'}
                           </div>
                           {isRecommended && (
                             <div className="mt-3 w-full flex items-center justify-center gap-1 text-green-600 font-bold text-xs bg-green-100 rounded-2xl px-2 py-1">
