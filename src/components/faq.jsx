@@ -57,7 +57,7 @@ const FAQ = () => {
       <Navbar />
       
       <div className="container mx-auto px-4 pt-24 pb-12 ">
-        <div className="grid lg:grid-cols-2 gap-12 flex flex-col items-center justify-center text-center ">
+        <div className="grid lg:grid-cols-2 gap-12 items-center justify-center text-center ">
           {/* Left Side - Title and Description */}
           <div className="lg:sticky lg:top-1/2 lg:-translate-y-1/2 h-fit flex flex-col items-start justify-center text-left pl-8">
             <h1 className="text-4xl lg:text-5xl font-bold text-sage-900 mb-6">
