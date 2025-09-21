@@ -687,20 +687,49 @@ export default function Reviews() {
 
         {/* Reviews: always below on small screens, left side on md+ screens */}
         <div className="flex-1 min-w-0 order-2 md:order-1">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-2">
-            <h3 className="text-2xl sm:text-3xl font-bold text-gray-800">Reviews</h3>
-            <select
-              value={starFilter}
-              onChange={(e) => setStarFilter(e.target.value)}
-              className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500"
-            >
-              <option value="all">All Stars</option>
-              <option value="5">5 Stars</option>
-              <option value="4">4 Stars</option>
-              <option value="3">3 Stars</option>
-              <option value="2">2 Stars</option>
-              <option value="1">1 Star</option>
-            </select>
+          <div className="mb-4">
+            <h3 className="text-2xl sm:text-3xl font-bold text-gray-800 mb-4">Reviews</h3>
+            <div className="flex flex-wrap gap-2 items-center">
+              <button
+                onClick={analyzeReview}
+                disabled={analyzing}
+                className="px-4 sm:px-6 py-2 bg-orange-500 text-white rounded-lg shadow hover:bg-orange-600 transition-glow font-semibold disabled:opacity-50"
+              >
+                {analyzing ? "Analyzing..." : "Analyze Reviews"}
+              </button>
+              <select
+                value={starFilter}
+                onChange={(e) => setStarFilter(e.target.value)}
+                className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              >
+                <option value="all">All Stars</option>
+                <option value="5">5 Stars</option>
+                <option value="4">4 Stars</option>
+                <option value="3">3 Stars</option>
+                <option value="2">2 Stars</option>
+                <option value="1">1 Star</option>
+              </select>
+              <select
+                value={classificationFilter}
+                onChange={(e) => setClassificationFilter(e.target.value)}
+                className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              >
+                <option value="all">All Classifications</option>
+                <option value="fake">Fake</option>
+                <option value="genuine">Genuine</option>
+                <option value="unknown">Unknown</option>
+                <option value="insufficient">Insufficient</option>
+              </select>
+              <button
+                onClick={() => {
+                  setStarFilter('all');
+                  setClassificationFilter('all');
+                }}
+                className="px-3 py-2 border border-gray-300 rounded-lg bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              >
+                Reset Filters
+              </button>
+            </div>
           </div>
           {/* Show Analyze button until pressed */}
           {!analyzing && (
@@ -719,11 +748,23 @@ export default function Reviews() {
           )}
           {reviews.length === 0 ? (
             finished ? <p className="text-gray-500">No reviews found.</p> : ''
-          ) : (
-            <ul>
-              {reviews
-                .filter(review => starFilter === 'all' || review.rating === parseInt(starFilter))
-                .map((review, index) => (
+          ) : (() => {
+            const filteredReviews = reviews
+              .filter(review => starFilter === 'all' || review.rating === parseInt(starFilter))
+              .filter(review => {
+                if (classificationFilter === 'all') return true;
+                if (classificationFilter === 'fake') return review.classification?.startsWith('Fake');
+                if (classificationFilter === 'genuine') return review.classification && !review.classification.startsWith('Fake') && review.classification !== 'Unknown' && review.classification !== 'Insufficient';
+                if (classificationFilter === 'unknown') return review.classification === 'Unknown';
+                if (classificationFilter === 'insufficient') return review.classification === 'Insufficient';
+                return true;
+              });
+            
+            return filteredReviews.length === 0 ? (
+              <p className="text-gray-500">No reviews found matching the selected filters.</p>
+            ) : (
+              <ul>
+                {filteredReviews.map((review, index) => (
                 <li key={index} className={`flex flex-col sm:flex-row items-start mb-6 bg-white rounded-xl shadow p-3 sm:p-4 relative ${
                   review.classification && review.confidence !== undefined
                     ? review.classification.startsWith('Fake')
@@ -770,16 +811,27 @@ export default function Reviews() {
                   {review.classification && review.confidence !== undefined && (
                     <div className="absolute top-3 right-3">
                       <div className={`px-3 py-2 rounded-full text-xs font-semibold text-white shadow-lg ${
-                        review.classification.startsWith('Fake') ? 'bg-red-500' : 'bg-green-500'
+                        review.classification.startsWith('Fake') 
+                          ? 'bg-red-500' 
+                          : review.classification === 'Unknown' || review.classification === 'Insufficient'
+                          ? 'bg-gray-500' 
+                          : 'bg-green-500'
                       }`}>
-                        {review.classification.startsWith('Fake') ? 'Fake' : 'Genuine'}: {Math.round(parseFloat(review.confidence))}%
+                        {review.classification.startsWith('Fake') 
+                          ? 'Fake' 
+                          : review.classification === 'Unknown' 
+                          ? 'Unknown' 
+                          : review.classification === 'Insufficient' 
+                          ? 'Insufficient' 
+                          : 'Genuine'}: {Math.round(parseFloat(review.confidence))}%
                       </div>
                     </div>
                   )}
                 </li>
               ))}
-            </ul>
-          )}
+              </ul>
+            );
+          })()}
         </div>
       </div>
     </div>
