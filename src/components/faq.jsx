@@ -18,31 +18,26 @@ const FAQ = () => {
     },
     {
       id: 3,
-      question: "How accurate is the fake review detection?",
-      answer: "Our system achieves over 90% accuracy in detecting fake reviews by combining advanced machine learning algorithms with behavioral analysis patterns."
-    },
-    {
-      id: 4,
       question: "Can I analyze reviews from any platform?",
       answer: "Currently, we only support Google Reviews analysis."
     },
     {
-      id: 5,
+      id: 4,
       question: "How long does the analysis take?",
       answer: "Most analyses complete within 30-60 seconds, depending on the number of reviews. Our system processes reviews in real-time for quick results."
     },
     {
-      id: 6,
+      id: 5,
       question: "What information do you provide about fake reviews?",
-      answer: "We provide a confidence score, classification (genuine/fake), and detailed explanations about why a review was flagged, including specific patterns detected."
+      answer: "We provide a confidence score, classification (genuine/fake/unknown/insufficient), and detailed explanations about why a review was flagged, including specific patterns detected."
     },
     {
-      id: 7,
+      id: 6,
       question: "Do you store the review data?",
       answer: "We only temporarily process review data for analysis purposes and do not permanently store personal information or review content on our servers."
     },
     {
-      id: 8,
+      id: 7,
       question: "Can businesses use this to improve their reputation?",
       answer: "Yes, businesses can use our tool to identify fake reviews affecting their ratings and take appropriate action to maintain authentic customer feedback."
     }
