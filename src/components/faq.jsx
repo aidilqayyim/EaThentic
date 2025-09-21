@@ -29,7 +29,7 @@ const FAQ = () => {
     {
       id: 5,
       question: "What information do you provide about fake reviews?",
-      answer: "We provide a confidence score, classification (genuine/fake/unknown/insufficient), and detailed explanations about why a review was flagged, including specific patterns detected."
+      answer: "We provide a confidence score, classification (genuine/fake/unknown/insufficient/suspicious), and detailed explanations about why a review was flagged, including specific patterns detected."
     },
     {
       id: 6,
