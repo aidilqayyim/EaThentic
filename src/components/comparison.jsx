@@ -359,40 +359,41 @@ const Comparison = () => {
             </h2>
             
             {/* Summary Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-              <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-2xl p-6 text-center shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300">
-                <div className="bg-gradient-to-br from-green-500 to-emerald-500 rounded-full p-4 w-fit mx-auto mb-4 shadow-lg">
-                  <Shield className="text-white" size={28} />
+            <div className="flex justify-center">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+                <div className="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-2xl p-6 text-center shadow-lg border border-green-100 hover:shadow-xl transition-all duration-300">
+                  <div className="bg-gradient-to-br from-green-500 to-emerald-500 rounded-full p-4 w-fit mx-auto mb-4 shadow-lg">
+                    <Shield className="text-white" size={28} />
+                  </div>
+                  <div className="text-3xl font-bold text-green-900 mb-2">
+                    {restaurants.filter(r => r.fakeScore < 40).length}
+                  </div>
+                  <div className="text-green-700 font-semibold">Trusted Restaurants</div>
+                  <div className="text-xs text-green-600 mt-1">Low fake review risk</div>
                 </div>
-                <div className="text-3xl font-bold text-green-900 mb-2">
-                  {restaurants.filter(r => r.fakeScore < 40).length}
+                
+                <div className="bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 rounded-2xl p-6 text-center shadow-lg border border-orange-100 hover:shadow-xl transition-all duration-300">
+                  <div className="bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full p-4 w-fit mx-auto mb-4 shadow-lg">
+                    <Star className="text-white fill-current" size={28} />
+                  </div>
+                  <div className="text-3xl font-bold text-orange-900 mb-2">
+                    {Math.round(restaurants.reduce((sum, r) => sum + parseFloat(r.rating), 0) / restaurants.length * 10) / 10}
+                  </div>
+                  <div className="text-orange-700 font-semibold">Average Rating</div>
+                  <div className="text-xs text-orange-600 mt-1">Across all restaurants</div>
                 </div>
-                <div className="text-green-700 font-semibold">Trusted Restaurants</div>
-                <div className="text-xs text-green-600 mt-1">Low fake review risk</div>
+                
+                <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 rounded-2xl p-6 text-center shadow-lg border border-blue-100 hover:shadow-xl transition-all duration-300">
+                  <div className="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full p-4 w-fit mx-auto mb-4 shadow-lg">
+                    <Users className="text-white" size={28} />
+                  </div>
+                  <div className="text-3xl font-bold text-blue-900 mb-2">
+                    {restaurants.reduce((sum, r) => sum + r.totalReviews, 0)}
+                  </div>
+                  <div className="text-blue-700 font-semibold">Total Reviews</div>
+                  <div className="text-xs text-blue-600 mt-1">Combined data points</div>
+                </div>
               </div>
-              
-              <div className="bg-gradient-to-br from-orange-50 via-yellow-50 to-amber-50 rounded-2xl p-6 text-center shadow-lg border border-orange-100 hover:shadow-xl transition-all duration-300">
-                <div className="bg-gradient-to-br from-orange-500 to-yellow-500 rounded-full p-4 w-fit mx-auto mb-4 shadow-lg">
-                  <Star className="text-white fill-current" size={28} />
-                </div>
-                <div className="text-3xl font-bold text-orange-900 mb-2">
-                  {Math.round(restaurants.reduce((sum, r) => sum + parseFloat(r.rating), 0) / restaurants.length * 10) / 10}
-                </div>
-                <div className="text-orange-700 font-semibold">Average Rating</div>
-                <div className="text-xs text-orange-600 mt-1">Across all restaurants</div>
-              </div>
-              
-              <div className="bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50 rounded-2xl p-6 text-center shadow-lg border border-blue-100 hover:shadow-xl transition-all duration-300">
-                <div className="bg-gradient-to-br from-blue-500 to-cyan-500 rounded-full p-4 w-fit mx-auto mb-4 shadow-lg">
-                  <Users className="text-white" size={28} />
-                </div>
-                <div className="text-3xl font-bold text-blue-900 mb-2">
-                  {restaurants.reduce((sum, r) => sum + r.totalReviews, 0)}
-                </div>
-                <div className="text-blue-700 font-semibold">Total Reviews</div>
-                <div className="text-xs text-blue-600 mt-1">Combined data points</div>
-              </div>
-              
             </div>
 
             {/* Consistent Restaurant Cards */}
