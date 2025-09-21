@@ -145,7 +145,41 @@ export default function Reviews() {
         // Reset retry count on success
         setRetryCount(0);
         
-        // ... rest of your existing fetch logic
+                const data = await res.json();
+        console.log('Lambda response:', data);
+        
+        // Check if this is a staged response or final response
+        if (data.stage && data.status) {
+          
+          if (data.status === "error") {
+            throw new Error(data.error || `Failed at stage: ${data.stage}`);
+          }
+          
+          // If there's partial data, update reviews
+          if (data.data && Array.isArray(data.data)) {
+            setReviews(data.data);
+            reviewsRef.current = data.data;
+          }
+          
+          // Continue polling if not completed
+          if (!data.completed) {
+            // Implement polling logic if needed for real-time updates
+            return;
+          }
+        } else if (data.reviews && Array.isArray(data.reviews)) {
+          // This is the final response with all reviews
+          console.log('Final reviews:', data.reviews);
+          
+          setReviews(data.reviews);
+          reviewsRef.current = data.reviews;
+        } else {
+          // Empty response
+          setReviews([]);
+          reviewsRef.current = [];
+        }
+        
+        setFinished(true);
+
       } catch (error) {
         if (error.message.includes('500') && retryAttempt < 2) {
           return fetchReviewsWithRetry(retryAttempt + 1);
