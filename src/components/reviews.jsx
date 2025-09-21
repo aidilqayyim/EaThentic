@@ -81,7 +81,7 @@ export default function Reviews() {
             
             // If we have less than 3 photos, fetch additional ones from backend
             if (photoUrls.length < 3) {
-              fetch(`http://localhost:5000/photos/${placeId}`)
+              fetch(`http://43.216.83.231:5000/photos/${placeId}`)
                 .then(res => res.json())
                 .then(data => {
                   if (data.photos) {
@@ -93,7 +93,7 @@ export default function Reviews() {
             }
           } else {
             // No photos from Google Places, try to get some from backend
-            fetch(`http://localhost:5000/photos/${placeId}`)
+            fetch(`http://43.216.83.231:5000/photos/${placeId}`)
               .then(res => res.json())
               .then(data => {
                 if (data.photos) {
@@ -191,7 +191,7 @@ export default function Reviews() {
 
     try {
       // 1. Start the job and get jobId
-      const startRes = await fetch("http://localhost:5000/analyze-all-stream/start", {
+      const startRes = await fetch("http://43.216.83.231:5000/analyze-all-stream/start", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ reviews: reviewsRef.current }),
@@ -201,7 +201,7 @@ export default function Reviews() {
       if (!jobId) throw new Error("No jobId returned from backend");
 
       // 2. Connect to SSE with jobId
-      const es = new EventSource(`http://localhost:5000/analyze-all-stream?jobId=${jobId}`);
+      const es = new EventSource(`http://43.216.83.231:5000/analyze-all-stream?jobId=${jobId}`);
 
       es.addEventListener("batch", (e) => {
         const batch = JSON.parse(e.data);
